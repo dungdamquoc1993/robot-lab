@@ -15,6 +15,10 @@ Sơ đồ MB102 chung (grid trống): [breadboard-diagram.html](../breadboard-di
 
 | Project | Board spec (text) | HTML (sơ đồ tương tác) |
 |---------|-------------------|--------------------------|
+| P5 | [p05.md](p05.md) | [p05-bien-tro-led.html](../p05-bien-tro-led.html#board-map) |
+| P4c | [p04c.md](p04c.md) | [p04c-lm393-phat-hien-vat.html](../p04c-lm393-phat-hien-vat.html#board-map) |
+| P4b | [p04b.md](p04b.md) | [p04b-pir-bao-dong.html](../p04b-pir-bao-dong.html#board-map) |
+| P4 | [p04.md](p04.md) | [p04-breathing-led.html](../p04-breathing-led.html#board-map) |
 | P3 | [p03.md](p03.md) | [p03-nut-bat-tat-led.html](../p03-nut-bat-tat-led.html#board-map) |
 | P2 | *(TODO)* | — |
 

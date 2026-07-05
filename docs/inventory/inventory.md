@@ -4,6 +4,8 @@ Danh sách linh kiện và dụng cụ đang sở hữu. Cập nhật khi mua th
 
 Ảnh thực tế: thư mục [photos/](photos/)
 
+**Quy ước:** có ảnh trong `photos/` = đang có. **Không có ảnh = chưa mua** (kể cả khi kit ghi trên hộp). Khi mua xong → chụp → thêm ảnh → chuyển từ mục “Chưa có” sang đây.
+
 ---
 
 ## Dụng cụ đo
@@ -42,7 +44,6 @@ Danh sách linh kiện và dụng cụ đang sở hữu. Cập nhật khi mua th
 | Breadboard **MB102** | 1 | ![breadboard-mb102](photos/breadboard-mb102.jpg) |
 | Module nguồn breadboard **MB102** | 1 | ![module-nguon-breadboard](photos/module-nguon-breadboard-mb102.jpg) |
 | Cáp USB Micro (nạp code) | 1 | ![cap-usb](photos/cap-usb-micro.jpg) |
-| Hộp nhựa đựng module | 1 | *(chưa chụp)* |
 
 ### Màn hình & cảm biến
 
@@ -51,7 +52,6 @@ Danh sách linh kiện và dụng cụ đang sở hữu. Cập nhật khi mua th
 | OLED **0.96 inch** (GM009605 v4.3) | 1 | ![oled-096](photos/oled-096-inch-i2c.jpg) | I2C — GND, VCC, SCL, SDA |
 | Module quang trở (LDR) | 1 | ![module-ldr](photos/module-quang-tro-ldr.jpg) | VCC, GND, DO, AO |
 | Module nhiệt độ & độ ẩm **DHT11** | 1 | ![module-dht11](photos/module-dht11.jpg) | Digital 1-wire |
-| Module chuyển động **PIR HC-SR501** | 1 | *(chưa chụp)* | Digital |
 | Module tránh vật cản **LM393** (IR) | 1 | ![module-lm393](photos/module-lm393-tranh-vat-can.jpg) | Digital — VCC, GND, OUT |
 
 ### Linh kiện cơ bản
@@ -61,12 +61,7 @@ Danh sách linh kiện và dụng cụ đang sở hữu. Cập nhật khi mua th
 | Biến trở **10K** | 1 | ![nut-bam-bien-tro](photos/nut-bam-12x12-bien-tro-10k.jpg) *(cùng túi với nút bấm)* |
 | Nút nhấn **12×12** + nắp màu | 6 | ![nut-bam-bien-tro](photos/nut-bam-12x12-bien-tro-10k.jpg) |
 | LED đỏ / vàng / xanh lục | 5 + 5 + 5 | ![led-5mm](photos/led-5mm-do-vang-xanh.jpg) |
-| Điện trở vạch **220Ω** | 10 | *(chưa chụp — dùng chung set 600)* |
-| Điện trở vạch **1KΩ** | 10 | *(chưa chụp — dùng chung set 600)* |
-| Điện trở vạch **10KΩ** | 10 | *(chưa chụp — dùng chung set 600)* |
-| LED **RGB** | 1 | *(chưa chụp)* |
-| Buzzer thụ động | 1 | *(chưa chụp)* |
-| Buzzer hoạt động | 1 | *(chưa chụp)* |
+| Điện trở lẻ 220Ω / 1K / 10K | — | ![set-dien-tro-600](photos/set-dien-tro-600-metal-film.jpg) | Lấy từ set 600 |
 | Module relay **2 kênh 5V** (SONGLE SRD-05VDC-SL-C) | 1 | ![module-relay](photos/module-relay-2-kenh-5v.jpg) |
 
 ### Dây nối
@@ -79,10 +74,13 @@ Danh sách linh kiện và dụng cụ đang sở hữu. Cập nhật khi mua th
 
 ---
 
-## Chưa có — cần mua cho robot xe (mốc sau)
+## Chưa có — cần mua
 
 | Thiết bị | Dùng cho |
 |----------|----------|
+| Module chuyển động **PIR HC-SR501** | P4b |
+| LED **RGB** | Bài mở rộng |
+| Buzzer thụ động / hoạt động | P10, P4b (báo động) |
 | DC motor × 2 | P11, P18 — truyền động bánh xe |
 | Motor driver (L298N / TB6612) | P11, P18 — ESP32 không đủ dòng motor |
 | Khung xe 2 bánh + bánh | P18 |

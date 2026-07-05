@@ -87,4 +87,7 @@ robot_lab/
 - M0: done (PIO, Blink upload, breadboard, DT9205A)
 - P1 Blink: onboard LED (GPIO 2) — done (2026-07-04)
 - P2 LED + điện trở: breadboard — done
-- P3 Nút bật/tắt LED: in progress / wiring validated (board map: `boards/p03.md`)
+- P3 Nút bật/tắt LED: done (board map: `boards/p03.md`)
+- P4 Breathing LED: PWM fade — done
+- P4c LM393: digital sensor D19 — done
+- P5 Biến trở → LED: in progress (firmware ready)

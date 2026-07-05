@@ -22,8 +22,8 @@ Guide HTML có ảnh linh kiện và các bước làm: [project-guides/index.ht
 
 | ID | Trạng thái | Project | Mục tiêu | Linh kiện cần | Khái niệm |
 |----|------------|---------|----------|---------------|-----------|
-| P4 | [ ] | Breathing LED | LED sáng/tối mượt | LED, 220Ω | PWM |
-| P5 | [ ] | Biến trở → LED | Xoay núm → độ sáng thay đổi | Biến trở 10K, LED | ADC + PWM |
+| P4 | [x] | Breathing LED | LED sáng/tối mượt | LED, 220Ω | PWM |
+| P5 | [~] | Biến trở → LED | Xoay núm → độ sáng thay đổi | Biến trở 10K, LED | ADC + PWM |
 | P6 | [ ] | Cảm biến ánh sáng | Che/mở LDR, đọc giá trị Serial Monitor | Module quang trở | Voltage divider, ADC |
 
 ---
@@ -52,8 +52,8 @@ Guide HTML có ảnh linh kiện và các bước làm: [project-guides/index.ht
 
 | ID | Trạng thái | Project | Mục tiêu | Linh kiện cần |
 |----|------------|---------|----------|---------------|
-| P4b | [ ] | PIR báo động | Phát hiện chuyển động → bật LED/buzzer | PIR HC-SR501, LED/buzzer |
-| P4c | [ ] | LM393 phát hiện vật | Đọc module LM393, log khoảng cách/vật cản | Module LM393 |
+| P4b | [ ] | PIR báo động | Phát hiện chuyển động → bật LED *(cần mua PIR)* | PIR HC-SR501, LED |
+| P4c | [x] | LM393 phát hiện vật | Đọc module LM393, log khoảng cách/vật cản | Module LM393 |
 
 ---
 

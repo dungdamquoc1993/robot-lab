@@ -3,18 +3,105 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>P5 Biến trở -> LED</title>
+  <title>P5 Biến trở → LED</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="breadboard-widget.css">
 </head>
 <body>
   <main class="page">
-    <nav class="topnav"><a href="index.html">Index</a><a href="p04-breathing-led.html">P4</a><a href="p06-cam-bien-anh-sang.html">P6 tiếp theo</a></nav>
-    <section class="hero"><h1>P5 Biến trở -> LED</h1><p>Xoay biến trở 10K để ESP32 đọc ADC, rồi map giá trị đó sang PWM điều chỉnh độ sáng LED.</p><div class="meta"><span class="tag">ADC</span><span class="tag">PWM</span><span class="tag">Analog input</span></div></section>
-    <section class="section warning"><h2>An toàn</h2><p>Hai đầu biến trở nối 3V3 và GND, chân giữa nối ADC. Không đưa 5V vào ADC của ESP32.</p></section>
-    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/nut-bam-12x12-bien-tro-10k.jpg" alt="Biến trở 10K"><figcaption>Biến trở 10K: tạo điện áp thay đổi ở chân giữa.</figcaption></figure><figure><img src="../inventory/photos/breadboard-mb102.jpg" alt="Breadboard"><figcaption>Breadboard: cắm biến trở và LED.</figcaption></figure><figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>Dây jumper: ~5 sợi (3V3, GND, D34, D2, GND LED). Dùng Đực–Cái từ ESP32 xuống breadboard.</figcaption></figure><figure><img src="../inventory/photos/led-5mm-do-vang-xanh.jpg" alt="LED"><figcaption>LED: hiển thị độ sáng theo giá trị ADC.</figcaption></figure><figure><img src="../inventory/photos/set-dien-tro-600-metal-film.jpg" alt="Điện trở"><figcaption>Điện trở 220Ω: nối tiếp LED.</figcaption></figure><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: ADC đọc biến trở, PWM xuất ra LED.</figcaption></figure></div></section>
-    <section class="section"><h2>Nối dây gợi ý</h2><table><tr><th>Linh kiện</th><th>Nối tới</th><th>Ghi chú</th></tr><tr><td>Biến trở đầu 1</td><td>3V3</td><td>Jumper Đực–Cái.</td></tr><tr><td>Biến trở đầu 2</td><td>GND</td><td>Jumper Đực–Cái.</td></tr><tr><td>Biến trở chân giữa</td><td><strong>D34</strong> (GPIO 34)</td><td>ADC input-only.</td></tr><tr><td>LED</td><td><strong>D2</strong> → 220Ω → LED → GND</td><td>PWM; giữ mạch P2.</td></tr></table></section>
-    <section class="section"><h2>Các bước làm</h2><ol><li>Đọc ADC từ GPIO 34 và in ra Serial Monitor.</li><li>Map giá trị ADC sang duty PWM.</li><li>Xoay biến trở để LED sáng/tối theo tay.</li><li>Thử đảo chiều 3V3/GND của biến trở nếu hướng xoay bị ngược ý.</li></ol></section>
-    <section class="section"><h2>Hoàn thành khi</h2><ul><li>LED thay đổi độ sáng mượt theo biến trở.</li><li>Bạn phân biệt được ADC input và PWM output.</li></ul></section>
+    <nav class="topnav">
+      <a href="index.html">Index</a>
+      <a href="breadboard-diagram.html">Sơ đồ MB102 mẫu</a>
+      <a href="p04-breathing-led.html">P4</a>
+      <a href="p06-cam-bien-anh-sang.html">P6 tiếp theo</a>
+    </nav>
+    <section class="hero">
+      <h1>P5 Biến trở → LED</h1>
+      <p>Xoay biến trở 10K → ESP32 đọc ADC → map sang PWM điều độ sáng LED.</p>
+      <div class="meta"><span class="tag">ADC</span><span class="tag">PWM</span><span class="tag">D34 + D2</span></div>
+    </section>
+    <section class="section warning">
+      <h2>An toàn</h2>
+      <p>Biến trở: hai đầu nối <strong>3V3</strong> và <strong>GND</strong>, chân giữa → <strong>D34</strong>. ADC ESP32 max <strong>3.3V</strong> — không cấp 5V.</p>
+    </section>
+    <section class="section">
+      <h2>Ảnh linh kiện</h2>
+      <div class="grid">
+        <figure><img src="../inventory/photos/nut-bam-12x12-bien-tro-10k.jpg" alt="Biến trở 10K"><figcaption>Biến trở 10K (trong túi nút bấm): 3 chân — hai đầu + chân giữa (wiper).</figcaption></figure>
+        <figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption><strong>D34</strong> đọc ADC · <strong>D2</strong> xuất PWM.</figcaption></figure>
+        <figure><img src="../inventory/photos/breadboard-mb102.jpg" alt="Breadboard"><figcaption>Biến trở cắm 3 hàng; LED giữ từ P2/P4.</figcaption></figure>
+        <figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>~5 sợi: 3V3, GND×2, D34, D2.</figcaption></figure>
+        <figure><img src="../inventory/photos/led-5mm-do-vang-xanh.jpg" alt="LED"><figcaption>LED: sáng theo duty PWM.</figcaption></figure>
+        <figure><img src="../inventory/photos/set-dien-tro-600-metal-film.jpg" alt="Điện trở"><figcaption>220Ω nối tiếp LED.</figcaption></figure>
+      </div>
+    </section>
+    <section class="section">
+      <h2>Nối dây</h2>
+      <table>
+        <tr><th>Linh kiện</th><th>Nối tới</th><th>Ghi chú</th></tr>
+        <tr><td>Biến trở đầu 1</td><td>3V3</td><td>Jumper Đực–Cái</td></tr>
+        <tr><td>Biến trở đầu 2</td><td>GND</td><td>Jumper Đực–Cái</td></tr>
+        <tr><td>Biến trở chân giữa</td><td><strong>D34</strong> (GPIO 34)</td><td>ADC, input-only @ i13</td></tr>
+        <tr><td>LED</td><td><strong>D2</strong> → 220Ω → LED → GND</td><td>Giữ mạch P4</td></tr>
+      </table>
+      <pre><code>3V3 ----[pot leg 1]
+              |
+           [wiper] ---- D34 (ADC)
+              |
+GND  ----[pot leg 3]
+
+D2 --[220Ω]-- LED+ -- LED- -- GND</code></pre>
+    </section>
+
+    <section class="section" id="board-map">
+      <h2>Board map</h2>
+      <p>Chi tiết: <a href="boards/p05.md">boards/p05.md</a>. MB102 mẫu: <a href="breadboard-diagram.html">sơ đồ chung</a>.</p>
+      <div class="diagram-wrap">
+        <div class="diagram">
+          <div class="bb-header" id="hdr"></div>
+          <div class="board-body" id="board"></div>
+        </div>
+      </div>
+      <p><strong>Biến trở:</strong> chân 1 <code>d20</code> · giữa <code>d21</code> · chân 3 <code>d22</code>.</p>
+      <p><strong>Jumper:</strong> đỏ <code>a2↔a20</code> · cam <code>a3↔a22</code> · xanh <code>d21↔i13</code> · vàng <code>a5↔a27</code> · cam LED <code>a3↔i30</code>.</p>
+    </section>
+
+    <section class="section">
+      <h2>Các bước làm</h2>
+      <ol>
+        <li>Cắm biến trở + jumper theo board map; giữ mạch LED P4.</li>
+        <li><code>main.cpp</code>: chọn <code>p05_setup</code> / <code>p05_loop</code>.</li>
+        <li>Upload: <code>pio run -t upload</code>.</li>
+        <li>Serial Monitor 115200: thấy <code>ADC=… duty=…</code> khi xoay núm.</li>
+        <li>Xoay ngược ý → đổi dây 3V3/GND hai đầu biến trở.</li>
+      </ol>
+    </section>
+    <section class="section">
+      <h2>Hoàn thành khi</h2>
+      <ul>
+        <li>LED đổi độ sáng theo biến trở.</li>
+        <li>Phân biệt được <strong>ADC input</strong> (đọc điện áp) vs <strong>PWM output</strong> (điều sáng).</li>
+      </ul>
+    </section>
   </main>
+
+  <script src="breadboard-widget.js"></script>
+  <script>
+    RobotLabBreadboard.render(
+      document.getElementById("hdr"),
+      document.getElementById("board"),
+      {
+        espPins: new Set(["2a", "3a", "5a", "13i"]),
+        wiring: {
+          "2a": "w-vang", "20a": "w-vang",
+          "3a": "w-cam", "22a": "w-cam", "30i": "w-cam",
+          "5a": "w-vang", "27a": "w-vang", "27d": "w-vang",
+          "21d": "part-btn w-nau", "13i": "w-nau",
+          "20d": "part-btn", "22d": "part-btn",
+          "27h": "part-r", "27j": "part-led", "30j": "part-led"
+        }
+      }
+    );
+  </script>
 </body>
 </html>

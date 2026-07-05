@@ -5,16 +5,158 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>P4c LM393 phát hiện vật</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="breadboard-widget.css">
 </head>
 <body>
   <main class="page">
-    <nav class="topnav"><a href="index.html">Index</a><a href="p04b-pir-bao-dong.html">P4b</a><a href="p05-bien-tro-led.html">P5</a></nav>
-    <section class="hero"><h1>P4c LM393 phát hiện vật</h1><p>Đọc module tránh vật cản IR dùng LM393, log trạng thái có/không có vật.</p><div class="meta"><span class="tag">Optional</span><span class="tag">Digital sensor</span><span class="tag">IR obstacle</span></div></section>
-    <section class="section warning"><h2>An toàn</h2><p>Chỉ nối OUT vào GPIO nếu mức tín hiệu an toàn cho ESP32. Nếu module cấp 5V nhưng OUT lên 5V, cần chia áp/level shift.</p></section>
-    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/module-lm393-tranh-vat-can.jpg" alt="Module LM393"><figcaption>Module LM393 IR: phát hiện vật cản gần bằng hồng ngoại.</figcaption></figure><figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>Dây jumper: 3 sợi tối thiểu (3V3 hoặc 5V, GND, D19).</figcaption></figure><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: đọc chân OUT và in Serial Monitor.</figcaption></figure></div></section>
-    <section class="section"><h2>Nối dây gợi ý</h2><table><tr><th>LM393</th><th>ESP32</th><th>Vai trò</th></tr><tr><td>VCC</td><td>3V3 trước, 5V chỉ khi cần và OUT an toàn</td><td>Nguồn module.</td></tr><tr><td>GND</td><td>GND</td><td>Mass chung.</td></tr><tr><td>OUT</td><td>GPIO 19</td><td>Digital input.</td></tr></table></section>
-    <section class="section"><h2>Các bước làm</h2><ol><li>Cấp nguồn module và đọc OUT trong Serial Monitor.</li><li>Đưa vật lại gần, xoay biến trở trên module để chỉnh ngưỡng.</li><li>Thêm LED báo trạng thái nếu muốn quan sát không cần Serial.</li><li>Ghi lại khoảng cách phát hiện tương đối.</li></ol></section>
-    <section class="section"><h2>Hoàn thành khi</h2><ul><li>Serial Monitor đổi trạng thái khi có vật trước cảm biến.</li><li>Bạn biết biến trở trên module dùng để chỉnh ngưỡng so sánh.</li></ul></section>
+    <nav class="topnav">
+      <a href="index.html">Index</a>
+      <a href="p04-breathing-led.html">P4</a>
+      <a href="p04b-pir-bao-dong.html">P4b</a>
+      <a href="p05-bien-tro-led.html">P5</a>
+    </nav>
+    <section class="hero">
+      <h1>P4c LM393 phát hiện vật</h1>
+      <p>Lắp thêm module IR từ board <strong>P4</strong> — 3 chân module + 3 dây jumper.</p>
+      <div class="meta"><span class="tag">Có ảnh inventory</span><span class="tag">D19 + D2</span><span class="tag">Giữ LED P4</span></div>
+    </section>
+    <section class="section warning">
+      <h2>Đối chiếu board P4 của bạn (ảnh hiện tại)</h2>
+      <p><strong>Không di chuyển</strong> hai dây đang chạy LED — khớp đúng <a href="p04-breathing-led.html">P4</a>:</p>
+      <table>
+        <tr><th>Trên sơ đồ / board</th><th>Ý nghĩa</th><th>P4c làm gì</th></tr>
+        <tr><td><strong>Cam</strong> <code>a3 ↔ i30</code></td><td>GND → LED− (hàng 30 phải)</td><td><strong>Giữ nguyên</strong> — không rút</td></tr>
+        <tr><td><strong>Vàng</strong> <code>a5 ↔ a27</code> (+ <code>d27</code> cùng hàng)</td><td>D2 → điện trở → LED</td><td><strong>Giữ nguyên</strong> — không rút</td></tr>
+        <tr><td>Ô <strong>đỏ</strong> <code>j27</code> · <code>j30</code></td><td>LED (linh kiện), <em>không phải dây jumper</em></td><td>Giữ nguyên</td></tr>
+        <tr><td>Ô <strong>xanh</strong> <code>h27</code></td><td>Điện trở (linh kiện)</td><td>Giữ nguyên</td></tr>
+      </table>
+      <p><strong>Chỉ thêm:</strong> module LM393 @ <code>d20–d22</code> + <strong>3 dây jumper mới</strong> (đỏ, cam <em>thứ hai</em>, nâu). Dây cam LED và dây cam module có thể <strong>cùng cắm lỗ <code>a3</code></strong> (GND chung) — không cần rút dây cam cũ.</p>
+    </section>
+    <section class="section warning">
+      <h2>An toàn</h2>
+      <p>Cấp module bằng <strong>3V3</strong> (dây đỏ → <code>a2</code>). Đo OUT bằng đồng hồ nếu nghi ngờ &gt;3.3V trước khi nối D19.</p>
+    </section>
+    <section class="section">
+      <h2>Ảnh linh kiện</h2>
+      <div class="grid">
+        <figure><img src="../inventory/photos/module-lm393-tranh-vat-can.jpg" alt="Module LM393"><figcaption>Nhìn nhãn chữ <strong>VCC · GND · OUT</strong> trên PCB trước khi cắm.</figcaption></figure>
+        <figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>Thêm <strong>3 sợi Đực–Cái</strong> (đỏ, cam, nâu).</figcaption></figure>
+        <figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption><strong>D19</strong> @ b11 đọc OUT · <strong>D2</strong> @ b5 báo LED.</figcaption></figure>
+        <figure><img src="../inventory/photos/led-5mm-do-vang-xanh.jpg" alt="LED"><figcaption>LED hàng 27–30 — <strong>không tháo</strong>.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Từ board P4 — giữ gì, thêm gì</h2>
+      <h3>Giữ nguyên (đừng rút)</h3>
+      <table>
+        <tr><th>Thành phần</th><th>Tọa độ</th><th>Dây</th></tr>
+        <tr><td>D2 → LED</td><td>b5 → … → j27</td><td>Vàng <code>a5 ↔ a27</code></td></tr>
+        <tr><td>GND LED</td><td>j30</td><td>Cam <code>a3 ↔ i30</code></td></tr>
+        <tr><td>Điện trở 220Ω</td><td><code>d27 ↔ h27</code></td><td>—</td></tr>
+        <tr><td>LED</td><td><code>j27</code> (+) · <code>j30</code> (−)</td><td>—</td></tr>
+      </table>
+      <h3>Gỡ nếu còn từ P3 (khuyến nghị)</h3>
+      <ul>
+        <li>Rút jumper <strong>nâu</strong> <code>a10 ↔ a33</code> (D18 nút).</li>
+        <li>Nút hàng 30/33: gỡ hoặc để nguyên — firmware P4c không đọc D18.</li>
+      </ul>
+      <h3>Thêm mới</h3>
+      <ul>
+        <li>Module LM393 — 3 chân cắm <code>d20</code> · <code>d21</code> · <code>d22</code></li>
+        <li>3 dây jumper (bảng dưới)</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Cắm module — từng chân</h2>
+      <p>Module đặt <strong>nửa trái</strong>, cột <code>d</code>, hàng 20–22 (xa LED ở hàng 27–30). Đối chiếu <strong>nhãn in trên module</strong>, không đoán thứ tự chân:</p>
+      <table>
+        <tr><th>Nhãn trên module</th><th>Cắm vào breadboard</th></tr>
+        <tr><td><strong>VCC</strong></td><td><code>d20</code></td></tr>
+        <tr><td><strong>GND</strong></td><td><code>d21</code></td></tr>
+        <tr><td><strong>OUT</strong></td><td><code>d22</code></td></tr>
+      </table>
+      <p>Nếu 3 chân module nằm ngang một hàng thay vì dọc — vẫn map đúng <strong>VCC/GND/OUT</strong> vào 3 lỗ tương ứng ở hàng 20–22; giữ chúng cùng nửa trái (a–e).</p>
+    </section>
+
+    <section class="section">
+      <h2>3 dây jumper mới — từng sợi (không đụng cam/vàng cũ)</h2>
+      <table>
+        <tr><th>#</th><th>Màu</th><th>Đầu 1</th><th>Đầu 2</th><th>Ghi chú</th></tr>
+        <tr><td>1</td><td><strong>Đỏ</strong> <em>(mới)</em></td><td><code>a2</code> — hàng 3V3, cạnh <code>b2</code></td><td>VCC module @ <code>d20</code></td><td>Trước P4 chưa có dây đỏ — đây là sợi mới</td></tr>
+        <tr><td>2</td><td><strong>Cam</strong> <em>(sợi thứ 2)</em></td><td><code>a3</code> — <strong>cùng lỗ</strong> với cam đi <code>i30</code></td><td>GND module @ <code>d21</code></td><td>Cam cũ <code>a3↔i30</code> <strong>vẫn cắm</strong></td></tr>
+        <tr><td>3</td><td><strong>Nâu</strong> <em>(mới)</em></td><td><code>a11</code> — hàng D19, cạnh <code>b11</code></td><td>OUT module @ <code>d22</code></td><td>Chưa có trên board P4</td></tr>
+      </table>
+      <pre><code>  ĐANG CÓ (P4) — KHÔNG RÚT:
+    cam   a3 ─────────────── i30     (GND → LED−)
+    vàng  a5 ── a27 ─ d27 ─ R ─ h27 ─ LED j27/j30
+
+  THÊM MỚI (P4c):
+    đỏ    a2 ─────────────── d20 VCC
+    cam②  a3 ─────────────── d21 GND   ← cùng lỗ a3 với cam LED
+    nâu   a11 ────────────── d22 OUT   ← D19 @ b11</code></pre>
+    </section>
+
+    <section class="section" id="board-map">
+      <h2>Board map — P4 + LM393</h2>
+      <p>Text đầy đủ: <a href="boards/p04c.md">boards/p04c.md</a>. Ô tím = chân module · nâu = OUT · đỏ/cam = nguồn.</p>
+      <div class="diagram-wrap">
+        <div class="diagram">
+          <div class="bb-header" id="hdr"></div>
+          <div class="board-body" id="board"></div>
+        </div>
+      </div>
+      <table>
+        <tr><th>Hàng</th><th>b — ESP32</th><th>d — module / mạch</th></tr>
+        <tr><td>2</td><td>3V3 ← đỏ</td><td>—</td></tr>
+        <tr><td>3</td><td>GND ← cam</td><td>—</td></tr>
+        <tr><td>5</td><td>D2 ← LED vàng</td><td>—</td></tr>
+        <tr><td>11</td><td><strong>D19</strong> ← nâu</td><td>—</td></tr>
+        <tr><td>20</td><td>—</td><td><strong>VCC</strong> module</td></tr>
+        <tr><td>21</td><td>—</td><td><strong>GND</strong> module</td></tr>
+        <tr><td>22</td><td>—</td><td><strong>OUT</strong> module</td></tr>
+        <tr><td>27–30</td><td>—</td><td>LED + R (P4)</td></tr>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>Các bước làm</h2>
+      <ol>
+        <li>Giữ mạch LED P4; gỡ jumper nâu P3 nếu còn.</li>
+        <li>Cắm module <code>d20–d22</code> theo nhãn VCC/GND/OUT.</li>
+        <li>Lần lượt 3 dây: đỏ <code>a2→d20</code> · cam <code>a3→d21</code> · nâu <code>a11→d22</code>.</li>
+        <li><code>main.cpp</code>: comment P4/P5, bỏ comment <code>p04c_setup</code> / <code>p04c_loop</code>.</li>
+        <li><code>pio run -t upload</code> · Serial Monitor <strong>115200</strong>.</li>
+        <li>Đưa tay trước module IR — chỉnh biến trở trên module nếu không đổi trạng thái.</li>
+      </ol>
+    </section>
+    <section class="section">
+      <h2>Hoàn thành khi</h2>
+      <ul>
+        <li>Serial in <code>OBSTACLE</code> / <code>clear</code> khi có/không vật.</li>
+        <li>LED P4 sáng khi phát hiện vật (cùng D2).</li>
+        <li>Nếu logic ngược → đổi <code>OBSTACLE_ACTIVE_LOW</code> trong firmware.</li>
+      </ul>
+    </section>
   </main>
+
+  <script src="breadboard-widget.js"></script>
+  <script>
+    RobotLabBreadboard.render(
+      document.getElementById("hdr"),
+      document.getElementById("board"),
+      {
+        espPins: new Set(["2a", "3a", "5a", "11a"]),
+        wiring: {
+          "2a": "w-vang", "20a": "w-vang", "20d": "part-btn",
+          "3a": "w-cam", "21a": "w-cam", "21d": "part-btn", "30i": "w-cam",
+          "5a": "w-vang", "27a": "w-vang", "27d": "w-vang",
+          "11a": "w-nau", "22a": "w-nau", "22d": "part-btn w-nau",
+          "27h": "part-r", "27j": "part-led", "30j": "part-led"
+        }
+      }
+    );
+  </script>
 </body>
 </html>

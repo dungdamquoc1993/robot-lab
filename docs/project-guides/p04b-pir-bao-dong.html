@@ -5,16 +5,93 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>P4b PIR báo động</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="breadboard-widget.css">
 </head>
 <body>
   <main class="page">
-    <nav class="topnav"><a href="index.html">Index</a><a href="p04-breathing-led.html">P4</a><a href="p04c-lm393-phat-hien-vat.html">P4c</a></nav>
-    <section class="hero"><h1>P4b PIR báo động</h1><p>Dùng PIR HC-SR501 phát hiện chuyển động, rồi bật LED hoặc buzzer để báo hiệu.</p><div class="meta"><span class="tag">Optional</span><span class="tag">Digital sensor</span><span class="tag">PIR</span></div></section>
-    <section class="section warning"><h2>An toàn</h2><p>Kiểm tra mức tín hiệu OUT của module trước khi nối GPIO. ESP32 chỉ chịu 3.3V ở input.</p></section>
-    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: đọc tín hiệu digital từ PIR và điều khiển LED/buzzer.</figcaption></figure><figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>Dây jumper: 3–4 sợi nối VCC, GND, OUT module; thêm D2 + GND nếu dùng LED breadboard.</figcaption></figure><figure><div class="placeholder">PIR HC-SR501 chưa có ảnh trong inventory</div><figcaption>PIR HC-SR501: phát hiện chuyển động người/vật ấm.</figcaption></figure><figure><img src="../inventory/photos/led-5mm-do-vang-xanh.jpg" alt="LED"><figcaption>LED: báo có chuyển động.</figcaption></figure></div></section>
-    <section class="section"><h2>Nối dây gợi ý</h2><table><tr><th>PIR</th><th>ESP32</th><th>Vai trò</th></tr><tr><td>VCC</td><td>5V hoặc 3V3 theo module</td><td>Nguồn cho cảm biến; xem nhãn module.</td></tr><tr><td>GND</td><td>GND</td><td>Mass chung.</td></tr><tr><td>OUT</td><td>GPIO 19</td><td>Tín hiệu phát hiện chuyển động.</td></tr></table></section>
-    <section class="section"><h2>Các bước làm</h2><ol><li>Nối PIR và mở Serial Monitor.</li><li>In giá trị OUT để xem module ổn định sau khi cấp nguồn.</li><li>Khi OUT active, bật LED hoặc buzzer.</li><li>Thử chỉnh biến trở delay/sensitivity trên PIR nếu module có.</li></ol></section>
-    <section class="section"><h2>Hoàn thành khi</h2><ul><li>Đưa tay/người qua vùng cảm biến thì ESP32 log được thay đổi.</li><li>LED hoặc buzzer báo đúng khi có chuyển động.</li></ul></section>
+    <nav class="topnav">
+      <a href="index.html">Index</a>
+      <a href="p04-breathing-led.html">P4</a>
+      <a href="p04c-lm393-phat-hien-vat.html">P4c</a>
+    </nav>
+    <section class="hero">
+      <h1>P4b PIR báo động</h1>
+      <p>PIR HC-SR501 phát hiện chuyển động → bật LED + log Serial.</p>
+      <div class="meta"><span class="tag">Optional</span><span class="tag">Cần mua PIR</span><span class="tag">Digital sensor</span></div>
+    </section>
+    <section class="section warning">
+      <h2>Linh kiện</h2>
+      <p><strong>PIR HC-SR501 chưa có trong kit</strong> (chưa chụp inventory = chưa mua). Firmware + guide sẵn — làm được sau khi mua module. <strong>P4c LM393</strong> đã có ảnh → làm ngay được.</p>
+    </section>
+    <section class="section warning">
+      <h2>An toàn</h2>
+      <p>PIR VCC thường <strong>5V</strong> (VIN @ i2 khi USB cắm). OUT phải ≤3.3V vào GPIO — HC-SR501 thường OK.</p>
+    </section>
+    <section class="section">
+      <h2>Ảnh linh kiện</h2>
+      <div class="grid">
+        <figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>Đọc OUT @ <strong>D19</strong>, LED @ <strong>D2</strong>.</figcaption></figure>
+        <figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>3 dây PIR + 2 dây LED (tùy chọn).</figcaption></figure>
+        <figure><div class="placeholder">PIR HC-SR501 — chưa mua (chưa có ảnh inventory)</div><figcaption>Mua module HC-SR501 rồi chụp thêm vào inventory.</figcaption></figure>
+        <figure><img src="../inventory/photos/led-5mm-do-vang-xanh.jpg" alt="LED"><figcaption>LED báo motion.</figcaption></figure>
+      </div>
+    </section>
+    <section class="section">
+      <h2>Nối dây</h2>
+      <table>
+        <tr><th>PIR</th><th>ESP32</th><th>Ghi chú</th></tr>
+        <tr><td>VCC</td><td><strong>VIN</strong> @ i2 (5V)</td><td>Khi USB cắm</td></tr>
+        <tr><td>GND</td><td>GND</td><td>Mass chung</td></tr>
+        <tr><td>OUT</td><td><strong>D19</strong> (GPIO 19)</td><td>Digital input</td></tr>
+      </table>
+    </section>
+
+    <section class="section" id="board-map">
+      <h2>Board map</h2>
+      <p>Chi tiết: <a href="boards/p04b.md">boards/p04b.md</a>. PIR thường nằm ngoài breadboard.</p>
+      <div class="diagram-wrap">
+        <div class="diagram">
+          <div class="bb-header" id="hdr"></div>
+          <div class="board-body" id="board"></div>
+        </div>
+      </div>
+      <p><strong>Jumper:</strong> đỏ VIN <code>i2</code> → PIR VCC · đen GND <code>a3</code> · vàng <code>a11</code> → D19 · LED (tùy chọn) giữ P2.</p>
+    </section>
+
+    <section class="section">
+      <h2>Các bước làm</h2>
+      <ol>
+        <li>Nối PIR theo bảng; <code>main.cpp</code> chọn <code>p04b_setup</code> / <code>p04b_loop</code>.</li>
+        <li>Upload + Serial Monitor 115200.</li>
+        <li>Đợi warm-up ~30s, sau đó vẫy tay trước PIR.</li>
+        <li>Thấy <code>MOTION</code> / <code>clear</code> và LED đổi.</li>
+      </ol>
+    </section>
+    <section class="section">
+      <h2>Hoàn thành khi</h2>
+      <ul>
+        <li>Chuyển động → Serial + LED phản hồi.</li>
+        <li>Hiểu sensor digital ≠ nút bấm — module tự xử lý tín hiệu analog bên trong.</li>
+      </ul>
+    </section>
   </main>
+
+  <script src="breadboard-widget.js"></script>
+  <script>
+    RobotLabBreadboard.render(
+      document.getElementById("hdr"),
+      document.getElementById("board"),
+      {
+        espPins: new Set(["3a", "5a", "11a", "2i"]),
+        wiring: {
+          "3a": "w-cam", "30i": "w-cam",
+          "5a": "w-vang", "27a": "w-vang", "27d": "w-vang",
+          "11a": "w-nau",
+          "2i": "w-vang",
+          "27h": "part-r", "27j": "part-led", "30j": "part-led"
+        }
+      }
+    );
+  </script>
 </body>
 </html>

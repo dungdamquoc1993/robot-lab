@@ -58,8 +58,8 @@ M5 Motor & driver  →  M6 Điều khiển nâng cao
 
 | Project | |
 |---------|---|
-| P4 Breathing LED | [ ] |
-| P5 Biến trở → LED | [ ] |
+| P4 Breathing LED | [x] |
+| P5 Biến trở → LED | [~] |
 | P6 Cảm biến ánh sáng | [ ] |
 
 **Điều kiện sang Mốc 3:**
@@ -94,7 +94,7 @@ M5 Motor & driver  →  M6 Điều khiển nâng cao
 | P10 Buzzer | [ ] | |
 | P14 Relay | [ ] | |
 | P4b PIR | | [ ] |
-| P4c LM393 | | [ ] |
+| P4c LM393 | | [x] |
 
 **Điều kiện sang Mốc 5:**
 - Điều khiển ít nhất 1 actuator (LED hoặc servo) từ trình duyệt điện thoại (P8)

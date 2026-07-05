@@ -5,16 +5,95 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>P4 Breathing LED</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="breadboard-widget.css">
 </head>
 <body>
   <main class="page">
-    <nav class="topnav"><a href="index.html">Index</a><a href="p03-nut-bat-tat-led.html">P3</a><a href="p05-bien-tro-led.html">P5 tiếp theo</a></nav>
-    <section class="hero"><h1>P4 Breathing LED</h1><p>Dùng PWM để LED sáng/tối mượt thay vì chỉ HIGH/LOW.</p><div class="meta"><span class="tag">PWM</span><span class="tag">LED ngoài</span><span class="tag">GPIO output</span></div></section>
-    <section class="section warning"><h2>An toàn</h2><p>Vẫn giữ điện trở 220Ω nối tiếp LED. PWM chỉ là bật/tắt rất nhanh theo duty cycle, không làm LED bỏ qua giới hạn dòng.</p></section>
-    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: tạo PWM trên chân output (giữ D2 từ P2).</figcaption></figure><figure><img src="../inventory/photos/breadboard-mb102.jpg" alt="Breadboard"><figcaption>Breadboard: giữ mạch LED từ P2.</figcaption></figure><figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>Dây jumper: giữ nguyên 2 sợi D2 + GND từ P2.</figcaption></figure><figure><img src="../inventory/photos/led-5mm-do-vang-xanh.jpg" alt="LED"><figcaption>LED: nhận PWM nên mắt thấy độ sáng thay đổi.</figcaption></figure><figure><img src="../inventory/photos/set-dien-tro-600-metal-film.jpg" alt="Điện trở"><figcaption>Điện trở 220Ω: bảo vệ LED và GPIO.</figcaption></figure></div></section>
-    <section class="section"><h2>Nối dây</h2><table><tr><th>ESP32</th><th>Nối tới</th><th>Ghi chú</th></tr><tr><td><strong>D2</strong> (GPIO 2)</td><td>220Ω → LED anode</td><td>Chân PWM; giữ mạch P2.</td></tr><tr><td>LED cathode</td><td>GND</td><td>Jumper mass chung.</td></tr></table></section>
-    <section class="section"><h2>Các bước làm</h2><ol><li>Dùng lại mạch LED P2.</li><li>Code tăng duty cycle từ 0 lên max rồi giảm về 0.</li><li>Thử tốc độ fade khác nhau để thấy hiệu ứng mượt/giật.</li><li>Ghi lại GPIO, tần số PWM nếu bạn cấu hình thủ công.</li></ol></section>
-    <section class="section"><h2>Hoàn thành khi</h2><ul><li>LED sáng tối mượt như đang thở.</li><li>Bạn hiểu duty cycle là tỉ lệ thời gian ON trong một chu kỳ PWM.</li></ul></section>
+    <nav class="topnav">
+      <a href="index.html">Index</a>
+      <a href="breadboard-diagram.html">Sơ đồ MB102 mẫu</a>
+      <a href="p03-nut-bat-tat-led.html">P3</a>
+      <a href="p05-bien-tro-led.html">P5 tiếp theo</a>
+    </nav>
+    <section class="hero">
+      <h1>P4 Breathing LED</h1>
+      <p>Dùng PWM để LED sáng/tối mượt thay vì chỉ HIGH/LOW.</p>
+      <div class="meta"><span class="tag">PWM</span><span class="tag">LED ngoài</span><span class="tag">GPIO 2</span></div>
+    </section>
+    <section class="section warning">
+      <h2>An toàn</h2>
+      <p>Vẫn giữ điện trở 220Ω nối tiếp LED. PWM chỉ là bật/tắt rất nhanh theo duty cycle, không làm LED bỏ qua giới hạn dòng.</p>
+    </section>
+    <section class="section">
+      <h2>Ảnh linh kiện</h2>
+      <div class="grid">
+        <figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: PWM trên <strong>D2</strong> (giữ từ P2).</figcaption></figure>
+        <figure><img src="../inventory/photos/breadboard-mb102.jpg" alt="Breadboard"><figcaption>Breadboard: giữ mạch LED từ P2; gỡ nút P3 nếu muốn gọn.</figcaption></figure>
+        <figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>2 sợi D2 + GND như P2.</figcaption></figure>
+        <figure><img src="../inventory/photos/led-5mm-do-vang-xanh.jpg" alt="LED"><figcaption>LED: mắt thấy độ sáng thay đổi theo duty cycle.</figcaption></figure>
+        <figure><img src="../inventory/photos/set-dien-tro-600-metal-film.jpg" alt="Điện trở"><figcaption>Điện trở 220Ω.</figcaption></figure>
+      </div>
+    </section>
+    <section class="section">
+      <h2>Nối dây</h2>
+      <table>
+        <tr><th>ESP32</th><th>Nối tới</th><th>Ghi chú</th></tr>
+        <tr><td><strong>D2</strong> (GPIO 2)</td><td>220Ω → LED anode</td><td>PWM 5kHz, duty 0–255</td></tr>
+        <tr><td>LED cathode</td><td>GND</td><td>Jumper mass chung</td></tr>
+      </table>
+    </section>
+
+    <section class="section" id="board-map">
+      <h2>Board map — mạch LED (từ P2)</h2>
+      <p>Chi tiết text: <a href="boards/p04.md">boards/p04.md</a>. Cấu trúc MB102: <a href="breadboard-diagram.html">sơ đồ mẫu</a>.</p>
+      <div class="diagram-wrap">
+        <div class="diagram">
+          <div class="bb-header" id="hdr"></div>
+          <div class="board-body" id="board"></div>
+        </div>
+      </div>
+      <table>
+        <tr><th>Hàng</th><th>b — ESP32</th></tr>
+        <tr><td>3</td><td><strong>GND</strong> ← cam</td></tr>
+        <tr><td>5</td><td><strong>D2</strong> ← PWM vàng</td></tr>
+      </table>
+      <p><strong>Jumper:</strong> cam <code>a3↔i30</code> · vàng <code>a5↔a27</code>.</p>
+      <p><strong>Linh kiện:</strong> điện trở <code>d27↔h27</code> · LED <code>j27</code> / <code>j30</code>.</p>
+    </section>
+
+    <section class="section">
+      <h2>Các bước làm</h2>
+      <ol>
+        <li>Giữ mạch LED P2 (hoặc chỉ phần LED từ board P3, bỏ jumper nâu D18).</li>
+        <li>Trong <code>src/main.cpp</code>: comment P3, bỏ comment <code>p04_setup</code> / <code>p04_loop</code>.</li>
+        <li>Upload: <code>pio run -t upload</code> — LED sáng tối kiểu “thở”.</li>
+        <li>Thử đổi <code>FADE_STEP_MS</code> trong <code>p04_breathing_led.cpp</code> — nhỏ hơn = mượt/chậm hơn.</li>
+        <li>Đối chiếu <a href="boards/p04.md">boards/p04.md</a>.</li>
+      </ol>
+    </section>
+    <section class="section">
+      <h2>Hoàn thành khi</h2>
+      <ul>
+        <li>LED sáng tối mượt như đang thở.</li>
+        <li>Hiểu duty cycle = tỉ lệ thời gian ON trong một chu kỳ PWM.</li>
+      </ul>
+    </section>
   </main>
+
+  <script src="breadboard-widget.js"></script>
+  <script>
+    RobotLabBreadboard.render(
+      document.getElementById("hdr"),
+      document.getElementById("board"),
+      {
+        espPins: new Set(["3a", "5a"]),
+        wiring: {
+          "3a": "w-cam", "30i": "w-cam",
+          "5a": "w-vang", "27a": "w-vang", "27d": "w-vang",
+          "27h": "part-r", "27j": "part-led", "30j": "part-led"
+        }
+      }
+    );
+  </script>
 </body>
 </html>
