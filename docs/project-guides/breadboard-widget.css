@@ -1,0 +1,115 @@
+.diagram-wrap {
+  overflow: auto;
+  max-height: 85vh;
+  padding: 0.5rem 0 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--panel-soft);
+}
+
+.diagram {
+  display: inline-block;
+  padding: 0.75rem;
+  min-width: 680px;
+}
+
+/* rail− | rail+ | # | a..e | ‖ | f..j | # | rail+ | rail− */
+.bb-header,
+.bb-row {
+  display: grid;
+  grid-template-columns:
+    1.1rem 1.1rem
+    1.35rem
+    repeat(5, 1.15rem) 0.55rem repeat(5, 1.15rem)
+    1.35rem
+    1.1rem 1.1rem;
+  gap: 1px;
+  align-items: center;
+}
+
+.bb-header {
+  font-size: 0.62rem;
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: 2px;
+  position: sticky;
+  top: 0;
+  background: var(--panel-soft);
+  z-index: 5;
+  padding-bottom: 4px;
+}
+
+.bb-row { margin-bottom: 1px; }
+.bb-row.cluster-gap { height: 4px; margin-bottom: 3px; }
+.bb-row.cluster-gap .main-cell,
+.bb-row.cluster-gap .row-num { visibility: hidden; height: 4px; }
+.bb-row.cluster-gap .rail-hole { opacity: 0.25; height: 2px; }
+
+.row-num {
+  font-size: 0.58rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+.rail-hole,
+.main-hole {
+  height: 1.05rem;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  position: relative;
+  font-size: 0.48rem;
+}
+
+.rail-hole.plus { background: #d88; border-color: #a44; }
+.rail-hole.minus { background: #68a; border-color: #468; }
+.rail-hole.empty { background: transparent; border: none; }
+
+.main-hole {
+  background: #ecece8;
+  border-color: #bbb;
+}
+
+.main-hole.trench {
+  background: transparent;
+  border: none;
+  box-shadow: inset 0 0 0 1px #3a4a45;
+}
+
+.main-hole.esp32 {
+  background: #2a3d38;
+  border-color: var(--accent);
+  color: #b8f0e4;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+}
+
+.main-hole.mark {
+  box-shadow: inset 0 0 0 2px #e8b020;
+}
+
+.main-hole.esp32.mark {
+  box-shadow: 0 0 0 2px #e8b020, 0 0 0 1px var(--accent);
+}
+
+.main-hole.w-cam { background: #f5a54a; border-color: #c07010; }
+.main-hole.w-vang { background: #f0e060; border-color: #a09010; }
+.main-hole.w-nau { background: #a07040; border-color: #604020; color: #fff; }
+.main-hole.part-r { background: #8ab4e8; border-color: #4680c0; }
+.main-hole.part-led { background: #e88; border-color: #c44; }
+.main-hole.part-btn { background: #c8a0e8; border-color: #8060a0; }
+.main-hole.problem { box-shadow: inset 0 0 0 2px #e04040; }
+
+.board-body { position: relative; }
+
+.legend-rail {
+  display: inline-block;
+  width: 0.9rem;
+  height: 0.7rem;
+  border-radius: 2px;
+  vertical-align: middle;
+  margin-right: 0.25rem;
+}

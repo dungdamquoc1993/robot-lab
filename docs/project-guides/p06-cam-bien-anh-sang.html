@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P6 Cảm biến ánh sáng</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page">
+    <nav class="topnav"><a href="index.html">Index</a><a href="p05-bien-tro-led.html">P5</a><a href="p07-servo-bien-tro.html">P7 tiếp theo</a></nav>
+    <section class="hero"><h1>P6 Cảm biến ánh sáng</h1><p>Đọc module quang trở LDR, che/mở cảm biến và quan sát giá trị thay đổi trên Serial Monitor.</p><div class="meta"><span class="tag">LDR</span><span class="tag">ADC</span><span class="tag">Voltage divider</span></div></section>
+    <section class="section warning"><h2>An toàn</h2><p>Nếu dùng chân AO vào ADC ESP32, ưu tiên cấp module bằng 3V3 để điện áp analog không vượt mức GPIO.</p></section>
+    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/module-quang-tro-ldr.jpg" alt="Module LDR"><figcaption>Module LDR: AO cho giá trị analog, DO cho ngưỡng digital.</figcaption></figure><figure><img src="../inventory/photos/breadboard-mb102.jpg" alt="Breadboard"><figcaption>Breadboard: đặt module hoặc nối chân module xuống bus.</figcaption></figure><figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>Dây jumper: 4 sợi (3V3, GND, D34, tùy chọn D19 cho DO).</figcaption></figure><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: đọc AO bằng ADC và log Serial.</figcaption></figure></div></section>
+    <section class="section"><h2>Nối dây gợi ý</h2><table><tr><th>LDR module</th><th>ESP32</th><th>Vai trò</th></tr><tr><td>VCC</td><td>3V3</td><td>Nguồn an toàn cho ADC.</td></tr><tr><td>GND</td><td>GND</td><td>Mass chung.</td></tr><tr><td>AO</td><td>GPIO 34</td><td>Giá trị analog ánh sáng.</td></tr><tr><td>DO</td><td>Không bắt buộc</td><td>Chỉ dùng nếu muốn đọc ngưỡng on/off.</td></tr></table></section>
+    <section class="section"><h2>Các bước làm</h2><ol><li>Nối AO vào GPIO 34.</li><li>In <code>analogRead(34)</code> ra Serial Monitor.</li><li>Chiếu sáng, che cảm biến, ghi min/max tương đối.</li><li>Nếu dùng DO, xoay biến trở module để chỉnh ngưỡng.</li></ol></section>
+    <section class="section"><h2>Hoàn thành khi</h2><ul><li>Serial Monitor thay đổi rõ khi che/mở LDR.</li><li>Bạn hiểu voltage divider biến ánh sáng thành điện áp đọc được.</li></ul></section>
+  </main>
+</body>
+</html>

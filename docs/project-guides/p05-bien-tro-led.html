@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P5 Biến trở -> LED</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page">
+    <nav class="topnav"><a href="index.html">Index</a><a href="p04-breathing-led.html">P4</a><a href="p06-cam-bien-anh-sang.html">P6 tiếp theo</a></nav>
+    <section class="hero"><h1>P5 Biến trở -> LED</h1><p>Xoay biến trở 10K để ESP32 đọc ADC, rồi map giá trị đó sang PWM điều chỉnh độ sáng LED.</p><div class="meta"><span class="tag">ADC</span><span class="tag">PWM</span><span class="tag">Analog input</span></div></section>
+    <section class="section warning"><h2>An toàn</h2><p>Hai đầu biến trở nối 3V3 và GND, chân giữa nối ADC. Không đưa 5V vào ADC của ESP32.</p></section>
+    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/nut-bam-12x12-bien-tro-10k.jpg" alt="Biến trở 10K"><figcaption>Biến trở 10K: tạo điện áp thay đổi ở chân giữa.</figcaption></figure><figure><img src="../inventory/photos/breadboard-mb102.jpg" alt="Breadboard"><figcaption>Breadboard: cắm biến trở và LED.</figcaption></figure><figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>Dây jumper: ~5 sợi (3V3, GND, D34, D2, GND LED). Dùng Đực–Cái từ ESP32 xuống breadboard.</figcaption></figure><figure><img src="../inventory/photos/led-5mm-do-vang-xanh.jpg" alt="LED"><figcaption>LED: hiển thị độ sáng theo giá trị ADC.</figcaption></figure><figure><img src="../inventory/photos/set-dien-tro-600-metal-film.jpg" alt="Điện trở"><figcaption>Điện trở 220Ω: nối tiếp LED.</figcaption></figure><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: ADC đọc biến trở, PWM xuất ra LED.</figcaption></figure></div></section>
+    <section class="section"><h2>Nối dây gợi ý</h2><table><tr><th>Linh kiện</th><th>Nối tới</th><th>Ghi chú</th></tr><tr><td>Biến trở đầu 1</td><td>3V3</td><td>Jumper Đực–Cái.</td></tr><tr><td>Biến trở đầu 2</td><td>GND</td><td>Jumper Đực–Cái.</td></tr><tr><td>Biến trở chân giữa</td><td><strong>D34</strong> (GPIO 34)</td><td>ADC input-only.</td></tr><tr><td>LED</td><td><strong>D2</strong> → 220Ω → LED → GND</td><td>PWM; giữ mạch P2.</td></tr></table></section>
+    <section class="section"><h2>Các bước làm</h2><ol><li>Đọc ADC từ GPIO 34 và in ra Serial Monitor.</li><li>Map giá trị ADC sang duty PWM.</li><li>Xoay biến trở để LED sáng/tối theo tay.</li><li>Thử đảo chiều 3V3/GND của biến trở nếu hướng xoay bị ngược ý.</li></ol></section>
+    <section class="section"><h2>Hoàn thành khi</h2><ul><li>LED thay đổi độ sáng mượt theo biến trở.</li><li>Bạn phân biệt được ADC input và PWM output.</li></ul></section>
+  </main>
+</body>
+</html>

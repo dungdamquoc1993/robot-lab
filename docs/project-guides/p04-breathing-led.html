@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P4 Breathing LED</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page">
+    <nav class="topnav"><a href="index.html">Index</a><a href="p03-nut-bat-tat-led.html">P3</a><a href="p05-bien-tro-led.html">P5 tiếp theo</a></nav>
+    <section class="hero"><h1>P4 Breathing LED</h1><p>Dùng PWM để LED sáng/tối mượt thay vì chỉ HIGH/LOW.</p><div class="meta"><span class="tag">PWM</span><span class="tag">LED ngoài</span><span class="tag">GPIO output</span></div></section>
+    <section class="section warning"><h2>An toàn</h2><p>Vẫn giữ điện trở 220Ω nối tiếp LED. PWM chỉ là bật/tắt rất nhanh theo duty cycle, không làm LED bỏ qua giới hạn dòng.</p></section>
+    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: tạo PWM trên chân output (giữ D2 từ P2).</figcaption></figure><figure><img src="../inventory/photos/breadboard-mb102.jpg" alt="Breadboard"><figcaption>Breadboard: giữ mạch LED từ P2.</figcaption></figure><figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>Dây jumper: giữ nguyên 2 sợi D2 + GND từ P2.</figcaption></figure><figure><img src="../inventory/photos/led-5mm-do-vang-xanh.jpg" alt="LED"><figcaption>LED: nhận PWM nên mắt thấy độ sáng thay đổi.</figcaption></figure><figure><img src="../inventory/photos/set-dien-tro-600-metal-film.jpg" alt="Điện trở"><figcaption>Điện trở 220Ω: bảo vệ LED và GPIO.</figcaption></figure></div></section>
+    <section class="section"><h2>Nối dây</h2><table><tr><th>ESP32</th><th>Nối tới</th><th>Ghi chú</th></tr><tr><td><strong>D2</strong> (GPIO 2)</td><td>220Ω → LED anode</td><td>Chân PWM; giữ mạch P2.</td></tr><tr><td>LED cathode</td><td>GND</td><td>Jumper mass chung.</td></tr></table></section>
+    <section class="section"><h2>Các bước làm</h2><ol><li>Dùng lại mạch LED P2.</li><li>Code tăng duty cycle từ 0 lên max rồi giảm về 0.</li><li>Thử tốc độ fade khác nhau để thấy hiệu ứng mượt/giật.</li><li>Ghi lại GPIO, tần số PWM nếu bạn cấu hình thủ công.</li></ol></section>
+    <section class="section"><h2>Hoàn thành khi</h2><ul><li>LED sáng tối mượt như đang thở.</li><li>Bạn hiểu duty cycle là tỉ lệ thời gian ON trong một chu kỳ PWM.</li></ul></section>
+  </main>
+</body>
+</html>

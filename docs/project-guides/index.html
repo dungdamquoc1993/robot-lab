@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Robot Lab - Project Guides</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page">
+    <nav class="topnav">
+      <a href="breadboard-diagram.html">Sơ đồ breadboard</a>
+      <a href="../projects.md">projects.md</a>
+      <a href="../inventory/inventory.md">inventory.md</a>
+      <a href="../roadmap.md">roadmap.md</a>
+    </nav>
+
+    <section class="hero">
+      <h1>Robot Lab Project Guides</h1>
+      <p>Mỗi file HTML là một guide độc lập: ảnh linh kiện, vai trò từng món, dây nối chính, các bước làm, và điều kiện hoàn thành.</p>
+      <div class="meta">
+        <span class="tag">ESP32 DevKit V1</span>
+        <span class="tag">PlatformIO CLI</span>
+        <span class="tag">Inventory photos</span>
+      </div>
+    </section>
+
+    <section class="section warning">
+      <h2>An toàn mặc định</h2>
+      <ul>
+        <li>ESP32 GPIO là logic <strong>3.3V</strong>; không đưa 5V trực tiếp vào chân GPIO.</li>
+        <li>LED luôn cần điện trở nối tiếp, thường bắt đầu với <strong>220Ω</strong>.</li>
+        <li>Mạch breadboard cần <strong>dây jumper</strong> (kit có Đực–Cái, Cái–Cái, Đực–Đực × 10) — chân ESP32 là đầu đực, vào breadboard thường dùng <strong>Đực–Cái</strong>.</li>
+        <li>Servo SG90 dùng <strong>5V</strong> và phải nối chung GND với ESP32; không cấp 2 servo từ rail 3.3V.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Công cụ</h2>
+      <div class="cards">
+        <a class="card" href="breadboard-diagram.html"><strong>Sơ đồ MB102 mẫu</strong>Grid trống + chân ESP32 @ b2 — cấu trúc breadboard chung.</a>
+        <a class="card" href="boards/README.md"><strong>Board maps (pNN.md)</strong>Hợp đồng tọa độ text; sơ đồ tương tác nằm trong từng <code>pNN-*.html</code>.</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Mốc 1 - GPIO & điện cơ bản</h2>
+      <div class="cards">
+        <a class="card" href="p01-blink-led.html"><strong>P1 Blink LED</strong>LED onboard GPIO 2 nháy theo chu kỳ.</a>
+        <a class="card" href="p02-led-dien-tro.html"><strong>P2 LED + điện trở</strong>LED ngoài breadboard, thử 220Ω / 330Ω / 1K.</a>
+        <a class="card" href="p03-nut-bat-tat-led.html"><strong>P3 Nút bật/tắt LED</strong>Nút nhấn đổi trạng thái LED — có board map đầy đủ trong guide.</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Mốc 2 - Analog I/O</h2>
+      <div class="cards">
+        <a class="card" href="p04-breathing-led.html"><strong>P4 Breathing LED</strong>PWM làm LED sáng tối mượt.</a>
+        <a class="card" href="p04b-pir-bao-dong.html"><strong>P4b PIR báo động</strong>PIR phát hiện chuyển động, bật LED hoặc buzzer.</a>
+        <a class="card" href="p04c-lm393-phat-hien-vat.html"><strong>P4c LM393 phát hiện vật</strong>Đọc cảm biến vật cản IR.</a>
+        <a class="card" href="p05-bien-tro-led.html"><strong>P5 Biến trở -> LED</strong>ADC đọc biến trở, PWM đổi độ sáng LED.</a>
+        <a class="card" href="p06-cam-bien-anh-sang.html"><strong>P6 Cảm biến ánh sáng</strong>LDR in giá trị lên Serial Monitor.</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Mốc 3 - Servo</h2>
+      <div class="cards">
+        <a class="card" href="p07-servo-bien-tro.html"><strong>P7 Servo + biến trở</strong>Biến trở điều khiển góc servo.</a>
+        <a class="card" href="p07b-hai-servo.html"><strong>P7b Hai servo độc lập</strong>Hai SG90 chạy trên 2 chân PWM.</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Mốc 4 - Kết nối & hiển thị</h2>
+      <div class="cards">
+        <a class="card" href="p08-web-server.html"><strong>P8 Web server</strong>Điều khiển LED/servo từ điện thoại qua Wi-Fi.</a>
+        <a class="card" href="p09-oled-sensor.html"><strong>P9 OLED + sensor</strong>Hiển thị dữ liệu DHT11 hoặc LDR lên OLED I2C.</a>
+        <a class="card" href="p10-buzzer.html"><strong>P10 Buzzer</strong>Phát beep/tone đơn giản.</a>
+        <a class="card" href="p14-relay.html"><strong>P14 Relay</strong>ESP32 điều khiển module relay 5V.</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Mốc 5-9 - Robot</h2>
+      <div class="cards">
+        <a class="card" href="p11-dc-motor-driver.html"><strong>P11 DC motor + driver</strong>Motor chạy/dừng/đổi chiều qua driver.</a>
+        <a class="card" href="p12-pwm-dieu-toc-motor.html"><strong>P12 PWM điều tốc motor</strong>Điều tốc motor bằng PWM công suất.</a>
+        <a class="card" href="p13-mosfet-tai-ngoai.html"><strong>P13 MOSFET tải ngoài</strong>Điều khiển tải ngoài bằng transistor/MOSFET.</a>
+        <a class="card" href="p15-stepper-motor.html"><strong>P15 Stepper motor</strong>Quay chính xác theo bước.</a>
+        <a class="card" href="p16-encoder.html"><strong>P16 Encoder</strong>Đo tốc độ/vị trí motor.</a>
+        <a class="card" href="p17-pid-giu-toc-do.html"><strong>P17 PID giữ tốc độ</strong>Motor tự bù khi tải thay đổi.</a>
+        <a class="card" href="p18-xe-2-banh-wifi.html"><strong>P18 Xe 2 bánh Wi-Fi</strong>Robot xe điều khiển bằng điện thoại.</a>
+        <a class="card" href="p19-tranh-vat-can.html"><strong>P19 Tránh vật cản</strong>Xe tự dừng/rẽ khi gặp vật.</a>
+        <a class="card" href="p20-nao-python-ai.html"><strong>P20 Não Python / AI</strong>ESP32 nhận lệnh từ backend Python.</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

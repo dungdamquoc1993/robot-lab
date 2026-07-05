@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P2 LED + điện trở</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page">
+    <nav class="topnav"><a href="index.html">Index</a><a href="p01-blink-led.html">P1</a><a href="p03-nut-bat-tat-led.html">P3 tiếp theo</a></nav>
+    <section class="hero">
+      <h1>P2 LED + điện trở</h1>
+      <p>Cắm LED rời trên breadboard, blink bằng GPIO, rồi thay lần lượt 220Ω / 330Ω / 1K để so độ sáng.</p>
+      <div class="meta"><span class="tag">Mốc 1</span><span class="tag">GPIO output</span><span class="tag">Ohm & dòng điện</span></div>
+    </section>
+    <section class="section warning">
+      <h2>An toàn</h2>
+      <p>LED luôn phải có điện trở nối tiếp. GPIO ESP32 chỉ là 3.3V logic — không cấp 5V/VIN thẳng vào chân GPIO để điều khiển LED (chỉ HIGH/LOW ~3.3V qua code).</p>
+    </section>
+    <section class="section">
+      <h2>Ảnh linh kiện</h2>
+      <div class="grid">
+        <figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32 DevKit V1"><figcaption>ESP32 DevKit V1 (30 chân): dùng <strong>D2</strong> (GPIO 2) — tiếp nối P1, LED onboard cũng nháy theo.</figcaption></figure>
+        <figure><img src="../inventory/photos/breadboard-mb102.jpg" alt="Breadboard MB102"><figcaption>Breadboard: cắm LED và điện trở. ESP32 có thể cắm bên cạnh hoặc vắt qua rãnh giữa.</figcaption></figure>
+        <figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>Dây jumper: kit có Đực–Cái / Cái–Cái / Đực–Đực. P2 cần <strong>2 sợi Đực–Cái</strong> (D2 + GND).</figcaption></figure>
+        <figure><img src="../inventory/photos/led-5mm-do-vang-xanh.jpg" alt="LED 5mm"><figcaption>LED 5mm: chân dài là anode (+), chân ngắn là cathode (−).</figcaption></figure>
+        <figure><img src="../inventory/photos/set-dien-tro-600-metal-film.jpg" alt="Set điện trở"><figcaption>Điện trở: thử 220Ω, 330Ω, 1K — dòng nhỏ hơn thì LED mờ hơn.</figcaption></figure>
+        <figure><img src="../inventory/photos/multimeter-dt9205a.jpg" alt="Đồng hồ DT9205A"><figcaption>Đồng hồ: đo Ω trước khi cắm; tùy chọn đo V khi debug.</figcaption></figure>
+      </div>
+    </section>
+    <section class="section">
+      <h2>Nối dây gợi ý</h2>
+      <table>
+        <tr><th>Từ</th><th>Tới</th><th>Dây</th><th>Ghi chú</th></tr>
+        <tr><td><strong>D2</strong> (GPIO 2)</td><td>Đầu điện trở</td><td>Jumper Đực–Cái</td><td>Output từ firmware</td></tr>
+        <tr><td>Điện trở</td><td>Chân dài LED (+)</td><td>—</td><td>Nối tiếp trên breadboard</td></tr>
+        <tr><td>Chân ngắn LED (−)</td><td><strong>GND</strong></td><td>Jumper Đực–Cái</td><td>Mass chung ESP32</td></tr>
+      </table>
+      <pre><code>D2 (GPIO 2) --[jumper]--> resistor --> LED anode (+)
+LED cathode (-) --[jumper]--> GND</code></pre>
+      <p>Điện trở đặt trước hoặc sau LED đều được — miễn là <strong>nối tiếp</strong> trong vòng D2 → … → GND.</p>
+    </section>
+    <section class="section">
+      <h2>Các bước làm</h2>
+      <ol>
+        <li>Giữ <code>LED_PIN = 2</code> trong <code>src/main.cpp</code> (tiếp P1).</li>
+        <li>Cắm mạch LED + điện trở 220Ω; nối <strong>2 jumper</strong> D2 và GND như bảng trên.</li>
+        <li>Upload: <code>pio run -t upload</code> — LED ngoài và LED onboard nháy 1s/1s.</li>
+        <li>Rút USB, thay 330Ω rồi 1K; ghi nhận độ sáng tương đối.</li>
+        <li>Ghi chú vào <code>docs/projects.md</code> (GPIO, điện trở đã thử).</li>
+      </ol>
+    </section>
+    <section class="section">
+      <h2>Hoàn thành khi</h2>
+      <ul>
+        <li>LED ngoài blink ổn định qua GPIO (không nối thẳng 3V3).</li>
+        <li>Đã so 220Ω / 330Ω / 1K và giải thích: điện trở lớn hơn → dòng nhỏ hơn → LED mờ hơn.</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

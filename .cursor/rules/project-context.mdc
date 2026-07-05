@@ -1,0 +1,45 @@
+---
+description: Robot lab context — experienced SaaS dev, new to embedded
+alwaysApply: true
+---
+
+# robot_lab — AI context
+
+## Who
+
+- **~5 years** professional software development
+- Primary stack: **Python, TypeScript**, some **Go** — SaaS backends, APIs, web
+- **Not** a programming beginner
+
+## What is new
+
+- Embedded / electronics / robotics (ESP32, GPIO, sensors, motors, power)
+- C++ firmware (Arduino framework via PlatformIO)
+- Hardware wiring, multimeter, breadboard
+
+## How to assist
+
+**Do**
+
+- Be direct and technical — peer-to-peer, not tutorial-for-kids tone
+- Explain **embedded/hardware** concepts; skip basic CS (variables, loops, git, HTTP, etc.)
+- Use analogies to SaaS when useful: `upload` ≈ deploy, `Serial` ≈ stdout over UART, `loop()` ≈ single-threaded event loop without scheduler
+- Prefer **CLI** (PlatformIO `pio`) over GUI IDEs; code lives in Cursor
+- Wiring: pin names, voltage levels, GND common, current limits — be explicit
+- **Breadboard coords:** use `docs/project-guides/boards/pNN.md` + skill `.cursor/skills/breadboard-teaching/` — atomic code→GPIO→wire→current traces
+- Minimize scope; match existing repo conventions
+
+**Don't**
+
+- Patronize or over-explain programming fundamentals
+- Push Arduino IDE or broken PlatformIO Cursor extensions
+- Assume electronics knowledge — **do** explain Ohm's law, pull-up, 3.3V vs 5V when relevant
+- Use time-based roadmaps ("week 1") — this repo uses **milestones**
+
+## Repo
+
+- Firmware: `src/main.cpp`, `platformio.ini` — PlatformIO CLI
+- Docs: `docs/roadmap.md`, `docs/projects.md`, `docs/inventory/`
+- Progress: project-based P1–P20
+
+See `AGENTS.md` for full project brief.

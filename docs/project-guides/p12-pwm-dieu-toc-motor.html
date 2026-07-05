@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P12 PWM điều tốc motor</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page">
+    <nav class="topnav"><a href="index.html">Index</a><a href="p11-dc-motor-driver.html">P11</a><a href="p13-mosfet-tai-ngoai.html">P13 tiếp theo</a></nav>
+    <section class="hero"><h1>P12 PWM điều tốc motor</h1><p>Dùng PWM trên chân enable của driver để thay đổi tốc độ motor, có thể điều khiển từ slider web.</p><div class="meta"><span class="tag">Cần mua thêm</span><span class="tag">PWM công suất</span><span class="tag">Motor speed</span></div></section>
+    <section class="section warning"><h2>An toàn</h2><p>PWM chỉ điều khiển driver, không nối PWM GPIO trực tiếp vào motor. Nguồn motor cần đủ dòng và chung GND với ESP32.</p></section>
+    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: tạo PWM và có thể chạy web slider.</figcaption></figure><figure><div class="placeholder">DC motor + driver chưa có trong inventory</div><figcaption>Driver nhận PWM enable để điều tốc motor.</figcaption></figure></div></section>
+    <section class="section"><h2>Linh kiện dùng thế nào</h2><table><tr><th>Linh kiện</th><th>Vai trò</th></tr><tr><td>ESP32</td><td>Xuất PWM duty cycle.</td></tr><tr><td>Motor driver</td><td>Biến PWM logic thành công suất motor.</td></tr><tr><td>DC motor</td><td>Tải quay, tốc độ thay đổi theo duty.</td></tr></table></section>
+    <section class="section"><h2>Các bước làm</h2><ol><li>Hoàn thành P11 trước.</li><li>Gắn PWM vào chân EN/PWMA của driver.</li><li>Thử duty 0%, 25%, 50%, 75%, 100%.</li><li>Nếu dùng web, tạo slider gửi giá trị tốc độ tới ESP32.</li></ol></section>
+    <section class="section"><h2>Hoàn thành khi</h2><ul><li>Motor đổi tốc độ rõ theo duty PWM.</li><li>Bạn biết motor có vùng duty thấp không đủ lực để khởi động.</li></ul></section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P8 Web server</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page">
+    <nav class="topnav"><a href="index.html">Index</a><a href="p07b-hai-servo.html">P7b</a><a href="p09-oled-sensor.html">P9 tiếp theo</a></nav>
+    <section class="hero"><h1>P8 Web server</h1><p>ESP32 tạo web server trong mạng Wi-Fi để điều khiển LED hoặc servo từ trình duyệt điện thoại.</p><div class="meta"><span class="tag">Wi-Fi</span><span class="tag">HTTP</span><span class="tag">IoT</span></div></section>
+    <section class="section warning"><h2>An toàn</h2><p>Nếu điều khiển servo, vẫn dùng nguồn 5V phù hợp và nối chung GND. Nếu chỉ điều khiển LED, dùng điện trở nối tiếp.</p></section>
+    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: kết nối Wi-Fi và phục vụ HTTP.</figcaption></figure><figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>Dây jumper: giữ mạch LED P2 (D2 + GND) hoặc dây signal servo.</figcaption></figure><figure><img src="../inventory/photos/led-5mm-do-vang-xanh.jpg" alt="LED"><figcaption>LED: actuator đơn giản để bật/tắt qua web.</figcaption></figure><figure><img src="../inventory/photos/servo-sg90.jpg" alt="Servo SG90"><figcaption>Servo: actuator nâng cấp, điều khiển góc qua web.</figcaption></figure></div></section>
+    <section class="section"><h2>Linh kiện dùng thế nào</h2><table><tr><th>Linh kiện</th><th>Vai trò</th></tr><tr><td>ESP32</td><td>Web server và controller.</td></tr><tr><td>LED hoặc servo</td><td>Thiết bị được điều khiển từ HTTP route.</td></tr><tr><td>Điện thoại/laptop</td><td>Client mở địa chỉ IP của ESP32.</td></tr></table></section>
+    <section class="section"><h2>Các bước làm</h2><ol><li>Kết nối ESP32 vào Wi-Fi và in IP ra Serial Monitor.</li><li>Tạo route bật/tắt LED trước.</li><li>Mở IP từ điện thoại cùng mạng Wi-Fi.</li><li>Nếu ổn, thêm route điều khiển góc servo.</li></ol></section>
+    <section class="section"><h2>Hoàn thành khi</h2><ul><li>Điện thoại bật/tắt được LED hoặc đổi góc servo qua browser.</li><li>Bạn hiểu ESP32 đang vừa là firmware device vừa là HTTP server nhỏ.</li></ul></section>
+  </main>
+</body>
+</html>

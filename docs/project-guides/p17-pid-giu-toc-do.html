@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P17 PID giữ tốc độ</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page">
+    <nav class="topnav"><a href="index.html">Index</a><a href="p16-encoder.html">P16</a><a href="p18-xe-2-banh-wifi.html">P18 tiếp theo</a></nav>
+    <section class="hero"><h1>P17 PID giữ tốc độ</h1><p>Dùng encoder làm feedback để motor tự tăng/giảm PWM nhằm giữ tốc độ mục tiêu.</p><div class="meta"><span class="tag">Cần mua thêm</span><span class="tag">PID</span><span class="tag">Control loop</span></div></section>
+    <section class="section warning"><h2>An toàn</h2><p>Giới hạn PWM min/max trong code để tránh motor tăng tốc quá mạnh khi tham số PID chưa ổn.</p></section>
+    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: chạy vòng lặp điều khiển theo chu kỳ.</figcaption></figure><figure><div class="placeholder">Motor + driver + encoder chưa có trong inventory</div><figcaption>Motor có feedback: đo tốc độ thực tế để bù sai lệch.</figcaption></figure></div></section>
+    <section class="section"><h2>Linh kiện dùng thế nào</h2><table><tr><th>Linh kiện</th><th>Vai trò</th></tr><tr><td>Motor + driver</td><td>Actuator nhận PWM.</td></tr><tr><td>Encoder</td><td>Sensor đo tốc độ thực tế.</td></tr><tr><td>ESP32</td><td>Tính sai số và cập nhật PWM.</td></tr></table></section>
+    <section class="section"><h2>Các bước làm</h2><ol><li>Hoàn thành P16 trước.</li><li>Đặt tốc độ mục tiêu cố định.</li><li>Bắt đầu với P-only, sau đó thêm I/D nếu cần.</li><li>Tác động tải nhẹ vào motor và xem PWM tự bù.</li></ol></section>
+    <section class="section"><h2>Hoàn thành khi</h2><ul><li>Motor giữ tốc độ gần mục tiêu khi tải thay đổi nhẹ.</li><li>Bạn hiểu control loop: đo -> so sánh -> sửa -> lặp.</li></ul></section>
+  </main>
+</body>
+</html>

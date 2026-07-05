@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P11 DC motor + driver</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page">
+    <nav class="topnav"><a href="index.html">Index</a><a href="p10-buzzer.html">P10</a><a href="p12-pwm-dieu-toc-motor.html">P12 tiếp theo</a></nav>
+    <section class="hero"><h1>P11 DC motor + driver</h1><p>Điều khiển motor DC chạy/dừng/đổi chiều qua driver như L298N hoặc TB6612. Không nối motor trực tiếp vào GPIO.</p><div class="meta"><span class="tag">Cần mua thêm</span><span class="tag">Motor driver</span><span class="tag">Dòng lớn</span></div></section>
+    <section class="section warning"><h2>An toàn</h2><p>Motor là tải dòng lớn và nhiễu. ESP32 chỉ gửi tín hiệu logic cho driver; nguồn motor đi riêng qua driver và GND phải nối chung.</p></section>
+    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: xuất tín hiệu IN1/IN2/EN cho driver.</figcaption></figure><figure><div class="placeholder">DC motor chưa có trong inventory</div><figcaption>DC motor: tải cơ cần dòng cao hơn GPIO.</figcaption></figure><figure><div class="placeholder">L298N/TB6612 chưa có trong inventory</div><figcaption>Motor driver: cầu H cho chạy/dừng/đổi chiều.</figcaption></figure></div></section>
+    <section class="section"><h2>Linh kiện cần mua</h2><table><tr><th>Linh kiện</th><th>Dùng thế nào</th></tr><tr><td>DC motor</td><td>Thiết bị quay cần điều khiển.</td></tr><tr><td>L298N hoặc TB6612</td><td>Nhận logic từ ESP32, cấp dòng cho motor.</td></tr><tr><td>Nguồn motor</td><td>Cấp theo điện áp motor, không kéo từ GPIO.</td></tr></table></section>
+    <section class="section"><h2>Các bước làm</h2><ol><li>Mua motor + driver phù hợp.</li><li>Test driver với một motor: forward, stop, reverse.</li><li>Quan sát nhiệt và sụt nguồn.</li><li>Ghi lại mapping chân IN/EN trong note project.</li></ol></section>
+    <section class="section"><h2>Hoàn thành khi</h2><ul><li>Motor chạy/dừng/đổi chiều an toàn qua driver.</li><li>Bạn hiểu driver giống adapter công suất giữa GPIO nhỏ và tải lớn.</li></ul></section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P1 Blink LED</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page">
+    <nav class="topnav"><a href="index.html">Index</a><a href="p02-led-dien-tro.html">P2 tiếp theo</a></nav>
+    <section class="hero">
+      <h1>P1 Blink LED</h1>
+      <p>ESP32 bật/tắt LED onboard ở GPIO 2 theo chu kỳ. Project này đã hoàn thành ngày 2026-07-04.</p>
+      <div class="meta"><span class="tag">Trạng thái: xong</span><span class="tag">GPIO 2</span><span class="tag">Không cần breadboard</span></div>
+    </section>
+    <section class="section">
+      <h2>Ảnh linh kiện</h2>
+      <div class="grid">
+        <figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32 DevKit V1"><figcaption>ESP32 DevKit V1: chạy firmware và có LED onboard thường nối GPIO 2.</figcaption></figure>
+        <figure><img src="../inventory/photos/cap-usb-micro.jpg" alt="Cáp USB Micro"><figcaption>Cáp USB Micro: nạp code và cấp nguồn khi test.</figcaption></figure>
+      </div>
+    </section>
+    <section class="section">
+      <h2>Linh kiện dùng thế nào</h2>
+      <table><tr><th>Linh kiện</th><th>Vai trò</th></tr><tr><td>ESP32</td><td>Điều khiển GPIO 2 ở mức HIGH/LOW.</td></tr><tr><td>LED onboard</td><td>Quan sát trạng thái output mà không cần mạch ngoài.</td></tr><tr><td>Cáp USB</td><td>Nạp bằng <code>pio run -t upload</code>.</td></tr></table>
+    </section>
+    <section class="section">
+      <h2>Ghi chú hoàn thành</h2>
+      <ul><li>Firmware dùng <code>digitalWrite</code> và <code>delay(2000)</code>.</li><li>Project sau chuyển từ LED onboard sang LED rời trên breadboard.</li></ul>
+    </section>
+  </main>
+</body>
+</html>

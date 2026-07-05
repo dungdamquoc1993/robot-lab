@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P4c LM393 phát hiện vật</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page">
+    <nav class="topnav"><a href="index.html">Index</a><a href="p04b-pir-bao-dong.html">P4b</a><a href="p05-bien-tro-led.html">P5</a></nav>
+    <section class="hero"><h1>P4c LM393 phát hiện vật</h1><p>Đọc module tránh vật cản IR dùng LM393, log trạng thái có/không có vật.</p><div class="meta"><span class="tag">Optional</span><span class="tag">Digital sensor</span><span class="tag">IR obstacle</span></div></section>
+    <section class="section warning"><h2>An toàn</h2><p>Chỉ nối OUT vào GPIO nếu mức tín hiệu an toàn cho ESP32. Nếu module cấp 5V nhưng OUT lên 5V, cần chia áp/level shift.</p></section>
+    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/module-lm393-tranh-vat-can.jpg" alt="Module LM393"><figcaption>Module LM393 IR: phát hiện vật cản gần bằng hồng ngoại.</figcaption></figure><figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>Dây jumper: 3 sợi tối thiểu (3V3 hoặc 5V, GND, D19).</figcaption></figure><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: đọc chân OUT và in Serial Monitor.</figcaption></figure></div></section>
+    <section class="section"><h2>Nối dây gợi ý</h2><table><tr><th>LM393</th><th>ESP32</th><th>Vai trò</th></tr><tr><td>VCC</td><td>3V3 trước, 5V chỉ khi cần và OUT an toàn</td><td>Nguồn module.</td></tr><tr><td>GND</td><td>GND</td><td>Mass chung.</td></tr><tr><td>OUT</td><td>GPIO 19</td><td>Digital input.</td></tr></table></section>
+    <section class="section"><h2>Các bước làm</h2><ol><li>Cấp nguồn module và đọc OUT trong Serial Monitor.</li><li>Đưa vật lại gần, xoay biến trở trên module để chỉnh ngưỡng.</li><li>Thêm LED báo trạng thái nếu muốn quan sát không cần Serial.</li><li>Ghi lại khoảng cách phát hiện tương đối.</li></ol></section>
+    <section class="section"><h2>Hoàn thành khi</h2><ul><li>Serial Monitor đổi trạng thái khi có vật trước cảm biến.</li><li>Bạn biết biến trở trên module dùng để chỉnh ngưỡng so sánh.</li></ul></section>
+  </main>
+</body>
+</html>

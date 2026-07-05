@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P14 Relay</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page">
+    <nav class="topnav"><a href="index.html">Index</a><a href="p10-buzzer.html">P10</a><a href="p11-dc-motor-driver.html">P11</a></nav>
+    <section class="hero"><h1>P14 Relay</h1><p>ESP32 điều khiển module relay 2 kênh 5V để nghe tiếng đóng/ngắt và hiểu cách ly tải.</p><div class="meta"><span class="tag">Relay</span><span class="tag">Isolation</span><span class="tag">5V module</span></div></section>
+    <section class="section warning"><h2>An toàn</h2><p>Ở giai đoạn học, chỉ test tiếng relay và LED tải thấp. Không đấu điện lưới AC khi chưa có kiến thức an toàn điện.</p></section>
+    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/module-relay-2-kenh-5v.jpg" alt="Relay 2 kênh"><figcaption>Module relay 2 kênh: ESP32 điều khiển IN1/IN2, relay đóng/cắt tiếp điểm.</figcaption></figure><figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>Dây jumper: 4 sợi (5V/VIN, GND, IN1, IN2). GND phải chung với ESP32.</figcaption></figure><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: xuất tín hiệu điều khiển relay.</figcaption></figure></div></section>
+    <section class="section"><h2>Nối dây gợi ý</h2><table><tr><th>Relay module</th><th>ESP32/nguồn</th><th>Vai trò</th></tr><tr><td>VCC</td><td>5V</td><td>Nguồn coil/module.</td></tr><tr><td>GND</td><td>GND ESP32</td><td>Mass chung.</td></tr><tr><td>IN1</td><td>GPIO 26</td><td>Điều khiển kênh 1.</td></tr><tr><td>IN2</td><td>GPIO 27</td><td>Điều khiển kênh 2 nếu cần.</td></tr></table></section>
+    <section class="section"><h2>Các bước làm</h2><ol><li>Chỉ nối phần tín hiệu trước, upload code bật/tắt IN1 chậm.</li><li>Nghe relay “tạch” khi đổi trạng thái.</li><li>Kiểm tra module active LOW hay active HIGH.</li><li>Nếu test tải, dùng LED/nguồn DC thấp trước.</li></ol></section>
+    <section class="section"><h2>Hoàn thành khi</h2><ul><li>Relay đóng/ngắt ổn định từ ESP32.</li><li>Bạn phân biệt được phía điều khiển GPIO và phía tiếp điểm tải.</li></ul></section>
+  </main>
+</body>
+</html>

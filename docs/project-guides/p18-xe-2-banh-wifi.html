@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P18 Xe 2 bánh Wi-Fi</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page">
+    <nav class="topnav"><a href="index.html">Index</a><a href="p17-pid-giu-toc-do.html">P17</a><a href="p19-tranh-vat-can.html">P19 tiếp theo</a></nav>
+    <section class="hero"><h1>P18 Xe 2 bánh Wi-Fi</h1><p>Lắp robot xe 2 bánh, điều khiển tiến/lùi/trái/phải từ điện thoại qua Wi-Fi.</p><div class="meta"><span class="tag">Cần mua thêm</span><span class="tag">Robot chassis</span><span class="tag">Wi-Fi control</span></div></section>
+    <section class="section warning"><h2>An toàn</h2><p>Xe cần pin, driver và buck converter phù hợp. Không cấp motor trực tiếp từ ESP32 hoặc cổng USB.</p></section>
+    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: nhận lệnh Wi-Fi và điều khiển driver.</figcaption></figure><figure><div class="placeholder">Khung xe, motor, pin, buck chưa có trong inventory</div><figcaption>Bộ cơ khí và nguồn di động sẽ cần mua thêm.</figcaption></figure></div></section>
+    <section class="section"><h2>Linh kiện cần mua</h2><table><tr><th>Linh kiện</th><th>Dùng thế nào</th></tr><tr><td>Khung xe 2 bánh + bánh phụ</td><td>Nền cơ khí.</td></tr><tr><td>2 DC motor</td><td>Truyền động trái/phải.</td></tr><tr><td>Motor driver</td><td>Điều khiển 2 motor từ ESP32.</td></tr><tr><td>Pin + buck converter</td><td>Nguồn di động ổn định.</td></tr></table></section>
+    <section class="section"><h2>Các bước làm</h2><ol><li>Hoàn thành P11/P12 để biết điều khiển motor.</li><li>Lắp chassis và test từng bánh.</li><li>Map lệnh web: forward/back/left/right/stop.</li><li>Test xe trên mặt phẳng, tốc độ thấp trước.</li></ol></section>
+    <section class="section"><h2>Hoàn thành khi</h2><ul><li>Xe đi được 4 hướng từ điện thoại.</li><li>Nguồn không làm ESP32 reset khi motor khởi động.</li></ul></section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P4b PIR báo động</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page">
+    <nav class="topnav"><a href="index.html">Index</a><a href="p04-breathing-led.html">P4</a><a href="p04c-lm393-phat-hien-vat.html">P4c</a></nav>
+    <section class="hero"><h1>P4b PIR báo động</h1><p>Dùng PIR HC-SR501 phát hiện chuyển động, rồi bật LED hoặc buzzer để báo hiệu.</p><div class="meta"><span class="tag">Optional</span><span class="tag">Digital sensor</span><span class="tag">PIR</span></div></section>
+    <section class="section warning"><h2>An toàn</h2><p>Kiểm tra mức tín hiệu OUT của module trước khi nối GPIO. ESP32 chỉ chịu 3.3V ở input.</p></section>
+    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: đọc tín hiệu digital từ PIR và điều khiển LED/buzzer.</figcaption></figure><figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>Dây jumper: 3–4 sợi nối VCC, GND, OUT module; thêm D2 + GND nếu dùng LED breadboard.</figcaption></figure><figure><div class="placeholder">PIR HC-SR501 chưa có ảnh trong inventory</div><figcaption>PIR HC-SR501: phát hiện chuyển động người/vật ấm.</figcaption></figure><figure><img src="../inventory/photos/led-5mm-do-vang-xanh.jpg" alt="LED"><figcaption>LED: báo có chuyển động.</figcaption></figure></div></section>
+    <section class="section"><h2>Nối dây gợi ý</h2><table><tr><th>PIR</th><th>ESP32</th><th>Vai trò</th></tr><tr><td>VCC</td><td>5V hoặc 3V3 theo module</td><td>Nguồn cho cảm biến; xem nhãn module.</td></tr><tr><td>GND</td><td>GND</td><td>Mass chung.</td></tr><tr><td>OUT</td><td>GPIO 19</td><td>Tín hiệu phát hiện chuyển động.</td></tr></table></section>
+    <section class="section"><h2>Các bước làm</h2><ol><li>Nối PIR và mở Serial Monitor.</li><li>In giá trị OUT để xem module ổn định sau khi cấp nguồn.</li><li>Khi OUT active, bật LED hoặc buzzer.</li><li>Thử chỉnh biến trở delay/sensitivity trên PIR nếu module có.</li></ol></section>
+    <section class="section"><h2>Hoàn thành khi</h2><ul><li>Đưa tay/người qua vùng cảm biến thì ESP32 log được thay đổi.</li><li>LED hoặc buzzer báo đúng khi có chuyển động.</li></ul></section>
+  </main>
+</body>
+</html>

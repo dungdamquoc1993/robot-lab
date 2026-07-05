@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P9 OLED + sensor</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page">
+    <nav class="topnav"><a href="index.html">Index</a><a href="p08-web-server.html">P8</a><a href="p10-buzzer.html">P10 tiếp theo</a></nav>
+    <section class="hero"><h1>P9 OLED + sensor</h1><p>Hiển thị nhiệt độ/độ ẩm DHT11 hoặc giá trị ánh sáng LDR lên OLED 0.96 inch qua I2C.</p><div class="meta"><span class="tag">I2C</span><span class="tag">OLED</span><span class="tag">Sensor data</span></div></section>
+    <section class="section warning"><h2>An toàn</h2><p>Kiểm tra VCC của module OLED và sensor. Với ESP32, tín hiệu I2C/Sensor nên ở mức 3.3V.</p></section>
+    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/oled-096-inch-i2c.jpg" alt="OLED I2C"><figcaption>OLED 0.96 inch: hiển thị text nhỏ qua bus I2C.</figcaption></figure><figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>Dây jumper: 4 sợi cho OLED (3V3, GND, D21 SDA, D22 SCL) + thêm cho sensor.</figcaption></figure><figure><img src="../inventory/photos/module-dht11.jpg" alt="DHT11"><figcaption>DHT11: đọc nhiệt độ và độ ẩm bằng digital 1-wire.</figcaption></figure><figure><img src="../inventory/photos/module-quang-tro-ldr.jpg" alt="LDR"><figcaption>LDR: lựa chọn sensor thay thế nếu muốn hiển thị ánh sáng.</figcaption></figure><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: đọc sensor và ghi dữ liệu lên OLED.</figcaption></figure></div></section>
+    <section class="section"><h2>Nối dây gợi ý</h2><table><tr><th>Module</th><th>ESP32</th><th>Vai trò</th></tr><tr><td>OLED VCC/GND</td><td>3V3/GND</td><td>Nguồn màn hình.</td></tr><tr><td>OLED SDA</td><td>GPIO 21</td><td>Dữ liệu I2C.</td></tr><tr><td>OLED SCL</td><td>GPIO 22</td><td>Clock I2C.</td></tr><tr><td>DHT11 DATA</td><td>GPIO 4</td><td>Dữ liệu sensor.</td></tr></table></section>
+    <section class="section"><h2>Các bước làm</h2><ol><li>Chạy ví dụ scan I2C hoặc init OLED trước.</li><li>Hiển thị dòng text cố định.</li><li>Đọc DHT11 hoặc LDR và đưa giá trị lên màn hình.</li><li>Cập nhật mỗi 1-2 giây để tránh nhấp nháy quá nhanh.</li></ol></section>
+    <section class="section"><h2>Hoàn thành khi</h2><ul><li>OLED hiển thị ít nhất một giá trị sensor thay đổi.</li><li>Bạn biết SDA/SCL là bus chung, khác với một chân digital đơn lẻ.</li></ul></section>
+  </main>
+</body>
+</html>
