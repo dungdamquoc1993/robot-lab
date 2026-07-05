@@ -1,37 +1,19 @@
 #include <Arduino.h>
 
-// P3 — D2: LED output | D18: nút bấm (INPUT_PULLUP, bấm = LOW)
-constexpr int LED_PIN = 2;
-constexpr int BUTTON_PIN = 18;
-constexpr unsigned long DEBOUNCE_MS = 40;
+#include "projects/p01_blink.h"
+#include "projects/p02_led_resistor.h"
+#include "projects/p03_button_led.h"
 
-bool ledOn = false;
-int buttonState = HIGH;
-int lastReading = HIGH;
-unsigned long lastDebounceTime = 0;
+// Chọn project: bỏ comment đúng 1 cặp setup/loop, comment các cặp còn lại.
 
 void setup() {
-  pinMode(LED_PIN, OUTPUT);
-  pinMode(BUTTON_PIN, INPUT_PULLUP);
-  digitalWrite(LED_PIN, LOW);
+  // p01_setup();
+  // p02_setup();
+  p03_setup();
 }
 
 void loop() {
-  int reading = digitalRead(BUTTON_PIN);
-
-  if (reading != lastReading) {
-    lastDebounceTime = millis();
-  }
-
-  if ((millis() - lastDebounceTime) > DEBOUNCE_MS) {
-    if (reading != buttonState) {
-      buttonState = reading;
-      if (buttonState == LOW) {
-        ledOn = !ledOn;
-        digitalWrite(LED_PIN, ledOn ? HIGH : LOW);
-      }
-    }
-  }
-
-  lastReading = reading;
+  // p01_loop();
+  // p02_loop();
+  p03_loop();
 }
