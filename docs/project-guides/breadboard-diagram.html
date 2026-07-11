@@ -36,7 +36,7 @@
         <li><span class="legend-rail" style="background:#d88"></span><strong>Đỏ +</strong> · <span class="legend-rail" style="background:#68a"></span><strong>Xanh −</strong> — nối <strong>dọc</strong> trong cụm 5 lỗ; <strong>đứt</strong> giữa các cụm (và thường đứt giữa nửa trên/dưới board).</li>
         <li>Vùng giữa: cùng <strong>hàng + cùng nửa (a–e hoặc f–j)</strong> → cùng cột a–e nối ngang (5 lỗ a<sub>n</sub>–e<sub>n</sub>).</li>
         <li><strong>Rãnh</strong> giữa e và f — a–e không nối f–j.</li>
-        <li>Ô <strong>xanh đậm</strong> = chân ESP32: cột <code>b</code> (3V3→D23) · cột <code>i</code> (VIN→EN).</li>
+        <li>Ô <strong>xanh đậm</strong> = chân ESP32: cột <code>b</code> (3V3→D23) · cột <code>j</code> (VIN→EN). Cột <code>i</code> bị thân board che — <strong>dây jumper cắm cột j</strong> (cùng hàng).</li>
       </ul>
     </section>
 
@@ -48,10 +48,10 @@
     </section>
 
     <section class="section">
-      <h2>ESP32 cắm vắt rãnh — cột <code>b</code> (trái) &amp; <code>i</code> (phải), hàng 2→16</h2>
-      <p>3V3 bắt đầu <strong>b2</strong>. Mỗi hàng: chân trái @ <code>b</code> · chân phải @ <code>i</code>.</p>
+      <h2>ESP32 cắm vắt rãnh — cột <code>b</code> (trái) &amp; <code>j</code> (phải), hàng 2→16</h2>
+      <p>3V3 bắt đầu <strong>b2</strong>. Chân board @ <code>b</code> / <code>j</code>. Jumper tới GPIO phải → <strong>cột j</strong> (cùng hàng), không <code>i</code>.</p>
       <table>
-        <tr><th>Hàng</th><th>b — cạnh ESP32 (trái)</th><th>i — cạnh ESP32 (phải)</th></tr>
+        <tr><th>Hàng</th><th>b — ESP32 (trái)</th><th>j — ESP32 (phải) · jumper vào đây</th></tr>
         <tr><td>2</td><td><strong>3V3</strong></td><td>VIN</td></tr>
         <tr><td>3</td><td>GND</td><td>GND</td></tr>
         <tr><td>4</td><td>D15</td><td>D13</td></tr>

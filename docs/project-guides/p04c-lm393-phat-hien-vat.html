@@ -25,7 +25,7 @@
       <p><strong>Không di chuyển</strong> hai dây đang chạy LED — khớp đúng <a href="p04-breathing-led.html">P4</a>:</p>
       <table>
         <tr><th>Trên sơ đồ / board</th><th>Ý nghĩa</th><th>P4c làm gì</th></tr>
-        <tr><td><strong>Cam</strong> <code>a3 ↔ i30</code></td><td>GND → LED− (hàng 30 phải)</td><td><strong>Giữ nguyên</strong> — không rút</td></tr>
+        <tr><td><strong>Cam</strong> <code>a3 ↔ j30</code></td><td>GND → LED− (hàng 30 phải)</td><td><strong>Giữ nguyên</strong> — không rút</td></tr>
         <tr><td><strong>Vàng</strong> <code>a5 ↔ a27</code> (+ <code>d27</code> cùng hàng)</td><td>D2 → điện trở → LED</td><td><strong>Giữ nguyên</strong> — không rút</td></tr>
         <tr><td>Ô <strong>đỏ</strong> <code>j27</code> · <code>j30</code></td><td>LED (linh kiện), <em>không phải dây jumper</em></td><td>Giữ nguyên</td></tr>
         <tr><td>Ô <strong>xanh</strong> <code>h27</code></td><td>Điện trở (linh kiện)</td><td>Giữ nguyên</td></tr>
@@ -52,7 +52,7 @@
       <table>
         <tr><th>Thành phần</th><th>Tọa độ</th><th>Dây</th></tr>
         <tr><td>D2 → LED</td><td>b5 → … → j27</td><td>Vàng <code>a5 ↔ a27</code></td></tr>
-        <tr><td>GND LED</td><td>j30</td><td>Cam <code>a3 ↔ i30</code></td></tr>
+        <tr><td>GND LED</td><td>j30</td><td>Cam <code>a3 ↔ j30</code></td></tr>
         <tr><td>Điện trở 220Ω</td><td><code>d27 ↔ h27</code></td><td>—</td></tr>
         <tr><td>LED</td><td><code>j27</code> (+) · <code>j30</code> (−)</td><td>—</td></tr>
       </table>
@@ -85,11 +85,11 @@
       <table>
         <tr><th>#</th><th>Màu</th><th>Đầu 1</th><th>Đầu 2</th><th>Ghi chú</th></tr>
         <tr><td>1</td><td><strong>Đỏ</strong> <em>(mới)</em></td><td><code>a2</code> — hàng 3V3, cạnh <code>b2</code></td><td>VCC module @ <code>d20</code></td><td>Trước P4 chưa có dây đỏ — đây là sợi mới</td></tr>
-        <tr><td>2</td><td><strong>Cam</strong> <em>(sợi thứ 2)</em></td><td><code>a3</code> — <strong>cùng lỗ</strong> với cam đi <code>i30</code></td><td>GND module @ <code>d21</code></td><td>Cam cũ <code>a3↔i30</code> <strong>vẫn cắm</strong></td></tr>
+        <tr><td>2</td><td><strong>Cam</strong> <em>(sợi thứ 2)</em></td><td><code>a3</code> — <strong>cùng lỗ</strong> với cam đi <code>j30</code></td><td>GND module @ <code>d21</code></td><td>Cam cũ <code>a3↔j30</code> <strong>vẫn cắm</strong></td></tr>
         <tr><td>3</td><td><strong>Nâu</strong> <em>(mới)</em></td><td><code>a11</code> — hàng D19, cạnh <code>b11</code></td><td>OUT module @ <code>d22</code></td><td>Chưa có trên board P4</td></tr>
       </table>
       <pre><code>  ĐANG CÓ (P4) — KHÔNG RÚT:
-    cam   a3 ─────────────── i30     (GND → LED−)
+    cam   a3 ─────────────── j30     (GND → LED−)
     vàng  a5 ── a27 ─ d27 ─ R ─ h27 ─ LED j27/j30
 
   THÊM MỚI (P4c):
@@ -150,7 +150,7 @@
         espPins: new Set(["2a", "3a", "5a", "11a"]),
         wiring: {
           "2a": "w-vang", "20a": "w-vang", "20d": "part-btn",
-          "3a": "w-cam", "21a": "w-cam", "21d": "part-btn", "30i": "w-cam",
+          "3a": "w-cam", "21a": "w-cam", "21d": "part-btn", "30j": "w-cam",
           "5a": "w-vang", "27a": "w-vang", "27d": "w-vang",
           "11a": "w-nau", "22a": "w-nau", "22d": "part-btn w-nau",
           "27h": "part-r", "27j": "part-led", "30j": "part-led"

@@ -25,9 +25,17 @@
       <p>Biến trở: hai đầu nối <strong>3V3</strong> và <strong>GND</strong>, chân giữa → <strong>D34</strong>. ADC ESP32 max <strong>3.3V</strong> — không cấp 5V.</p>
     </section>
     <section class="section">
+      <h2>Nhận diện biến trở trong túi</h2>
+      <p>Túi kit có nút bấm + vài phụ kiện. <strong>Biến trở</strong> là linh kiện <strong>3 chân kim</strong>, có <strong>trục xoay</strong> (núm nhỏ) — không phải nút vuông 4 chân, không phải trụ đen 2 chân (buzzer), không phải LED 4 chân.</p>
+      <div class="grid">
+        <figure><img src="../inventory/photos/bien-tro-10k.jpg" alt="Biến trở 10K"><figcaption><strong>Đây là biến trở P5:</strong> 3 chân — hai đầu + chân giữa (wiper). Xoay trục → điện trở thay đổi.</figcaption></figure>
+        <figure><img src="../inventory/photos/nut-bam-12x12-bien-tro-10k.jpg" alt="Túi phụ kiện"><figcaption>Trong túi: biến trở nằm cạnh nút bấm — nhìn <strong>3 chân + trục xoay</strong>.</figcaption></figure>
+      </div>
+    </section>
+    <section class="section">
       <h2>Ảnh linh kiện</h2>
       <div class="grid">
-        <figure><img src="../inventory/photos/nut-bam-12x12-bien-tro-10k.jpg" alt="Biến trở 10K"><figcaption>Biến trở 10K (trong túi nút bấm): 3 chân — hai đầu + chân giữa (wiper).</figcaption></figure>
+        <figure><img src="../inventory/photos/bien-tro-10k.jpg" alt="Biến trở 10K"><figcaption>Biến trở 10K: chân 1 + chân 3 → 3V3/GND; chân giữa → D34.</figcaption></figure>
         <figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption><strong>D34</strong> đọc ADC · <strong>D2</strong> xuất PWM.</figcaption></figure>
         <figure><img src="../inventory/photos/breadboard-mb102.jpg" alt="Breadboard"><figcaption>Biến trở cắm 3 hàng; LED giữ từ P2/P4.</figcaption></figure>
         <figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>~5 sợi: 3V3, GND×2, D34, D2.</figcaption></figure>
@@ -41,7 +49,7 @@
         <tr><th>Linh kiện</th><th>Nối tới</th><th>Ghi chú</th></tr>
         <tr><td>Biến trở đầu 1</td><td>3V3</td><td>Jumper Đực–Cái</td></tr>
         <tr><td>Biến trở đầu 2</td><td>GND</td><td>Jumper Đực–Cái</td></tr>
-        <tr><td>Biến trở chân giữa</td><td><strong>D34</strong> (GPIO 34)</td><td>ADC, input-only @ i13</td></tr>
+        <tr><td>Biến trở chân giữa</td><td><strong>D34</strong> (GPIO 34)</td><td>ADC, input-only @ j13</td></tr>
         <tr><td>LED</td><td><strong>D2</strong> → 220Ω → LED → GND</td><td>Giữ mạch P4</td></tr>
       </table>
       <pre><code>3V3 ----[pot leg 1]
@@ -62,8 +70,7 @@ D2 --[220Ω]-- LED+ -- LED- -- GND</code></pre>
           <div class="board-body" id="board"></div>
         </div>
       </div>
-      <p><strong>Biến trở:</strong> chân 1 <code>d20</code> · giữa <code>d21</code> · chân 3 <code>d22</code>.</p>
-      <p><strong>Jumper:</strong> đỏ <code>a2↔a20</code> · cam <code>a3↔a22</code> · xanh <code>d21↔i13</code> · vàng <code>a5↔a27</code> · cam LED <code>a3↔i30</code>.</p>
+      <p><strong>Jumper:</strong> đỏ <code>a2↔a20</code> · cam <code>a3↔a24</code> · xanh <code>a22↔j13</code> · vàng <code>a5↔a27</code> · cam LED <code>a3↔j30</code>. <em>(Biến trở thưa: d20 / d22 / d24.)</em></p>
     </section>
 
     <section class="section">
@@ -91,13 +98,13 @@ D2 --[220Ω]-- LED+ -- LED- -- GND</code></pre>
       document.getElementById("hdr"),
       document.getElementById("board"),
       {
-        espPins: new Set(["2a", "3a", "5a", "13i"]),
+        espPins: new Set(["2a", "3a", "5a", "13j"]),
         wiring: {
           "2a": "w-vang", "20a": "w-vang",
-          "3a": "w-cam", "22a": "w-cam", "30i": "w-cam",
+          "3a": "w-cam", "24a": "w-cam", "30j": "w-cam",
           "5a": "w-vang", "27a": "w-vang", "27d": "w-vang",
-          "21d": "part-btn w-nau", "13i": "w-nau",
-          "20d": "part-btn", "22d": "part-btn",
+          "22a": "w-nau", "22d": "part-btn", "13j": "w-nau",
+          "20d": "part-btn", "24d": "part-btn",
           "27h": "part-r", "27j": "part-led", "30j": "part-led"
         }
       }

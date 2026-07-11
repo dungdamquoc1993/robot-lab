@@ -25,7 +25,7 @@
     </section>
     <section class="section warning">
       <h2>An toàn</h2>
-      <p>PIR VCC thường <strong>5V</strong> (VIN @ i2 khi USB cắm). OUT phải ≤3.3V vào GPIO — HC-SR501 thường OK.</p>
+      <p>PIR VCC thường <strong>5V</strong> (VIN @ j2 khi USB cắm). OUT phải ≤3.3V vào GPIO — HC-SR501 thường OK.</p>
     </section>
     <section class="section">
       <h2>Ảnh linh kiện</h2>
@@ -40,7 +40,7 @@
       <h2>Nối dây</h2>
       <table>
         <tr><th>PIR</th><th>ESP32</th><th>Ghi chú</th></tr>
-        <tr><td>VCC</td><td><strong>VIN</strong> @ i2 (5V)</td><td>Khi USB cắm</td></tr>
+        <tr><td>VCC</td><td><strong>VIN</strong> @ j2 (5V)</td><td>Khi USB cắm</td></tr>
         <tr><td>GND</td><td>GND</td><td>Mass chung</td></tr>
         <tr><td>OUT</td><td><strong>D19</strong> (GPIO 19)</td><td>Digital input</td></tr>
       </table>
@@ -55,7 +55,7 @@
           <div class="board-body" id="board"></div>
         </div>
       </div>
-      <p><strong>Jumper:</strong> đỏ VIN <code>i2</code> → PIR VCC · đen GND <code>a3</code> · vàng <code>a11</code> → D19 · LED (tùy chọn) giữ P2.</p>
+      <p><strong>Jumper:</strong> đỏ VIN <code>j2</code> → PIR VCC · đen GND <code>a3</code> · vàng <code>a11</code> → D19 · LED (tùy chọn) giữ P2.</p>
     </section>
 
     <section class="section">
@@ -82,12 +82,12 @@
       document.getElementById("hdr"),
       document.getElementById("board"),
       {
-        espPins: new Set(["3a", "5a", "11a", "2i"]),
+        espPins: new Set(["3a", "5a", "11a", "2j"]),
         wiring: {
-          "3a": "w-cam", "30i": "w-cam",
+          "3a": "w-cam", "30j": "w-cam",
           "5a": "w-vang", "27a": "w-vang", "27d": "w-vang",
           "11a": "w-nau",
-          "2i": "w-vang",
+          "2j": "w-vang",
           "27h": "part-r", "27j": "part-led", "30j": "part-led"
         }
       }

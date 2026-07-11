@@ -54,12 +54,22 @@ Danh sách linh kiện và dụng cụ đang sở hữu. Cập nhật khi mua th
 | Module nhiệt độ & độ ẩm **DHT11** | 1 | ![module-dht11](photos/module-dht11.jpg) | Digital 1-wire |
 | Module tránh vật cản **LM393** (IR) | 1 | ![module-lm393](photos/module-lm393-tranh-vat-can.jpg) | Digital — VCC, GND, OUT |
 
-### Linh kiện cơ bản
+### Túi nút bấm + phụ kiện (ESP32 kit)
+
+Ảnh tổng túi: ![túi phụ kiện](photos/nut-bam-12x12-bien-tro-10k.jpg)
+
+| Thiết bị | Số lượng | Ảnh riêng | Nhận diện nhanh |
+|----------|----------|-----------|-----------------|
+| Nút nhấn **12×12** | 6 | *(trong ảnh túi)* | Hộp vuông đen 12×12 mm, 4 chân kim |
+| Nắp nút màu | 6 | *(trong ảnh túi)* | Nút tròn đỏ / xanh / trắng / đen, gắn lên nút bấm |
+| Biến trở **10K** | 1 | ![bien-tro-10k](photos/bien-tro-10k.jpg) | **3 chân**, trục xoay kim loại — dùng P5, P7 |
+| Buzzer thụ động **2 chân** | 1 | ![buzzer](photos/buzzer-thu-dong-2chan.jpg) | Trụ đen nhỏ, **2 chân**, mạch xanh bên trong — P10 |
+| LED **RGB** 5 mm | 1 | ![led-rgb](photos/led-rgb-5mm.jpg) | Đầu trong suốt, **4 chân** dài khác nhau — bài mở rộng |
+
+### Linh kiện cơ bản (khác)
 
 | Thiết bị | Số lượng | Ảnh |
 |----------|----------|-----|
-| Biến trở **10K** | 1 | ![nut-bam-bien-tro](photos/nut-bam-12x12-bien-tro-10k.jpg) *(cùng túi với nút bấm)* |
-| Nút nhấn **12×12** + nắp màu | 6 | ![nut-bam-bien-tro](photos/nut-bam-12x12-bien-tro-10k.jpg) |
 | LED đỏ / vàng / xanh lục | 5 + 5 + 5 | ![led-5mm](photos/led-5mm-do-vang-xanh.jpg) |
 | Điện trở lẻ 220Ω / 1K / 10K | — | ![set-dien-tro-600](photos/set-dien-tro-600-metal-film.jpg) | Lấy từ set 600 |
 | Module relay **2 kênh 5V** (SONGLE SRD-05VDC-SL-C) | 1 | ![module-relay](photos/module-relay-2-kenh-5v.jpg) |
@@ -79,8 +89,6 @@ Danh sách linh kiện và dụng cụ đang sở hữu. Cập nhật khi mua th
 | Thiết bị | Dùng cho |
 |----------|----------|
 | Module chuyển động **PIR HC-SR501** | P4b |
-| LED **RGB** | Bài mở rộng |
-| Buzzer thụ động / hoạt động | P10, P4b (báo động) |
 | DC motor × 2 | P11, P18 — truyền động bánh xe |
 | Motor driver (L298N / TB6612) | P11, P18 — ESP32 không đủ dòng motor |
 | Khung xe 2 bánh + bánh | P18 |
@@ -113,7 +121,10 @@ Danh sách linh kiện và dụng cụ đang sở hữu. Cập nhật khi mua th
 | `module-dht11.jpg` | Module DHT11 |
 | `servo-sg90.jpg` | Servo SG90 + phụ kiện |
 | `led-5mm-do-vang-xanh.jpg` | LED 5mm (5 đỏ + 5 vàng + 5 xanh) |
-| `nut-bam-12x12-bien-tro-10k.jpg` | Nút 12×12, nắp nút, biến trở 10K |
+| `nut-bam-12x12-bien-tro-10k.jpg` | Túi nút bấm + phụ kiện (tổng quan) |
+| `bien-tro-10k.jpg` | Biến trở 10K — 3 chân, trục xoay |
+| `buzzer-thu-dong-2chan.jpg` | Buzzer thụ động 2 chân |
+| `led-rgb-5mm.jpg` | LED RGB 5 mm, 4 chân |
 | `module-quang-tro-ldr.jpg` | Module quang trở LDR |
 | `cap-usb-micro.jpg` | Cáp USB Micro |
 | `oled-096-inch-i2c.jpg` | OLED 0.96" I2C |

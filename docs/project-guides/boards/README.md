@@ -8,13 +8,14 @@ Sơ đồ MB102 chung (grid trống): [breadboard-diagram.html](../breadboard-di
 
 - Cột: `a`–`e` (trái rãnh) · `f`–`j` (phải rãnh)
 - Hàng: **1–65** (vùng giữa MB102)
-- ESP32 cố định: **3V3 @ b2**, USB hướng lên; chân trái `b`, phải `i`, hàng 2–16
+- ESP32 cố định: **3V3 @ b2**, USB hướng lên; chân trái `b`, phải **`j`**, hàng 2–16. Jumper tới GPIO phải → **cột j** (cột `i` bị board che).
 - Ghi jumper: `màu từ → đến` (vd `vàng b5 → a27`)
 
 ## Files
 
 | Project | Board spec (text) | HTML (sơ đồ tương tác) |
 |---------|-------------------|--------------------------|
+| P6 | [p06.md](p06.md) | [p06-cam-bien-anh-sang.html](../p06-cam-bien-anh-sang.html#board-map) |
 | P5 | [p05.md](p05.md) | [p05-bien-tro-led.html](../p05-bien-tro-led.html#board-map) |
 | P4c | [p04c.md](p04c.md) | [p04c-lm393-phat-hien-vat.html](../p04c-lm393-phat-hien-vat.html#board-map) |
 | P4b | [p04b.md](p04b.md) | [p04b-pir-bao-dong.html](../p04b-pir-bao-dong.html#board-map) |

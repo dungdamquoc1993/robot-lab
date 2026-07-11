@@ -57,7 +57,7 @@
         <tr><td>3</td><td><strong>GND</strong> ← cam</td></tr>
         <tr><td>5</td><td><strong>D2</strong> ← PWM vàng</td></tr>
       </table>
-      <p><strong>Jumper:</strong> cam <code>a3↔i30</code> · vàng <code>a5↔a27</code>.</p>
+      <p><strong>Jumper:</strong> cam <code>a3↔j30</code> · vàng <code>a5↔a27</code>.</p>
       <p><strong>Linh kiện:</strong> điện trở <code>d27↔h27</code> · LED <code>j27</code> / <code>j30</code>.</p>
     </section>
 
@@ -88,7 +88,7 @@
       {
         espPins: new Set(["3a", "5a"]),
         wiring: {
-          "3a": "w-cam", "30i": "w-cam",
+          "3a": "w-cam", "30j": "w-cam",
           "5a": "w-vang", "27a": "w-vang", "27d": "w-vang",
           "27h": "part-r", "27j": "part-led", "30j": "part-led"
         }

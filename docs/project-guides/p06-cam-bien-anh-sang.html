@@ -5,16 +5,95 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>P6 Cảm biến ánh sáng</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="breadboard-widget.css">
 </head>
 <body>
   <main class="page">
-    <nav class="topnav"><a href="index.html">Index</a><a href="p05-bien-tro-led.html">P5</a><a href="p07-servo-bien-tro.html">P7 tiếp theo</a></nav>
-    <section class="hero"><h1>P6 Cảm biến ánh sáng</h1><p>Đọc module quang trở LDR, che/mở cảm biến và quan sát giá trị thay đổi trên Serial Monitor.</p><div class="meta"><span class="tag">LDR</span><span class="tag">ADC</span><span class="tag">Voltage divider</span></div></section>
-    <section class="section warning"><h2>An toàn</h2><p>Nếu dùng chân AO vào ADC ESP32, ưu tiên cấp module bằng 3V3 để điện áp analog không vượt mức GPIO.</p></section>
-    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/module-quang-tro-ldr.jpg" alt="Module LDR"><figcaption>Module LDR: AO cho giá trị analog, DO cho ngưỡng digital.</figcaption></figure><figure><img src="../inventory/photos/breadboard-mb102.jpg" alt="Breadboard"><figcaption>Breadboard: đặt module hoặc nối chân module xuống bus.</figcaption></figure><figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>Dây jumper: 4 sợi (3V3, GND, D34, tùy chọn D19 cho DO).</figcaption></figure><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: đọc AO bằng ADC và log Serial.</figcaption></figure></div></section>
-    <section class="section"><h2>Nối dây gợi ý</h2><table><tr><th>LDR module</th><th>ESP32</th><th>Vai trò</th></tr><tr><td>VCC</td><td>3V3</td><td>Nguồn an toàn cho ADC.</td></tr><tr><td>GND</td><td>GND</td><td>Mass chung.</td></tr><tr><td>AO</td><td>GPIO 34</td><td>Giá trị analog ánh sáng.</td></tr><tr><td>DO</td><td>Không bắt buộc</td><td>Chỉ dùng nếu muốn đọc ngưỡng on/off.</td></tr></table></section>
-    <section class="section"><h2>Các bước làm</h2><ol><li>Nối AO vào GPIO 34.</li><li>In <code>analogRead(34)</code> ra Serial Monitor.</li><li>Chiếu sáng, che cảm biến, ghi min/max tương đối.</li><li>Nếu dùng DO, xoay biến trở module để chỉnh ngưỡng.</li></ol></section>
-    <section class="section"><h2>Hoàn thành khi</h2><ul><li>Serial Monitor thay đổi rõ khi che/mở LDR.</li><li>Bạn hiểu voltage divider biến ánh sáng thành điện áp đọc được.</li></ul></section>
+    <nav class="topnav">
+      <a href="index.html">Index</a>
+      <a href="breadboard-diagram.html">Sơ đồ MB102 mẫu</a>
+      <a href="p05-bien-tro-led.html">P5</a>
+      <a href="p07-servo-bien-tro.html">P7 tiếp theo</a>
+    </nav>
+    <section class="hero">
+      <h1>P6 Cảm biến ánh sáng</h1>
+      <p>Module quang trở LDR — đọc <strong>AO</strong> qua ADC @ <strong>D34 (j13)</strong>, che/mở cảm biến và xem Serial.</p>
+      <div class="meta"><span class="tag">LDR</span><span class="tag">ADC</span><span class="tag">D34 @ j13</span></div>
+    </section>
+    <section class="section warning">
+      <h2>An toàn &amp; cột j</h2>
+      <p>Cấp module <strong>3V3</strong> (a2). AO vào ADC — không vượt 3.3V. Chân ESP32 bên phải nằm cột <strong>j</strong> — jumper tới D34/GND cắm <strong>j13</strong>, <strong>j3</strong>, không cắm cột <strong>i</strong> (bị board che).</p>
+    </section>
+    <section class="section">
+      <h2>Ảnh linh kiện</h2>
+      <div class="grid">
+        <figure><img src="../inventory/photos/module-quang-tro-ldr.jpg" alt="Module LDR"><figcaption>Module LDR: <strong>VCC · GND · DO · AO</strong> — P6 chỉ dùng AO (analog).</figcaption></figure>
+        <figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>3 sợi: đỏ 3V3, cam GND, xanh AO→D34.</figcaption></figure>
+        <figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption><strong>D34</strong> @ hàng 13 cột <strong>j</strong>.</figcaption></figure>
+        <figure><img src="../inventory/photos/breadboard-mb102.jpg" alt="Breadboard"><figcaption>Module @ d20–d22 (thay biến trở P5 nếu còn).</figcaption></figure>
+      </div>
+    </section>
+    <section class="section">
+      <h2>Nối dây</h2>
+      <table>
+        <tr><th>Chân module</th><th>Nối tới</th><th>Ghi chú</th></tr>
+        <tr><td>VCC</td><td>3V3 — đỏ <code>a2</code> → <code>a20</code> (module @ d20)</td><td>Không 5V</td></tr>
+        <tr><td>GND</td><td>GND — cam <code>a3</code> → <code>a21</code> (module @ d21)</td><td>Mass chung</td></tr>
+        <tr><td>AO</td><td><strong>D34</strong> — xanh <code>a24</code> → <code>j13</code> (module AO @ d24)</td><td>ADC input-only</td></tr>
+        <tr><td>DO</td><td>—</td><td>Không nối (bài cơ bản)</td></tr>
+      </table>
+      <pre><code>3V3 (a2) ──đỏ── a20 ═══ d20 VCC   (cùng hàng 20, nửa trái)
+GND (a3) ──cam── a21 ═══ d21 GND
+              a24 ═══ d24 AO ──xanh── j13 (D34)</code></pre>
+    </section>
+
+    <section class="section" id="board-map">
+      <h2>Board map</h2>
+      <p>Chi tiết: <a href="boards/p06.md">boards/p06.md</a>. MB102 mẫu: <a href="breadboard-diagram.html">sơ đồ chung</a>.</p>
+      <div class="diagram-wrap">
+        <div class="diagram">
+          <div class="bb-header" id="hdr"></div>
+          <div class="board-body" id="board"></div>
+        </div>
+      </div>
+      <p><strong>Module:</strong> VCC <code>d20</code> · GND <code>d21</code> · AO <code>d24</code> (4 chân thưa).</p>
+      <p><strong>Jumper:</strong> đỏ <code>a2↔a20</code> · cam <code>a3↔a21</code> · xanh <code>a24↔j13</code>. <em>Dây vào cột <code>a</code>, module ở <code>d</code> — cùng hàng, không tranh lỗ.</em></p>
+    </section>
+
+    <section class="section">
+      <h2>Các bước làm</h2>
+      <ol>
+        <li>Gỡ biến trở P5; cắm module LDR @ <code>d20–d22</code> (đối nhãn VCC/GND/AO).</li>
+        <li>3 dây jumper theo bảng trên — AO vào <strong>j13</strong>.</li>
+        <li><code>main.cpp</code>: chọn <code>p06_setup</code> / <code>p06_loop</code>.</li>
+        <li><code>pio run -t upload</code> · Serial Monitor <strong>115200</strong>.</li>
+        <li>Che module / chiếu sáng — ghi <code>light ADC=</code> min và max.</li>
+      </ol>
+    </section>
+    <section class="section">
+      <h2>Hoàn thành khi</h2>
+      <ul>
+        <li>Serial thay đổi rõ khi che/mở LDR.</li>
+        <li>Hiểu LDR + divider trên module → điện áp AO → <code>analogRead</code> (giống P5 nhưng cảm biến thay biến trở).</li>
+      </ul>
+    </section>
   </main>
+
+  <script src="breadboard-widget.js"></script>
+  <script>
+    RobotLabBreadboard.render(
+      document.getElementById("hdr"),
+      document.getElementById("board"),
+      {
+        espPins: new Set(["2a", "3a", "13j"]),
+        wiring: {
+          "2a": "w-vang", "3a": "w-cam",
+          "20a": "w-vang", "20d": "part-btn",
+          "21a": "w-cam", "21d": "part-btn",
+          "24a": "w-nau", "24d": "part-btn", "13j": "w-nau"
+        }
+      }
+    );
+  </script>
 </body>
 </html>

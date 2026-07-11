@@ -27,7 +27,7 @@
         <figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: <strong>D2</strong> output LED, <strong>D18</strong> input nút.</figcaption></figure>
         <figure><img src="../inventory/photos/breadboard-mb102.jpg" alt="Breadboard"><figcaption>Breadboard: đặt nút vắt qua khe giữa — 4 chân đối diện nối khi bấm.</figcaption></figure>
         <figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>Dây jumper: P3 cần thêm ~2 sợi (D18 + GND nút). Có thể dùng chung 1 dây GND xuống rail <code>−</code>.</figcaption></figure>
-        <figure><img src="../inventory/photos/nut-bam-12x12-bien-tro-10k.jpg" alt="Nút bấm"><figcaption>Nút 12×12: khi bấm nối hai chân đối góc (qua rãnh breadboard).</figcaption></figure>
+        <figure><img src="../inventory/photos/nut-bam-12x12-bien-tro-10k.jpg" alt="Túi nút bấm"><figcaption>Túi kit: nút <strong>vuông đen 4 chân</strong> (P3) — khác biến trở 3 chân (P5) và buzzer trụ đen 2 chân.</figcaption></figure>
         <figure><img src="../inventory/photos/led-5mm-do-vang-xanh.jpg" alt="LED"><figcaption>LED: hiển thị trạng thái ON/OFF.</figcaption></figure>
         <figure><img src="../inventory/photos/set-dien-tro-600-metal-film.jpg" alt="Điện trở"><figcaption>Điện trở 220Ω: giới hạn dòng qua LED.</figcaption></figure>
       </div>
@@ -64,7 +64,7 @@ D18 --> nut pin A    nut pin B (đối diện) --> GND</code></pre>
         <tr><td>5</td><td><strong>D2</strong> ← LED vàng</td><td>—</td></tr>
         <tr><td>10</td><td><strong>D18</strong> ← nút nâu</td><td>—</td></tr>
       </table>
-      <p><strong>Jumper P3:</strong> cam <code>a3↔i30</code> · vàng <code>a5↔a27</code> · nâu <code>a10↔a33</code>.</p>
+      <p><strong>Jumper P3:</strong> cam <code>a3↔j30</code> · vàng <code>a5↔a27</code> · nâu <code>a10↔a33</code>.</p>
       <p><strong>Linh kiện:</strong> điện trở <code>d27↔h27</code> · LED <code>j27</code> (anode) / <code>j30</code> (cathode) · nút <code>d30–g30</code> / <code>d33–g33</code>.</p>
       <p class="warning" style="color:var(--warning-text);background:var(--warning-bg);padding:0.75rem;border-radius:8px;border:1px solid var(--warning-border)">
         <strong>Lưu ý:</strong> GND (cam) hàng 30 phải · D18 (nâu) hàng <strong>33</strong> trái — nút nối hai cực khi bấm.
@@ -92,7 +92,7 @@ D18 --> nut pin A    nut pin B (đối diện) --> GND</code></pre>
       {
         espPins: new Set(["3a", "5a", "10a"]),
         wiring: {
-          "3a": "w-cam", "30i": "w-cam",
+          "3a": "w-cam", "30j": "w-cam",
           "5a": "w-vang", "27a": "w-vang", "27d": "w-vang",
           "10a": "w-nau", "33a": "w-nau", "33d": "w-nau",
           "27h": "part-r", "27j": "part-led", "30j": "part-led",

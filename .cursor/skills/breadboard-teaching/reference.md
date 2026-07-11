@@ -2,7 +2,7 @@
 
 ## ESP32 @ b2 (rows 2–16)
 
-| Row | b (left) | i (right) |
+| Row | b (left) | j (right) |
 |-----|----------|-----------|
 | 2 | 3V3 | VIN |
 | 3 | GND | GND |

@@ -28,7 +28,7 @@ description: >-
 
 ## Board coordinate system (fixed for this repo)
 
-- **ESP32 DevKit V1 (30 pin)** straddles trench: left pins @ column **`b`**, right @ **`i`**, rows **2–16**, **3V3 @ b2**, USB up.
+- **ESP32 DevKit V1 (30 pin)** straddles trench: left pins @ column **`b`**, right @ **`j`**, rows **2–16**, **3V3 @ b2**, USB up. Dây jumper tới GPIO phải cắm **cột j** (cùng hàng), không **i**.
 - **Main grid:** 65 rows × `a–e` | rãnh | `f–j`.
 - **Rails:** vertical clusters 10×(5 holes), red `+` / blue `−` on both sides — disconnected between clusters.
 - **Same row + same half** (a–e or f–j) = electrically connected.

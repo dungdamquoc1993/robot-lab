@@ -36,7 +36,7 @@ Context for AI assistants working in this repo (equivalent to CLAUDE.md).
 2. Explain **atomically:** code line → GPIO → coord → current path → component (like tracing a Python request through layers).
 3. Student reports coords + symptoms; agent validates topology before blaming code.
 
-**ESP32 fixed on board:** 3V3 @ **b2**, left pins column **b**, right column **i**, rows 2–16 (see `boards/README.md`).
+**ESP32 fixed on board:** 3V3 @ **b2**, left pins column **b**, right column **j**, rows 2–16 (see `boards/README.md`). Jumper tới chân phải cắm **j** — cột **i** bị thân board che.
 
 ## Toolchain
 

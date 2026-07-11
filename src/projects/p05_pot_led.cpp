@@ -2,7 +2,7 @@
 #include <Arduino.h>
 
 constexpr int LED_PIN = 2;
-constexpr int POT_PIN = 34;  // GPIO34 = D34 @ i13, ADC input-only
+constexpr int POT_PIN = 34;  // GPIO34 = D34 @ j13, ADC input-only
 constexpr int PWM_CHANNEL = 0;
 constexpr int PWM_FREQ = 5000;
 constexpr int PWM_BITS = 8;

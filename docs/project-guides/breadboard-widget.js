@@ -101,7 +101,7 @@
     el.title = `${col}${row}`;
 
     const pin = side === "L" ? esp32L[row] : esp32R[row];
-    const espCol = side === "L" ? col === "b" : col === "i";
+    const espCol = side === "L" ? col === "b" : col === "j";
     if (pin && espCol) {
       el.classList.add("esp32");
       el.textContent = pin;
