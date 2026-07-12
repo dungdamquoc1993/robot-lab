@@ -92,7 +92,7 @@ M5 Motor & driver  →  M6 Điều khiển nâng cao
 | P8 Web server | [x] | |
 | P9 OLED + sensor | [x] | |
 | P10 Buzzer | [x] | |
-| P14 Relay | [ ] | |
+| P14 Relay | [x] | |
 | P4b PIR | | [ ] |
 | P4c LM393 | | [x] |
 

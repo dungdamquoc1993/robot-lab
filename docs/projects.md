@@ -46,7 +46,7 @@ Guide HTML có ảnh linh kiện và các bước làm: [project-guides/index.ht
 | P8 | [x] | Web server | Điều khiển LED/servo từ điện thoại qua Wi-Fi | ESP32 | Wi-Fi, HTTP, IoT |
 | P9 | [x] | OLED + sensor | Hiển thị nhiệt độ/ánh sáng lên OLED | OLED, DHT11 hoặc LDR | I2C, sensor data |
 | P10 | [x] | Buzzer | Phát tiếng bíp / tone đơn giản | Buzzer thụ động hoặc hoạt động | PWM frequency |
-| P14 | [ ] | Relay | ESP32 bật/tắt relay (nghe "tạch") | Module relay 2 kênh | Relay, isolation |
+| P14 | [x] | Relay | ESP32 bật/tắt relay (nghe "tạch") | Module relay 2 kênh | Relay, isolation |
 
 ### Bài bổ sung (cùng mốc, dùng kit)
 
@@ -147,3 +147,11 @@ Sao chép template này vào cuối file (hoặc tạo `docs/notes/`) khi hoàn 
 - Lệnh: `pio run`, `pio run -t upload`.
 - Ghi chú: breadboard bắt đầu trắng; ESP32 rời breadboard, buzzer đặt tại `e15/e20`, điện trở 220Ω `d10 → d15`. Buzzer kêu pattern “Bò / Be / Bíp” lặp lại đúng firmware.
 - Điều muốn thử tiếp: đổi `PATTERN` thành melody ngắn hoặc dùng P8 webserver bật/tắt buzzer từ điện thoại.
+
+### P14 Relay — 2026-07-12
+- Chân GPIO: **26** (relay K1 / IN1), **27** (relay K2 / IN2).
+- Thư viện Arduino: không thêm.
+- Firmware: active-LOW open-drain style; OFF = GPIO `INPUT`, ON = GPIO `OUTPUT LOW`, pattern K1 rồi K2.
+- Lệnh: `pio run`, `pio run -t upload`.
+- Ghi chú: chỉ test tiếng relay và LED module; không đấu tải vào cọc vít xanh. Relay VCC lấy **VIN/5V**, GND chung, IN1/IN2 vào D26/D27. K1/IN1 “tạch”, rồi K2/IN2 “tạch”, nghỉ ngắn và lặp lại đúng firmware.
+- Điều muốn thử tiếp: dùng P8 webserver để bật/tắt relay từ điện thoại sau khi test P14 ổn định.

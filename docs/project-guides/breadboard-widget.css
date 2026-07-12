@@ -107,6 +107,7 @@
 .main-hole.part-btn { background: #c8a0e8; border-color: #8060a0; }
 .main-hole.part-servo { background: #e8c08a; border-color: #b87828; }
 .main-hole.part-buzzer { background: #30363d; border-color: #e8c040; color: #fff; }
+.main-hole.part-relay { background: #3f7fbf; border-color: #1e4f80; color: #fff; }
 .main-hole.problem { box-shadow: inset 0 0 0 2px #e04040; }
 
 .board-body { position: relative; }

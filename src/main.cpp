@@ -13,6 +13,7 @@
 #include "projects/p08_web_server.h"
 #include "projects/p09_oled_sensor.h"
 #include "projects/p10_buzzer.h"
+#include "projects/p14_relay.h"
 
 // Chọn project: bỏ comment đúng 1 cặp setup/loop, comment các cặp còn lại.
 
@@ -29,7 +30,8 @@ void setup() {
   // p07b_setup();
   // p08_setup();
   // p09_setup();
-  p10_setup();
+  // p10_setup();
+  p14_setup();
 }
 
 void loop() {
@@ -45,5 +47,6 @@ void loop() {
   // p07b_loop();
   // p08_loop();
   // p09_loop();
-  p10_loop();
+  // p10_loop();
+  p14_loop();
 }

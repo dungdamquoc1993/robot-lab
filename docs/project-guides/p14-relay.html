@@ -5,16 +5,117 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>P14 Relay</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="breadboard-widget.css">
 </head>
 <body>
   <main class="page">
-    <nav class="topnav"><a href="index.html">Index</a><a href="p10-buzzer.html">P10</a><a href="p11-dc-motor-driver.html">P11</a></nav>
-    <section class="hero"><h1>P14 Relay</h1><p>ESP32 điều khiển module relay 2 kênh 5V để nghe tiếng đóng/ngắt và hiểu cách ly tải.</p><div class="meta"><span class="tag">Relay</span><span class="tag">Isolation</span><span class="tag">5V module</span></div></section>
-    <section class="section warning"><h2>An toàn</h2><p>Ở giai đoạn học, chỉ test tiếng relay và LED tải thấp. Không đấu điện lưới AC khi chưa có kiến thức an toàn điện.</p></section>
-    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/module-relay-2-kenh-5v.jpg" alt="Relay 2 kênh"><figcaption>Module relay 2 kênh: ESP32 điều khiển IN1/IN2, relay đóng/cắt tiếp điểm.</figcaption></figure><figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>Dây jumper: 4 sợi (5V/VIN, GND, IN1, IN2). GND phải chung với ESP32.</figcaption></figure><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: xuất tín hiệu điều khiển relay.</figcaption></figure></div></section>
-    <section class="section"><h2>Nối dây gợi ý</h2><table><tr><th>Relay module</th><th>ESP32/nguồn</th><th>Vai trò</th></tr><tr><td>VCC</td><td>5V</td><td>Nguồn coil/module.</td></tr><tr><td>GND</td><td>GND ESP32</td><td>Mass chung.</td></tr><tr><td>IN1</td><td>GPIO 26</td><td>Điều khiển kênh 1.</td></tr><tr><td>IN2</td><td>GPIO 27</td><td>Điều khiển kênh 2 nếu cần.</td></tr></table></section>
-    <section class="section"><h2>Các bước làm</h2><ol><li>Chỉ nối phần tín hiệu trước, upload code bật/tắt IN1 chậm.</li><li>Nghe relay “tạch” khi đổi trạng thái.</li><li>Kiểm tra module active LOW hay active HIGH.</li><li>Nếu test tải, dùng LED/nguồn DC thấp trước.</li></ol></section>
-    <section class="section"><h2>Hoàn thành khi</h2><ul><li>Relay đóng/ngắt ổn định từ ESP32.</li><li>Bạn phân biệt được phía điều khiển GPIO và phía tiếp điểm tải.</li></ul></section>
+    <nav class="topnav">
+      <a href="index.html">Index</a>
+      <a href="breadboard-diagram.html">Sơ đồ MB102 mẫu</a>
+      <a href="p10-buzzer.html">P10</a>
+      <a href="p11-dc-motor-driver.html">P11</a>
+    </nav>
+
+    <section class="hero">
+      <h1>P14 Relay</h1>
+      <p>ESP32 điều khiển module relay 2 kênh 5V để nghe tiếng đóng/ngắt và hiểu phần điều khiển tách với phần tải.</p>
+      <div class="meta"><span class="tag">D26/D27</span><span class="tag">Relay 5V</span><span class="tag">Active LOW</span></div>
+    </section>
+
+    <section class="section warning">
+      <h2>An toàn</h2>
+      <p>Chỉ test tiếng relay và LED trên module. Không đấu điện lưới AC/220V vào cọc vít xanh. ESP32 GPIO là <strong>3.3V logic</strong>; bài này dùng kiểu kéo LOW để kích relay, không drive HIGH vào input 5V.</p>
+    </section>
+
+    <section class="section">
+      <h2>Ảnh linh kiện</h2>
+      <div class="grid">
+        <figure><img src="../inventory/photos/module-relay-2-kenh-5v.jpg" alt="Relay 2 kênh"><figcaption>Module relay 2 kênh: dùng header <strong>GND IN1 IN2 VCC</strong>; cọc vít xanh để trống trong bài test.</figcaption></figure>
+        <figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>Dây Đực-Cái từ ESP32/module relay tới landing trên breadboard.</figcaption></figure>
+        <figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: D26 điều khiển K1, D27 điều khiển K2, VIN/5V cấp relay qua USB.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Nối dây</h2>
+      <table>
+        <tr><th>Relay module</th><th>Landing</th><th>ESP32 rời</th><th>Vai trò</th></tr>
+        <tr><td>GND</td><td><code>e20</code> / <code>a20</code></td><td>GND</td><td>Mass chung</td></tr>
+        <tr><td>IN1</td><td><code>e21</code> / <code>a21</code></td><td>D26</td><td>Kênh relay 1</td></tr>
+        <tr><td>IN2</td><td><code>e22</code> / <code>a22</code></td><td>D27</td><td>Kênh relay 2</td></tr>
+        <tr><td>VCC</td><td><code>e23</code> / <code>a23</code></td><td>VIN/5V</td><td>Nguồn 5V module</td></tr>
+      </table>
+      <pre><code>ESP32 GND    ──đen──── a20 ═ e20  Relay GND
+ESP32 D26    ──xanh─── a21 ═ e21  Relay IN1
+ESP32 D27    ──tím──── a22 ═ e22  Relay IN2
+ESP32 VIN/5V ──đỏ───── a23 ═ e23  Relay VCC</code></pre>
+    </section>
+
+    <section class="section" id="board-map">
+      <h2>Board map</h2>
+      <p>Chi tiết: <a href="boards/p14.md">boards/p14.md</a>. ESP32 và relay đều rời breadboard; MB102 chỉ giữ các landing ở hàng <code>20–23</code>.</p>
+      <div class="diagram-wrap">
+        <div class="diagram">
+          <div class="bb-header" id="hdr"></div>
+          <div class="board-body" id="board"></div>
+        </div>
+      </div>
+      <p><strong>Relay control header:</strong> GND <code>e20</code> · IN1 <code>e21</code> · IN2 <code>e22</code> · VCC <code>e23</code>.</p>
+    </section>
+
+    <section class="section">
+      <h2>Các bước làm</h2>
+      <ol>
+        <li>Reset breadboard trắng; ESP32 cắm USB và để ngoài breadboard.</li>
+        <li>Không cắm gì vào cọc vít xanh <code>NO/COM/NC</code>.</li>
+        <li>Giữ nguyên jumper cap nhỏ trên relay nếu nó đang nối <code>JD-VCC</code> và <code>VCC</code>.</li>
+        <li>Cắm relay header <code>GND IN1 IN2 VCC</code> lần lượt về <code>e20/e21/e22/e23</code>.</li>
+        <li>Nối ESP32 <code>GND/D26/D27/VIN</code> lần lượt vào <code>a20/a21/a22/a23</code>.</li>
+        <li><code>main.cpp</code> đang chọn <code>p14_setup</code> / <code>p14_loop</code>.</li>
+        <li><code>pio run -t upload</code>; relay sẽ lần lượt K1 “tạch”, nghỉ, K2 “tạch”, nghỉ.</li>
+      </ol>
+    </section>
+
+    <section class="section">
+      <h2>Atomic trace</h2>
+      <ol>
+        <li><code>p14SetRelay(26, true)</code> đặt D26 thành <code>OUTPUT LOW</code>.</li>
+        <li>D26 kéo <code>IN1</code> xuống GND qua dây <code>a21/e21</code>.</li>
+        <li>Module relay active-LOW kích kênh K1.</li>
+        <li>Coil relay đóng tiếp điểm, bạn nghe tiếng “tạch”.</li>
+        <li>Khi OFF, code đặt D26 về <code>INPUT</code>; relay nhả ra.</li>
+      </ol>
+    </section>
+
+    <section class="section">
+      <h2>Hoàn thành khi</h2>
+      <ul>
+        <li>Relay K1 và K2 lần lượt đóng/ngắt ổn định.</li>
+        <li>Serial Monitor 115200 in <code>relay 1 on</code>, <code>relay 2 on</code>.</li>
+        <li>Bạn phân biệt được input điều khiển <code>IN1/IN2</code> với cọc tiếp điểm tải <code>NO/COM/NC</code>.</li>
+      </ul>
+    </section>
   </main>
+
+  <script src="breadboard-widget.js"></script>
+  <script>
+    RobotLabBreadboard.render(
+      document.getElementById("hdr"),
+      document.getElementById("board"),
+      {
+        espPins: new Set([]),
+        wiring: {
+          "20a": "w-den",
+          "20e": "w-den part-relay",
+          "21a": "w-xanh",
+          "21e": "w-xanh part-relay",
+          "22a": "w-tim",
+          "22e": "w-tim part-relay",
+          "23a": "w-do",
+          "23e": "w-do part-relay"
+        }
+      }
+    );
+  </script>
 </body>
 </html>
