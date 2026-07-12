@@ -5,16 +5,141 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>P7 Servo + biến trở</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="breadboard-widget.css">
 </head>
 <body>
   <main class="page">
-    <nav class="topnav"><a href="index.html">Index</a><a href="p06-cam-bien-anh-sang.html">P6</a><a href="p07b-hai-servo.html">P7b</a></nav>
-    <section class="hero"><h1>P7 Servo + biến trở</h1><p>Xoay biến trở để điều khiển góc servo SG90 từ khoảng 0 đến 180 độ.</p><div class="meta"><span class="tag">Servo PWM</span><span class="tag">ADC</span><span class="tag">Nguồn 5V</span></div></section>
-    <section class="section warning"><h2>An toàn</h2><p>Servo SG90 dùng 5V và dòng cao hơn LED. Nối GND servo chung với GND ESP32; không cấp servo từ chân 3.3V.</p></section>
-    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/servo-sg90.jpg" alt="Servo SG90"><figcaption>Servo SG90: dây nâu GND, đỏ 5V, cam/vàng signal PWM.</figcaption></figure><figure><img src="../inventory/photos/bien-tro-10k.jpg" alt="Biến trở"><figcaption>Biến trở 10K (3 chân, trục xoay): tạo giá trị góc mong muốn.</figcaption></figure><figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>Dây jumper: 3 sợi cho biến trở (3V3, GND, D34) — servo dùng 3 dây sẵn trên đầu connector.</figcaption></figure><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: đọc ADC và phát xung điều khiển servo.</figcaption></figure><figure><img src="../inventory/photos/module-nguon-breadboard-mb102.jpg" alt="Module nguồn MB102"><figcaption>Module nguồn breadboard: có thể dùng làm nguồn 5V cho servo nếu cấp đúng đầu vào.</figcaption></figure></div></section>
-    <section class="section"><h2>Nối dây gợi ý</h2><table><tr><th>Linh kiện</th><th>Nối tới</th><th>Ghi chú</th></tr><tr><td>Servo đỏ</td><td>5V</td><td>Nguồn servo.</td></tr><tr><td>Servo nâu</td><td>GND</td><td>GND chung ESP32.</td></tr><tr><td>Servo cam/vàng</td><td>GPIO 18</td><td>Signal PWM.</td></tr><tr><td>Biến trở chân giữa</td><td>GPIO 34</td><td>ADC đọc góc.</td></tr><tr><td>Biến trở 2 đầu</td><td>3V3 và GND</td><td>Không dùng 5V cho ADC.</td></tr></table></section>
-    <section class="section"><h2>Các bước làm</h2><ol><li>Test servo quét 0-180 độ trước.</li><li>Thêm biến trở và đọc ADC.</li><li>Map ADC sang góc servo.</li><li>Nếu ESP32 reset khi servo chạy, đổi sang nguồn 5V ngoài mạnh hơn.</li></ol></section>
-    <section class="section"><h2>Hoàn thành khi</h2><ul><li>Servo quay theo biến trở ổn định, không giật/reset board.</li><li>Bạn biết servo cần nguồn riêng hơn LED vì tải cơ khí cần dòng lớn.</li></ul></section>
+    <nav class="topnav">
+      <a href="index.html">Index</a>
+      <a href="breadboard-diagram.html">Sơ đồ MB102 mẫu</a>
+      <a href="p06-cam-bien-anh-sang.html">P6</a>
+      <a href="p07b-hai-servo.html">P7b tiếp theo</a>
+    </nav>
+    <section class="hero">
+      <h1>P7 Servo + biến trở</h1>
+      <p>Xoay biến trở 10K → ESP32 đọc ADC ở <strong>D34</strong> → phát xung servo 50Hz ở <strong>D18</strong>. Layout hiện tại dùng ESP32 rời breadboard và jumper đực-cái.</p>
+      <div class="meta"><span class="tag">SG90</span><span class="tag">ADC D34</span><span class="tag">PWM D18</span><span class="tag">Nguồn 5V</span></div>
+    </section>
+
+    <section class="section warning">
+      <h2>An toàn</h2>
+      <p>Servo SG90 dùng <strong>5V</strong> và dòng cao hơn LED. Không cấp servo từ chân <strong>3V3</strong>. Nếu cấp servo từ <strong>VIN</strong> làm USB/hub đơ, rút dây <strong>VIN→a31</strong> và chuyển sang test biến trở trước; servo cần nguồn 5V ngoài đủ dòng. Biến trở cấp <strong>3V3</strong> vì D34 chỉ đọc tối đa 3.3V. Servo và ESP32 phải có <strong>GND chung</strong>.</p>
+    </section>
+
+    <section class="section">
+      <h2>Pha A: test an toàn</h2>
+      <p>Giữ dây <strong>VIN→a31</strong> đã rút. Pha này chỉ kiểm tra biến trở, ADC, mapping góc và xung D18; servo chưa quay vì dây đỏ chưa có 5V.</p>
+      <table>
+        <tr><th>Node</th><th>Trạng thái</th></tr>
+        <tr><td>3V3 → <code>a20/d20</code></td><td>Giữ cắm</td></tr>
+        <tr><td>D34 → <code>a22/d22</code></td><td>Giữ cắm</td></tr>
+        <tr><td>GND → <code>a24/d24</code></td><td>Giữ cắm</td></tr>
+        <tr><td>D18 → <code>a30/d30</code> → servo vàng</td><td>Giữ cắm</td></tr>
+        <tr><td>GND → <code>a32/d32</code> → servo nâu</td><td>Giữ cắm</td></tr>
+        <tr><td>VIN → <code>a31/d31</code> → servo đỏ</td><td><strong>Rút ra</strong></td></tr>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>Pha B: servo quay thật</h2>
+      <p>Chỉ cấp dây đỏ servo bằng nguồn 5V riêng đủ dòng. Nối GND nguồn đó chung với GND ESP32 tại <code>a32/d32</code>. Không dùng module chưa rõ loại chỉ có <code>VCC / OUT / GND</code> cho tới khi đo chắc <code>OUT</code> là 5V và biết chịu đủ dòng.</p>
+    </section>
+
+    <section class="section">
+      <h2>Ảnh linh kiện</h2>
+      <div class="grid">
+        <figure><img src="../inventory/photos/servo-sg90.jpg" alt="Servo SG90"><figcaption>Servo SG90: nâu GND, đỏ 5V, cam/vàng signal PWM.</figcaption></figure>
+        <figure><img src="../inventory/photos/bien-tro-10k.jpg" alt="Biến trở"><figcaption>Biến trở 10K: hai đầu 3V3/GND, chân giữa vào D34.</figcaption></figure>
+        <figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>Dây jumper: 3 sợi đực-cái cho biến trở; servo cần 3 điểm landing hoặc header 3 chân.</figcaption></figure>
+        <figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32 rời breadboard: jumper cái cắm vào 3V3/GND/D34/D18.</figcaption></figure>
+        <figure><img src="../inventory/photos/module-nguon-breadboard-mb102.jpg" alt="Module nguồn MB102"><figcaption>Nếu servo giật/reset board, dùng nguồn 5V ngoài/MB102 đủ dòng và nối chung GND.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Nối dây</h2>
+      <table>
+        <tr><th>Linh kiện</th><th>Tọa độ</th><th>Nối tới</th><th>Ghi chú</th></tr>
+        <tr><td>Biến trở chân 1</td><td><code>d20</code></td><td>ESP32 3V3: đỏ cái→3V3, đực→<code>a20</code></td><td>Cùng hàng 20 nửa trái</td></tr>
+        <tr><td>Biến trở chân giữa</td><td><code>d22</code></td><td>ESP32 D34: xanh cái→D34, đực→<code>a22</code></td><td>ADC input-only</td></tr>
+        <tr><td>Biến trở chân 3</td><td><code>d24</code></td><td>ESP32 GND: cam cái→GND, đực→<code>a24</code></td><td>Xoay ngược thì đổi chân 1/3</td></tr>
+        <tr><td>Servo signal</td><td><code>d30</code></td><td>ESP32 D18: nâu cái→D18, đực→<code>a30</code></td><td>Qua jumper vàng đực-đực tới dây vàng servo</td></tr>
+        <tr><td>Servo +5V</td><td><code>d31</code></td><td>ESP32 VIN: vàng cái→VIN, đực→<code>a31</code></td><td>Chỉ thử nhẹ; nếu USB đơ thì rút dây này</td></tr>
+        <tr><td>Servo GND</td><td><code>d32</code></td><td>ESP32 GND: xanh ngọc cái→GND, đực→<code>a32</code></td><td>Qua jumper nâu đực-đực tới dây nâu servo</td></tr>
+      </table>
+      <pre><code>Biến trở:
+ESP32 3V3 ──đỏ── a20 ═ d20 [leg 1]
+                    d22 [wiper] ═ a22 ──xanh── ESP32 D34
+ESP32 GND ──cam── a24 ═ d24 [leg 3]
+
+Servo SG90:
+ESP32 D18 ──nâu──── a30 ═ d30 ──vàng đực-đực── servo vàng signal
+ESP32 VIN ──vàng─── a31 ═ d31 ──đỏ đực-đực──── servo đỏ +5V
+ESP32 GND ──xanh ngọc a32 ═ d32 ──nâu đực-đực── servo nâu GND</code></pre>
+    </section>
+
+    <section class="section" id="board-map">
+      <h2>Board map</h2>
+      <p>Chi tiết: <a href="boards/p07.md">boards/p07.md</a>. MB102 mẫu: <a href="breadboard-diagram.html">sơ đồ chung</a>.</p>
+      <div class="diagram-wrap">
+        <div class="diagram">
+          <div class="bb-header" id="hdr"></div>
+          <div class="board-body" id="board"></div>
+        </div>
+      </div>
+      <p><strong>Biến trở:</strong> <code>d20</code> · <code>d22</code> · <code>d24</code>. <strong>Servo landing:</strong> signal <code>d30</code> · 5V <code>d31</code> · GND <code>d32</code>.</p>
+      <p><strong>Jumper:</strong> ESP32 3V3→<code>a20</code> · GND→<code>a24</code> · D34→<code>a22</code> · D18→<code>a30</code> · VIN→<code>a31</code> · GND→<code>a32</code>.</p>
+    </section>
+
+    <section class="section">
+      <h2>Các bước làm</h2>
+      <ol>
+        <li>Gỡ module LDR P6 nếu còn; cắm lại biến trở @ <code>d20/d22/d24</code>.</li>
+        <li>Cắm servo vào 3 điểm landing: <code>d30</code> tới dây vàng signal, <code>d31</code> tới dây đỏ +5V, <code>d32</code> tới dây nâu GND.</li>
+        <li><code>main.cpp</code> đang chọn <code>p07_setup</code> / <code>p07_loop</code>.</li>
+        <li>Nếu từng làm USB/hub đơ: rút dây <code>VIN→a31</code> trước, chỉ giữ biến trở + signal/GND để upload.</li>
+        <li>Build/upload: <code>pio run -t upload</code>; monitor: <code>pio device monitor</code>.</li>
+        <li>Xoay núm chậm; Serial in <code>pot ADC=... angle=... pulse=...us</code>.</li>
+      </ol>
+    </section>
+
+    <section class="section">
+      <h2>Atomic trace</h2>
+      <ol>
+        <li><code>analogRead(34)</code> đọc điện áp wiper từ biến trở qua <code>a22 → ESP32 D34</code>.</li>
+        <li><code>map(adc, 0, 4095, 0, 180)</code> đổi giá trị ADC thành góc.</li>
+        <li><code>ledcWrite(...)</code> tạo xung 50Hz trên ESP32 D18.</li>
+        <li>Signal đi qua jumper nâu tới <code>a30 → d30</code>, rồi qua jumper vàng đực-đực vào dây vàng servo.</li>
+        <li>Servo lấy dòng motor từ VIN tới <code>a31/d31</code> và trả về GND qua <code>d32/a32</code>.</li>
+      </ol>
+    </section>
+
+    <section class="section">
+      <h2>Hoàn thành khi</h2>
+      <ul>
+        <li>Servo quay theo biến trở ổn định, không reset ESP32.</li>
+        <li>Bạn phân biệt được ADC input 0–3.3V và servo PWM 50Hz theo độ rộng xung.</li>
+      </ul>
+    </section>
   </main>
+
+  <script src="breadboard-widget.js"></script>
+  <script>
+    RobotLabBreadboard.render(
+      document.getElementById("hdr"),
+      document.getElementById("board"),
+      {
+        espPins: new Set([]),
+        wiring: {
+          "20a": "w-do", "20d": "part-btn",
+          "24a": "w-cam", "24d": "part-btn",
+          "22a": "w-xanh", "22d": "part-btn",
+          "30a": "w-vang", "30d": "part-servo",
+          "31a": "w-do", "31d": "part-servo",
+          "32a": "w-nau", "32d": "part-servo"
+        }
+      }
+    );
+  </script>
 </body>
 </html>

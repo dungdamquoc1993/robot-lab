@@ -74,8 +74,8 @@ M5 Motor & driver  →  M6 Điều khiển nâng cao
 
 | Project | |
 |---------|---|
-| P7 Servo + biến trở | [ ] |
-| P7b Hai servo độc lập | [ ] |
+| P7 Servo + biến trở | [~] |
+| P7b Hai servo độc lập | [~] |
 
 **Điều kiện sang Mốc 4:**
 - 1 servo quay theo biến trở không bị giật/reset board
@@ -89,8 +89,8 @@ M5 Motor & driver  →  M6 Điều khiển nâng cao
 
 | Project | Bắt buộc | Tuỳ chọn |
 |---------|----------|----------|
-| P8 Web server | [ ] | |
-| P9 OLED + sensor | [ ] | |
+| P8 Web server | [x] | |
+| P9 OLED + sensor | [x] | |
 | P10 Buzzer | [ ] | |
 | P14 Relay | [ ] | |
 | P4b PIR | | [ ] |

@@ -5,16 +5,107 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>P7b Hai servo độc lập</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="breadboard-widget.css">
 </head>
 <body>
   <main class="page">
-    <nav class="topnav"><a href="index.html">Index</a><a href="p07-servo-bien-tro.html">P7</a><a href="p08-web-server.html">P8 tiếp theo</a></nav>
-    <section class="hero"><h1>P7b Hai servo độc lập</h1><p>Điều khiển 2 servo SG90 trên 2 chân signal khác nhau để học nguồn tải và nhiều kênh PWM.</p><div class="meta"><span class="tag">Optional</span><span class="tag">2x SG90</span><span class="tag">Nguồn 5V >= 1A</span></div></section>
-    <section class="section warning"><h2>An toàn</h2><p>Hai servo chạy cùng lúc có thể kéo dòng cao. Dùng nguồn 5V riêng đủ dòng và nối chung GND với ESP32.</p></section>
-    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/servo-sg90.jpg" alt="Servo SG90"><figcaption>2 servo SG90: mỗi servo có dây signal riêng, dùng chung 5V/GND.</figcaption></figure><figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>Dây jumper: nối GND ESP32 với GND nguồn 5V (bắt buộc). Signal servo cắm thẳng D18/D19 hoặc qua Đực–Cái.</figcaption></figure><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: phát 2 tín hiệu servo trên 2 GPIO.</figcaption></figure><figure><img src="../inventory/photos/module-nguon-breadboard-mb102.jpg" alt="Nguồn MB102"><figcaption>Nguồn 5V: cấp cho servo, tránh kéo quá tải từ ESP32.</figcaption></figure></div></section>
-    <section class="section"><h2>Nối dây gợi ý</h2><table><tr><th>Servo</th><th>ESP32/nguồn</th><th>Vai trò</th></tr><tr><td>Servo 1 signal</td><td>GPIO 18</td><td>Kênh điều khiển 1.</td></tr><tr><td>Servo 2 signal</td><td>GPIO 19</td><td>Kênh điều khiển 2.</td></tr><tr><td>Cả hai dây đỏ</td><td>5V ngoài</td><td>Nguồn servo.</td></tr><tr><td>Cả hai dây nâu</td><td>GND ngoài + GND ESP32</td><td>Mass chung.</td></tr></table></section>
-    <section class="section"><h2>Các bước làm</h2><ol><li>Chạy từng servo riêng để kiểm tra dây.</li><li>Gắn servo thứ hai và dùng chân signal khác.</li><li>Cho hai servo quét góc khác nhau.</li><li>Theo dõi ESP32 có reset hay không khi cả hai cùng đổi hướng.</li></ol></section>
-    <section class="section"><h2>Hoàn thành khi</h2><ul><li>2 servo chạy độc lập, không làm ESP32 sụt nguồn.</li><li>Bạn hiểu GND chung là mốc tham chiếu tín hiệu, không phải chỉ là dây nguồn phụ.</li></ul></section>
+    <nav class="topnav">
+      <a href="index.html">Index</a>
+      <a href="breadboard-diagram.html">Sơ đồ MB102 mẫu</a>
+      <a href="p07-servo-bien-tro.html">P7</a>
+      <a href="p08-web-server.html">P8 tiếp theo</a>
+    </nav>
+    <section class="hero">
+      <h1>P7b Hai servo độc lập</h1>
+      <p>Phát hai tín hiệu servo độc lập trên D18 và D19. Với setup hiện tại, bắt đầu bằng pha A: signal-only, chưa cấp 5V cho servo.</p>
+      <div class="meta"><span class="tag">Optional</span><span class="tag">D18 + D19</span><span class="tag">Nguồn 5V riêng</span></div>
+    </section>
+
+    <section class="section warning">
+      <h2>An toàn</h2>
+      <p>Không cấp 1 hoặc 2 servo từ <strong>VIN</strong> qua USB hub đang cắm chuột/bàn phím. Pha A không nối dây đỏ servo. Pha B cần nguồn 5V riêng đủ dòng và GND chung với ESP32.</p>
+    </section>
+
+    <section class="section">
+      <h2>Ảnh linh kiện</h2>
+      <div class="grid">
+        <figure><img src="../inventory/photos/servo-sg90.jpg" alt="Servo SG90"><figcaption>2 servo SG90: mỗi servo có signal riêng, dùng chung nguồn 5V riêng ở pha B.</figcaption></figure>
+        <figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>Dây jumper làm landing: signal D18/D19, GND chung, 5V riêng sau.</figcaption></figure>
+        <figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32 rời breadboard: D18 và D19 phát hai PWM 50Hz.</figcaption></figure>
+        <figure><img src="../inventory/photos/module-nguon-breadboard-mb102.jpg" alt="Nguồn MB102"><figcaption>Nguồn 5V riêng chỉ dùng khi đã xác định đúng module và đủ dòng.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Pha A: signal-only</h2>
+      <p>Mục tiêu: upload ổn, Serial log hai kênh D18/D19. Servo chưa quay vì dây đỏ chưa được cấp 5V.</p>
+      <table>
+        <tr><th>Node</th><th>Nối tới</th><th>Trạng thái</th></tr>
+        <tr><td>Servo 1 signal</td><td>ESP32 D18 → <code>a30/d30</code> → dây vàng/cam servo 1</td><td>Cắm</td></tr>
+        <tr><td>Servo 1 GND</td><td>ESP32 GND → <code>a32/d32</code> → dây nâu servo 1</td><td>Cắm</td></tr>
+        <tr><td>Servo 1 +5V</td><td><code>a31/d31</code> → dây đỏ servo 1</td><td><strong>Để hở</strong></td></tr>
+        <tr><td>Servo 2 signal</td><td>ESP32 D19 → <code>a34/d34</code> → dây vàng/cam servo 2</td><td>Cắm</td></tr>
+        <tr><td>Servo 2 GND</td><td>ESP32 GND → <code>a36/d36</code> → dây nâu servo 2</td><td>Cắm</td></tr>
+        <tr><td>Servo 2 +5V</td><td><code>a35/d35</code> → dây đỏ servo 2</td><td><strong>Để hở</strong></td></tr>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>Pha B: chạy thật</h2>
+      <p>Khi có nguồn 5V riêng đủ dòng: nối +5V vào <code>a31/d31</code> và <code>a35/d35</code>; nối GND nguồn vào <code>a32/d32</code> hoặc <code>a36/d36</code>; giữ ESP32 GND nối chung node GND đó.</p>
+    </section>
+
+    <section class="section" id="board-map">
+      <h2>Board map</h2>
+      <p>Chi tiết: <a href="boards/p07b.md">boards/p07b.md</a>. MB102 mẫu: <a href="breadboard-diagram.html">sơ đồ chung</a>.</p>
+      <div class="diagram-wrap">
+        <div class="diagram">
+          <div class="bb-header" id="hdr"></div>
+          <div class="board-body" id="board"></div>
+        </div>
+      </div>
+      <p><strong>Servo 1:</strong> signal <code>d30</code> · 5V <code>d31</code> · GND <code>d32</code>. <strong>Servo 2:</strong> signal <code>d34</code> · 5V <code>d35</code> · GND <code>d36</code>.</p>
+    </section>
+
+    <section class="section">
+      <h2>Các bước làm</h2>
+      <ol>
+        <li>Rút hết dây đỏ servo khỏi nguồn 5V; không dùng <code>VIN</code>.</li>
+        <li>Cắm signal/GND theo board map pha A.</li>
+        <li><code>main.cpp</code> đang chọn <code>p07b_setup</code> / <code>p07b_loop</code>.</li>
+        <li><code>pio run -t upload</code> · <code>pio device monitor</code>.</li>
+        <li>Monitor cần thấy hai góc chạy ngược pha: <code>servo1 D18 ... | servo2 D19 ...</code>.</li>
+      </ol>
+    </section>
+
+    <section class="section">
+      <h2>Atomic trace</h2>
+      <ol>
+        <li><code>p07b_loop()</code> tính hai góc trong vùng an toàn 60–120 độ.</li>
+        <li>Channel 1 phát pulse ra D18 → <code>a30/d30</code> → signal servo 1.</li>
+        <li>Channel 2 phát pulse ra D19 → <code>a34/d34</code> → signal servo 2.</li>
+        <li>Khi có nguồn 5V riêng, servo tự lấy dòng từ dây đỏ/nâu để quay tới góc signal yêu cầu.</li>
+      </ol>
+    </section>
   </main>
+
+  <script src="breadboard-widget.js"></script>
+  <script>
+    RobotLabBreadboard.render(
+      document.getElementById("hdr"),
+      document.getElementById("board"),
+      {
+        espPins: new Set([]),
+        wiring: {
+          "30a": "w-vang", "30d": "part-servo",
+          "31a": "w-do", "31d": "part-servo",
+          "32a": "w-nau", "32d": "part-servo",
+          "34a": "w-xanh", "34d": "part-servo",
+          "35a": "w-do", "35d": "part-servo",
+          "36a": "w-cam", "36d": "part-servo"
+        }
+      }
+    );
+  </script>
 </body>
 </html>

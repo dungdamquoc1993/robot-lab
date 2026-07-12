@@ -32,8 +32,8 @@ Guide HTML có ảnh linh kiện và các bước làm: [project-guides/index.ht
 
 | ID | Trạng thái | Project | Mục tiêu | Linh kiện cần | Khái niệm |
 |----|------------|---------|----------|---------------|-----------|
-| P7 | [ ] | Servo + biến trở | Xoay núm → servo quay theo góc | SG90 ×1, biến trở 10K | PWM, servo control |
-| P7b | [ ] | Hai servo độc lập | Điều khiển 2 SG90 (2 chân PWM) | SG90 ×2 | Nguồn 5V, dòng tải |
+| P7 | [~] | Servo + biến trở | Xoay núm → servo quay theo góc | SG90 ×1, biến trở 10K | PWM, servo control |
+| P7b | [~] | Hai servo độc lập | Điều khiển 2 SG90 (2 chân PWM) | SG90 ×2 | Nguồn 5V, dòng tải |
 
 > **P7b** là bài mở rộng tự đề xuất — dùng hết 2 servo đang có.
 
@@ -43,8 +43,8 @@ Guide HTML có ảnh linh kiện và các bước làm: [project-guides/index.ht
 
 | ID | Trạng thái | Project | Mục tiêu | Linh kiện cần | Khái niệm |
 |----|------------|---------|----------|---------------|-----------|
-| P8 | [ ] | Web server | Điều khiển LED/servo từ điện thoại qua Wi-Fi | ESP32 | Wi-Fi, HTTP, IoT |
-| P9 | [ ] | OLED + sensor | Hiển thị nhiệt độ/ánh sáng lên OLED | OLED, DHT11 hoặc LDR | I2C, sensor data |
+| P8 | [x] | Web server | Điều khiển LED/servo từ điện thoại qua Wi-Fi | ESP32 | Wi-Fi, HTTP, IoT |
+| P9 | [x] | OLED + sensor | Hiển thị nhiệt độ/ánh sáng lên OLED | OLED, DHT11 hoặc LDR | I2C, sensor data |
 | P10 | [ ] | Buzzer | Phát tiếng bíp / tone đơn giản | Buzzer thụ động hoặc hoạt động | PWM frequency |
 | P14 | [ ] | Relay | ESP32 bật/tắt relay (nghe "tạch") | Module relay 2 kênh | Relay, isolation |
 
@@ -123,3 +123,19 @@ Sao chép template này vào cuối file (hoặc tạo `docs/notes/`) khi hoàn 
 - Lệnh: `pio run -t upload`
 - Ghi chú: chưa dùng breadboard / LED ngoài — phần đó gộp vào **P2**
 - Điều muốn thử tiếp: cắm LED + 220Ω trên breadboard; đo Ω và V bằng DT9205A
+
+### P8 Web server — 2026-07-12
+- Chân GPIO: **2** (LED onboard ESP32 DevKit); **18** chỉ là servo tùy chọn, lazy-init khi dùng slider.
+- Thư viện Arduino: `WiFi.h`, `WebServer.h`.
+- Firmware: AP mode `RobotLab-P8` / `robotlab8`, web UI tại `http://192.168.4.1`, route `/api/led` bật/tắt LED onboard.
+- Lệnh: `pio run`, `pio run -t upload`.
+- Ghi chú: breadboard trắng hoàn toàn; ESP32 rời breadboard, chỉ cắm USB. Điện thoại vào được Wi-Fi của ESP32 và mở được webserver.
+- Điều muốn thử tiếp: P9 OLED + sensor, bắt đầu học I2C và hiển thị dữ liệu.
+
+### P9 OLED + sensor — 2026-07-12
+- Chân GPIO: **21** (SDA), **22** (SCK/SCL), **34** (LDR AO ADC input-only).
+- Thư viện Arduino: `Wire.h`, `Adafruit_SSD1306.h`.
+- Firmware: scan OLED I2C `0x3C/0x3D`, hiển thị `I2C`, `ADC`, `%` lên OLED; Serial vẫn log nếu OLED lỗi.
+- Lệnh: `pio run`, `pio run -t upload`.
+- Ghi chú: OLED address ổn định ở **0x3C**. LDR hở sáng khoảng **55%**, che hết lên **4095 / 100%**; module này cho ADC cao hơn khi tối.
+- Điều muốn thử tiếp: P10 buzzer hoặc đảo cách hiển thị thành `% tối` / `% sáng` cho trực quan hơn.

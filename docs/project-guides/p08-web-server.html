@@ -5,16 +5,104 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>P8 Web server</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="breadboard-widget.css">
 </head>
 <body>
   <main class="page">
-    <nav class="topnav"><a href="index.html">Index</a><a href="p07b-hai-servo.html">P7b</a><a href="p09-oled-sensor.html">P9 tiếp theo</a></nav>
-    <section class="hero"><h1>P8 Web server</h1><p>ESP32 tạo web server trong mạng Wi-Fi để điều khiển LED hoặc servo từ trình duyệt điện thoại.</p><div class="meta"><span class="tag">Wi-Fi</span><span class="tag">HTTP</span><span class="tag">IoT</span></div></section>
-    <section class="section warning"><h2>An toàn</h2><p>Nếu điều khiển servo, vẫn dùng nguồn 5V phù hợp và nối chung GND. Nếu chỉ điều khiển LED, dùng điện trở nối tiếp.</p></section>
-    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: kết nối Wi-Fi và phục vụ HTTP.</figcaption></figure><figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>Dây jumper: giữ mạch LED P2 (D2 + GND) hoặc dây signal servo.</figcaption></figure><figure><img src="../inventory/photos/led-5mm-do-vang-xanh.jpg" alt="LED"><figcaption>LED: actuator đơn giản để bật/tắt qua web.</figcaption></figure><figure><img src="../inventory/photos/servo-sg90.jpg" alt="Servo SG90"><figcaption>Servo: actuator nâng cấp, điều khiển góc qua web.</figcaption></figure></div></section>
-    <section class="section"><h2>Linh kiện dùng thế nào</h2><table><tr><th>Linh kiện</th><th>Vai trò</th></tr><tr><td>ESP32</td><td>Web server và controller.</td></tr><tr><td>LED hoặc servo</td><td>Thiết bị được điều khiển từ HTTP route.</td></tr><tr><td>Điện thoại/laptop</td><td>Client mở địa chỉ IP của ESP32.</td></tr></table></section>
-    <section class="section"><h2>Các bước làm</h2><ol><li>Kết nối ESP32 vào Wi-Fi và in IP ra Serial Monitor.</li><li>Tạo route bật/tắt LED trước.</li><li>Mở IP từ điện thoại cùng mạng Wi-Fi.</li><li>Nếu ổn, thêm route điều khiển góc servo.</li></ol></section>
-    <section class="section"><h2>Hoàn thành khi</h2><ul><li>Điện thoại bật/tắt được LED hoặc đổi góc servo qua browser.</li><li>Bạn hiểu ESP32 đang vừa là firmware device vừa là HTTP server nhỏ.</li></ul></section>
+    <nav class="topnav">
+      <a href="index.html">Index</a>
+      <a href="breadboard-diagram.html">Sơ đồ MB102 mẫu</a>
+      <a href="p07b-hai-servo.html">P7b</a>
+      <a href="p09-oled-sensor.html">P9 tiếp theo</a>
+    </nav>
+
+    <section class="hero">
+      <h1>P8 Web server</h1>
+      <p>ESP32 tự phát Wi-Fi AP, chạy HTTP server, và cho điện thoại bật/tắt onboard LED GPIO2. Breadboard để trắng.</p>
+      <div class="meta"><span class="tag">RobotLab-P8</span><span class="tag">HTTP</span><span class="tag">GPIO2 onboard</span></div>
+    </section>
+
+    <section class="section warning">
+      <h2>An toàn</h2>
+      <p>Mặc định P8 không cắm dây ngoài: chỉ ESP32 qua USB. GPIO ESP32 là logic 3.3V; không đưa 5V vào chân GPIO. Nếu thử servo tùy chọn, servo dùng nguồn 5V riêng và GND phải nối chung với ESP32.</p>
+    </section>
+
+    <section class="section">
+      <h2>Ảnh linh kiện</h2>
+      <div class="grid">
+        <figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32 rời breadboard: vừa phát Wi-Fi, vừa phục vụ HTTP, vừa điều khiển onboard LED.</figcaption></figure>
+        <figure><img src="../inventory/photos/cap-usb-micro.jpg" alt="Cáp USB micro"><figcaption>Cáp USB: cấp nguồn, upload firmware, và xem Serial Monitor lấy địa chỉ web.</figcaption></figure>
+        <figure><img src="../inventory/photos/breadboard-mb102.jpg" alt="Breadboard MB102"><figcaption>Breadboard MB102: để trắng trong P8 để tập trung vào Wi-Fi/HTTP.</figcaption></figure>
+        <figure><img src="../inventory/photos/servo-sg90.jpg" alt="Servo SG90"><figcaption>Servo SG90: bài nâng cấp tùy chọn sau khi web server đã điều khiển LED ổn.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Linh kiện dùng thế nào</h2>
+      <table>
+        <tr><th>Linh kiện</th><th>Vai trò</th></tr>
+        <tr><td>ESP32</td><td>Access point Wi-Fi, HTTP server, và controller GPIO.</td></tr>
+        <tr><td>Onboard LED GPIO2</td><td>Actuator mặc định, không cần cắm LED ngoài.</td></tr>
+        <tr><td>Điện thoại/laptop</td><td>Client mở web page và gửi HTTP request.</td></tr>
+        <tr><td>Servo SG90 tùy chọn</td><td>Slider web có sẵn route GPIO18; firmware chỉ phát PWM khi bạn dùng slider và chỉ nên thử khi có nguồn 5V riêng.</td></tr>
+      </table>
+    </section>
+
+    <section class="section" id="board-map">
+      <h2>Board map</h2>
+      <p>Chi tiết: <a href="boards/p08.md">boards/p08.md</a>. P8 mặc định là board trống: không cắm ESP32 lên MB102, không nối rail, không cắm LED ngoài.</p>
+      <div class="diagram-wrap">
+        <div class="diagram">
+          <div class="bb-header" id="hdr"></div>
+          <div class="board-body" id="board"></div>
+        </div>
+      </div>
+      <p><strong>Kết nối duy nhất:</strong> USB máy tính → ESP32. Onboard LED nằm trên chính ESP32, không có tọa độ breadboard.</p>
+    </section>
+
+    <section class="section">
+      <h2>Các bước làm</h2>
+      <ol>
+        <li>Rút ESP32 và mọi dây khỏi breadboard; để MB102 trắng.</li>
+        <li>Cắm ESP32 vào USB máy tính.</li>
+        <li><code>main.cpp</code> đang chọn <code>p08_setup</code> / <code>p08_loop</code>.</li>
+        <li>Chạy <code>pio run -t upload</code>, rồi <code>pio device monitor</code>.</li>
+        <li>Điện thoại kết nối Wi-Fi <code>RobotLab-P8</code>, mật khẩu <code>robotlab8</code>.</li>
+        <li>Mở <code>http://192.168.4.1</code>, bấm ON/OFF/TOGGLE và nhìn LED onboard GPIO2.</li>
+      </ol>
+    </section>
+
+    <section class="section">
+      <h2>Atomic trace</h2>
+      <ol>
+        <li>Nút web gọi <code>fetch('/api/led?state=toggle')</code>.</li>
+        <li>ESP32 nhận HTTP request trong <code>server.handleClient()</code>.</li>
+        <li><code>p08HandleLed()</code> gọi <code>p08WriteLed()</code>.</li>
+        <li><code>digitalWrite(2, HIGH/LOW)</code> đổi mức logic 3.3V trên GPIO2.</li>
+        <li>Onboard LED sáng/tắt; breadboard không có dòng điện chạy qua.</li>
+      </ol>
+    </section>
+
+    <section class="section">
+      <h2>Hoàn thành khi</h2>
+      <ul>
+        <li>Điện thoại mở được web page ESP32 tại <code>192.168.4.1</code>.</li>
+        <li>Bật/tắt được onboard LED GPIO2 từ browser.</li>
+        <li>Bạn hiểu ESP32 đang vừa là firmware device, vừa là Wi-Fi access point, vừa là HTTP server nhỏ.</li>
+      </ul>
+    </section>
   </main>
+
+  <script src="breadboard-widget.js"></script>
+  <script>
+    RobotLabBreadboard.render(
+      document.getElementById("hdr"),
+      document.getElementById("board"),
+      {
+        espPins: new Set([]),
+        wiring: {}
+      }
+    );
+  </script>
 </body>
 </html>

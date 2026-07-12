@@ -5,16 +5,123 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>P9 OLED + sensor</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="breadboard-widget.css">
 </head>
 <body>
   <main class="page">
-    <nav class="topnav"><a href="index.html">Index</a><a href="p08-web-server.html">P8</a><a href="p10-buzzer.html">P10 tiếp theo</a></nav>
-    <section class="hero"><h1>P9 OLED + sensor</h1><p>Hiển thị nhiệt độ/độ ẩm DHT11 hoặc giá trị ánh sáng LDR lên OLED 0.96 inch qua I2C.</p><div class="meta"><span class="tag">I2C</span><span class="tag">OLED</span><span class="tag">Sensor data</span></div></section>
-    <section class="section warning"><h2>An toàn</h2><p>Kiểm tra VCC của module OLED và sensor. Với ESP32, tín hiệu I2C/Sensor nên ở mức 3.3V.</p></section>
-    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/oled-096-inch-i2c.jpg" alt="OLED I2C"><figcaption>OLED 0.96 inch: hiển thị text nhỏ qua bus I2C.</figcaption></figure><figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>Dây jumper: 4 sợi cho OLED (3V3, GND, D21 SDA, D22 SCL) + thêm cho sensor.</figcaption></figure><figure><img src="../inventory/photos/module-dht11.jpg" alt="DHT11"><figcaption>DHT11: đọc nhiệt độ và độ ẩm bằng digital 1-wire.</figcaption></figure><figure><img src="../inventory/photos/module-quang-tro-ldr.jpg" alt="LDR"><figcaption>LDR: lựa chọn sensor thay thế nếu muốn hiển thị ánh sáng.</figcaption></figure><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: đọc sensor và ghi dữ liệu lên OLED.</figcaption></figure></div></section>
-    <section class="section"><h2>Nối dây gợi ý</h2><table><tr><th>Module</th><th>ESP32</th><th>Vai trò</th></tr><tr><td>OLED VCC/GND</td><td>3V3/GND</td><td>Nguồn màn hình.</td></tr><tr><td>OLED SDA</td><td>GPIO 21</td><td>Dữ liệu I2C.</td></tr><tr><td>OLED SCL</td><td>GPIO 22</td><td>Clock I2C.</td></tr><tr><td>DHT11 DATA</td><td>GPIO 4</td><td>Dữ liệu sensor.</td></tr></table></section>
-    <section class="section"><h2>Các bước làm</h2><ol><li>Chạy ví dụ scan I2C hoặc init OLED trước.</li><li>Hiển thị dòng text cố định.</li><li>Đọc DHT11 hoặc LDR và đưa giá trị lên màn hình.</li><li>Cập nhật mỗi 1-2 giây để tránh nhấp nháy quá nhanh.</li></ol></section>
-    <section class="section"><h2>Hoàn thành khi</h2><ul><li>OLED hiển thị ít nhất một giá trị sensor thay đổi.</li><li>Bạn biết SDA/SCL là bus chung, khác với một chân digital đơn lẻ.</li></ul></section>
+    <nav class="topnav">
+      <a href="index.html">Index</a>
+      <a href="breadboard-diagram.html">Sơ đồ MB102 mẫu</a>
+      <a href="p08-web-server.html">P8</a>
+      <a href="p10-buzzer.html">P10 tiếp theo</a>
+    </nav>
+
+    <section class="hero">
+      <h1>P9 OLED + sensor</h1>
+      <p>OLED 0.96 inch hiển thị giá trị ánh sáng từ LDR. ESP32 rời breadboard; MB102 chỉ giữ OLED/LDR và các điểm landing.</p>
+      <div class="meta"><span class="tag">I2C D21/D22</span><span class="tag">OLED SSD1306</span><span class="tag">LDR AO → D34</span></div>
+    </section>
+
+    <section class="section warning">
+      <h2>An toàn</h2>
+      <p>Cấp OLED và LDR bằng <strong>3V3</strong>. ESP32 GPIO là logic 3.3V, không đưa 5V vào SDA/SCK/AO. Trước khi cắm dây, nhìn chữ in trên module OLED: <code>GND VDD SCK SDA</code>.</p>
+    </section>
+
+    <section class="section">
+      <h2>Ảnh linh kiện</h2>
+      <div class="grid">
+        <figure><img src="../inventory/photos/oled-096-inch-i2c.jpg" alt="OLED I2C"><figcaption>OLED 0.96 inch: module I2C 4 chân <strong>GND VDD SCK SDA</strong>.</figcaption></figure>
+        <figure><img src="../inventory/photos/module-quang-tro-ldr.jpg" alt="LDR"><figcaption>LDR: dùng chân <strong>AO</strong> để có giá trị analog thay đổi theo ánh sáng.</figcaption></figure>
+        <figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>Dây Đực-Cái từ ESP32 rời tới landing trên breadboard.</figcaption></figure>
+        <figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: D21 = SDA, D22 = SCL, D34 = ADC input-only.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Nối dây</h2>
+      <table>
+        <tr><th>Module</th><th>Landing</th><th>ESP32 rời</th><th>Vai trò</th></tr>
+        <tr><td>OLED GND</td><td><code>e1</code> / <code>a1</code></td><td>GND</td><td>Mass OLED</td></tr>
+        <tr><td>OLED VDD</td><td><code>e2</code> / <code>a2</code></td><td>3V3</td><td>Nguồn OLED</td></tr>
+        <tr><td>OLED SCK</td><td><code>e3</code> / <code>a3</code></td><td>D22</td><td>I2C clock/SCL</td></tr>
+        <tr><td>OLED SDA</td><td><code>e4</code> / <code>a4</code></td><td>D21</td><td>I2C data</td></tr>
+        <tr><td>LDR VCC</td><td><code>e20</code> / <code>a20</code></td><td>3V3 qua hàng 2</td><td>Nguồn sensor</td></tr>
+        <tr><td>LDR GND</td><td><code>e21</code> / <code>a21</code></td><td>GND</td><td>Mass sensor</td></tr>
+        <tr><td>LDR AO</td><td><code>e23</code> / <code>a23</code></td><td>D34</td><td>Analog input</td></tr>
+      </table>
+      <pre><code>ESP32 GND ──đen────── a1  ═══ e1  OLED GND
+ESP32 3V3 ──cam────── a2  ═══ e2  OLED VDD
+ESP32 D22 ──xanh ngọc a3  ═══ e3  OLED SCK
+ESP32 D21 ──ghi────── a4  ═══ e4  OLED SDA
+
+hàng 2 3V3 ──cam2 b2→a20── e20 LDR VCC
+ESP32 GND ──trắng───── a21 ═══ e21 LDR GND
+ESP32 D34 ──vàng────── a23 ═══ e23 LDR AO</code></pre>
+    </section>
+
+    <section class="section" id="board-map">
+      <h2>Board map</h2>
+      <p>Chi tiết: <a href="boards/p09.md">boards/p09.md</a>. ESP32 rời breadboard; sơ đồ chỉ đánh dấu các điểm landing/module trên MB102.</p>
+      <div class="diagram-wrap">
+        <div class="diagram">
+          <div class="bb-header" id="hdr"></div>
+          <div class="board-body" id="board"></div>
+        </div>
+      </div>
+      <p><strong>OLED:</strong> GND <code>e1</code> · VDD <code>e2</code> · SCK <code>e3</code> · SDA <code>e4</code>. <strong>LDR:</strong> VCC <code>e20</code> · GND <code>e21</code> · AO <code>e23</code>.</p>
+    </section>
+
+    <section class="section">
+      <h2>Các bước làm</h2>
+      <ol>
+        <li>Rút hết dây P8; cắm ESP32 qua USB nhưng để ngoài breadboard.</li>
+        <li>Cắm OLED vào hàng <code>e1–e4</code>, đúng thứ tự nhãn <code>GND VDD SCK SDA</code>.</li>
+        <li>Cắm LDR vào vùng <code>e20/e21/e23</code>; để <code>DO</code> không nối.</li>
+        <li>Nối jumper theo bảng trên; LDR VCC lấy 3V3 bằng jumper đực-đực từ hàng <code>2</code> sang <code>a20</code>.</li>
+        <li><code>main.cpp</code> đang chọn <code>p09_setup</code> / <code>p09_loop</code>.</li>
+        <li><code>pio run -t upload</code> · nếu OLED chưa hiện, mở Serial Monitor 115200 để xem I2C scan.</li>
+      </ol>
+    </section>
+
+    <section class="section">
+      <h2>Atomic trace</h2>
+      <ol>
+        <li>LDR đổi điện áp tại AO khi che/mở cảm biến.</li>
+        <li><code>analogRead(34)</code> đọc AO qua dây vàng tới D34.</li>
+        <li>Firmware đổi ADC 0–4095 thành phần trăm gần đúng.</li>
+        <li><code>Wire</code> gửi dữ liệu qua D21/D22 tới OLED.</li>
+        <li>OLED vẽ text <code>ADC</code> và <code>%</code> lên màn hình.</li>
+      </ol>
+    </section>
+
+    <section class="section">
+      <h2>Hoàn thành khi</h2>
+      <ul>
+        <li>OLED hiển thị <code>P9 OLED + LDR</code>, <code>ADC</code>, và phần trăm ánh sáng.</li>
+        <li>Che/mở LDR làm số trên OLED hoặc Serial thay đổi.</li>
+        <li>Bạn phân biệt được I2C bus D21/D22 với ADC đơn lẻ D34.</li>
+      </ul>
+    </section>
   </main>
+
+  <script src="breadboard-widget.js"></script>
+  <script>
+    RobotLabBreadboard.render(
+      document.getElementById("hdr"),
+      document.getElementById("board"),
+      {
+        espPins: new Set([]),
+        wiring: {
+          "1a": "w-nau", "1e": "part-btn",
+          "2a": "w-cam", "2b": "w-do", "2e": "part-btn",
+          "3a": "w-xanh", "3e": "part-btn",
+          "4a": "w-nau", "4e": "part-btn",
+          "20a": "w-do", "20e": "part-r",
+          "21a": "w-nau", "21e": "part-r",
+          "23a": "w-vang", "23e": "part-r"
+        }
+      }
+    );
+  </script>
 </body>
 </html>

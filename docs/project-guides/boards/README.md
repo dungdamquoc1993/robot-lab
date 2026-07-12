@@ -15,6 +15,10 @@ Sơ đồ MB102 chung (grid trống): [breadboard-diagram.html](../breadboard-di
 
 | Project | Board spec (text) | HTML (sơ đồ tương tác) |
 |---------|-------------------|--------------------------|
+| P9 | [p09.md](p09.md) | [p09-oled-sensor.html](../p09-oled-sensor.html#board-map) |
+| P8 | [p08.md](p08.md) | [p08-web-server.html](../p08-web-server.html#board-map) |
+| P7b | [p07b.md](p07b.md) | [p07b-hai-servo.html](../p07b-hai-servo.html#board-map) |
+| P7 | [p07.md](p07.md) | [p07-servo-bien-tro.html](../p07-servo-bien-tro.html#board-map) |
 | P6 | [p06.md](p06.md) | [p06-cam-bien-anh-sang.html](../p06-cam-bien-anh-sang.html#board-map) |
 | P5 | [p05.md](p05.md) | [p05-bien-tro-led.html](../p05-bien-tro-led.html#board-map) |
 | P4c | [p04c.md](p04c.md) | [p04c-lm393-phat-hien-vat.html](../p04c-lm393-phat-hien-vat.html#board-map) |

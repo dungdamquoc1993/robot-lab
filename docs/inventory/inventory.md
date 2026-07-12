@@ -49,7 +49,7 @@ Danh sách linh kiện và dụng cụ đang sở hữu. Cập nhật khi mua th
 
 | Thiết bị | Số lượng | Ảnh | Giao tiếp / ghi chú |
 |----------|----------|-----|---------------------|
-| OLED **0.96 inch** (GM009605 v4.3) | 1 | ![oled-096](photos/oled-096-inch-i2c.jpg) | I2C — GND, VCC, SCL, SDA |
+| OLED **0.96 inch** (GM009605 v4.3) | 1 | ![oled-096](photos/oled-096-inch-i2c.jpg) | I2C — GND, VDD, SCK, SDA (`VDD` = 3V3, `SCK` = SCL/clock) |
 | Module quang trở (LDR) | 1 | ![module-ldr](photos/module-quang-tro-ldr.jpg) | VCC, GND, DO, AO |
 | Module nhiệt độ & độ ẩm **DHT11** | 1 | ![module-dht11](photos/module-dht11.jpg) | Digital 1-wire |
 | Module tránh vật cản **LM393** (IR) | 1 | ![module-lm393](photos/module-lm393-tranh-vat-can.jpg) | Digital — VCC, GND, OUT |
