@@ -15,6 +15,7 @@ Sơ đồ MB102 chung (grid trống): [breadboard-diagram.html](../breadboard-di
 
 | Project | Board spec (text) | HTML (sơ đồ tương tác) |
 |---------|-------------------|--------------------------|
+| P10 | [p10.md](p10.md) | [p10-buzzer.html](../p10-buzzer.html#board-map) |
 | P9 | [p09.md](p09.md) | [p09-oled-sensor.html](../p09-oled-sensor.html#board-map) |
 | P8 | [p08.md](p08.md) | [p08-web-server.html](../p08-web-server.html#board-map) |
 | P7b | [p07b.md](p07b.md) | [p07b-hai-servo.html](../p07b-hai-servo.html#board-map) |

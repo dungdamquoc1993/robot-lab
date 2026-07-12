@@ -45,7 +45,7 @@ Guide HTML có ảnh linh kiện và các bước làm: [project-guides/index.ht
 |----|------------|---------|----------|---------------|-----------|
 | P8 | [x] | Web server | Điều khiển LED/servo từ điện thoại qua Wi-Fi | ESP32 | Wi-Fi, HTTP, IoT |
 | P9 | [x] | OLED + sensor | Hiển thị nhiệt độ/ánh sáng lên OLED | OLED, DHT11 hoặc LDR | I2C, sensor data |
-| P10 | [ ] | Buzzer | Phát tiếng bíp / tone đơn giản | Buzzer thụ động hoặc hoạt động | PWM frequency |
+| P10 | [x] | Buzzer | Phát tiếng bíp / tone đơn giản | Buzzer thụ động hoặc hoạt động | PWM frequency |
 | P14 | [ ] | Relay | ESP32 bật/tắt relay (nghe "tạch") | Module relay 2 kênh | Relay, isolation |
 
 ### Bài bổ sung (cùng mốc, dùng kit)
@@ -139,3 +139,11 @@ Sao chép template này vào cuối file (hoặc tạo `docs/notes/`) khi hoàn 
 - Lệnh: `pio run`, `pio run -t upload`.
 - Ghi chú: OLED address ổn định ở **0x3C**. LDR hở sáng khoảng **55%**, che hết lên **4095 / 100%**; module này cho ADC cao hơn khi tối.
 - Điều muốn thử tiếp: P10 buzzer hoặc đảo cách hiển thị thành `% tối` / `% sáng` cho trực quan hơn.
+
+### P10 Buzzer — 2026-07-12
+- Chân GPIO: **25** (PWM tone output qua điện trở 220Ω).
+- Thư viện Arduino: không thêm; dùng LEDC PWM của ESP32.
+- Firmware: pattern 440Hz → 660Hz → 880Hz rồi nghỉ, lặp lại; Serial log từng tone.
+- Lệnh: `pio run`, `pio run -t upload`.
+- Ghi chú: breadboard bắt đầu trắng; ESP32 rời breadboard, buzzer đặt tại `e15/e20`, điện trở 220Ω `d10 → d15`. Buzzer kêu pattern “Bò / Be / Bíp” lặp lại đúng firmware.
+- Điều muốn thử tiếp: đổi `PATTERN` thành melody ngắn hoặc dùng P8 webserver bật/tắt buzzer từ điện thoại.

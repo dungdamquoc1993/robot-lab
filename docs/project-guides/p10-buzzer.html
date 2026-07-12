@@ -5,16 +5,114 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>P10 Buzzer</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="breadboard-widget.css">
 </head>
 <body>
   <main class="page">
-    <nav class="topnav"><a href="index.html">Index</a><a href="p09-oled-sensor.html">P9</a><a href="p14-relay.html">P14</a></nav>
-    <section class="hero"><h1>P10 Buzzer</h1><p>Phát tiếng beep hoặc tone đơn giản để học PWM frequency và phân biệt buzzer active/passive.</p><div class="meta"><span class="tag">PWM frequency</span><span class="tag">Audio</span><span class="tag">GPIO output</span></div></section>
-    <section class="section warning"><h2>An toàn</h2><p>Nếu buzzer cần dòng lớn hoặc module 5V, không kéo trực tiếp quá khả năng GPIO. Bắt đầu với tín hiệu ngắn, âm lượng nhỏ.</p></section>
-    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/buzzer-thu-dong-2chan.jpg" alt="Buzzer 2 chân"><figcaption>Buzzer trong túi kit: trụ đen <strong>2 chân</strong>. Thường là thụ động — cần PWM/tone (khác active chỉ cần HIGH/LOW).</figcaption></figure><figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>Dây jumper: 2 sợi (GPIO tín hiệu + GND).</figcaption></figure><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: tạo tín hiệu beep hoặc PWM tần số âm thanh.</figcaption></figure></div></section>
-    <section class="section"><h2>Nối dây gợi ý</h2><table><tr><th>Buzzer</th><th>ESP32</th><th>Vai trò</th></tr><tr><td>+</td><td>GPIO 25</td><td>Tín hiệu điều khiển.</td></tr><tr><td>-</td><td>GND</td><td>Mass chung.</td></tr></table></section>
-    <section class="section"><h2>Các bước làm</h2><ol><li>Test beep ngắn 100-200 ms.</li><li>Nếu là passive buzzer, phát PWM ở vài tần số như 440 Hz, 880 Hz.</li><li>Thử pattern báo động: beep-beep-nghỉ.</li><li>Kết hợp với PIR/LM393 nếu muốn làm cảnh báo.</li></ol></section>
-    <section class="section"><h2>Hoàn thành khi</h2><ul><li>Buzzer phát được ít nhất một tiếng beep có kiểm soát.</li><li>Bạn phân biệt được duty cycle điều chỉnh độ mạnh và frequency điều chỉnh cao độ.</li></ul></section>
+    <nav class="topnav">
+      <a href="index.html">Index</a>
+      <a href="breadboard-diagram.html">Sơ đồ MB102 mẫu</a>
+      <a href="p09-oled-sensor.html">P9</a>
+      <a href="p14-relay.html">P14</a>
+    </nav>
+
+    <section class="hero">
+      <h1>P10 Buzzer</h1>
+      <p>ESP32 phát tone PWM qua buzzer 2 chân để học khác biệt giữa duty cycle và frequency.</p>
+      <div class="meta"><span class="tag">GPIO25</span><span class="tag">PWM frequency</span><span class="tag">Buzzer 2 chân</span></div>
+    </section>
+
+    <section class="section warning">
+      <h2>An toàn</h2>
+      <p>ESP32 GPIO là <strong>3.3V logic</strong>. Không cấp 5V vào GPIO25. Bài này đặt điện trở <strong>220Ω</strong> nối tiếp buzzer để giới hạn dòng từ chân GPIO.</p>
+    </section>
+
+    <section class="section">
+      <h2>Ảnh linh kiện</h2>
+      <div class="grid">
+        <figure><img src="../inventory/photos/buzzer-thu-dong-2chan.jpg" alt="Buzzer 2 chân"><figcaption>Buzzer trong túi kit: trụ đen <strong>2 chân</strong>. Nếu là passive, PWM đổi tần số sẽ đổi cao độ.</figcaption></figure>
+        <figure><img src="../inventory/photos/set-dien-tro-600-metal-film.jpg" alt="Set điện trở"><figcaption>Lấy một điện trở <strong>220Ω</strong> trong set để nối tiếp với buzzer.</figcaption></figure>
+        <figure><img src="../inventory/photos/jumper-wires.jpg" alt="Dây jumper"><figcaption>Dùng 2 dây Đực-Cái: D25 và GND từ ESP32 rời vào breadboard.</figcaption></figure>
+        <figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: GPIO25 là output/PWM tốt cho bài tone.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Nối dây</h2>
+      <table>
+        <tr><th>Phần</th><th>Landing</th><th>ESP32 rời</th><th>Vai trò</th></tr>
+        <tr><td>Điện trở 220Ω chân 1</td><td><code>d10</code> / <code>a10</code></td><td>D25</td><td>Nhận PWM tone</td></tr>
+        <tr><td>Điện trở 220Ω chân 2</td><td><code>d15</code> / <code>e15</code></td><td>—</td><td>Sang buzzer +</td></tr>
+        <tr><td>Buzzer +</td><td><code>e15</code></td><td>—</td><td>Đầu dương buzzer</td></tr>
+        <tr><td>Buzzer -</td><td><code>e20</code> / <code>a20</code></td><td>GND</td><td>Mass chung</td></tr>
+      </table>
+      <pre><code>ESP32 D25 ──tím── a10 ═ d10 ──[220Ω]── d15 ═ e15  Buzzer +
+ESP32 GND ──nâu── a20 ═ e20  Buzzer -</code></pre>
+    </section>
+
+    <section class="section" id="board-map">
+      <h2>Board map</h2>
+      <p>Chi tiết: <a href="boards/p10.md">boards/p10.md</a>. ESP32 rời breadboard; sơ đồ chỉ đánh dấu landing, điện trở và buzzer trên MB102.</p>
+      <div class="diagram-wrap">
+        <div class="diagram">
+          <div class="bb-header" id="hdr"></div>
+          <div class="board-body" id="board"></div>
+        </div>
+      </div>
+      <p><strong>Buzzer:</strong> <code>+</code> tại <code>e15</code>, <code>-</code> tại <code>e20</code>. <strong>Điện trở 220Ω:</strong> <code>d10 ↔ d15</code>.</p>
+    </section>
+
+    <section class="section">
+      <h2>Các bước làm</h2>
+      <ol>
+        <li>Reset breadboard trắng; ESP32 chỉ cắm USB và để ngoài breadboard.</li>
+        <li>Cắm điện trở 220Ω từ <code>d10</code> sang <code>d15</code>.</li>
+        <li>Cắm buzzer: chân <code>+</code> qua jumper đỏ vào <code>e15</code>, chân <code>-</code> qua jumper đen vào <code>e20</code>.</li>
+        <li>Nối jumper tím từ ESP32 <code>D25</code> vào <code>a10</code>.</li>
+        <li>Nối jumper nâu từ ESP32 <code>GND</code> vào <code>a20</code>.</li>
+        <li><code>main.cpp</code> đang chọn <code>p10_setup</code> / <code>p10_loop</code>.</li>
+        <li><code>pio run -t upload</code>; buzzer sẽ lặp pattern 440Hz → 660Hz → 880Hz rồi nghỉ.</li>
+      </ol>
+    </section>
+
+    <section class="section">
+      <h2>Atomic trace</h2>
+      <ol>
+        <li><code>p10WriteTone(440)</code> cấu hình LEDC PWM 440Hz.</li>
+        <li>GPIO25 phát xung 0–3.3V qua dây tím tới <code>a10</code>.</li>
+        <li>Xung đi qua điện trở 220Ω <code>d10 → d15</code>.</li>
+        <li>Buzzer nhận xung tại <code>e15</code>, rung/phát âm.</li>
+        <li>Dòng về GND qua <code>e20/a20</code> và dây nâu.</li>
+      </ol>
+    </section>
+
+    <section class="section">
+      <h2>Hoàn thành khi</h2>
+      <ul>
+        <li>Buzzer phát được pattern 3 nốt rồi nghỉ.</li>
+        <li>Serial Monitor 115200 in lần lượt <code>tone 440 Hz</code>, <code>tone 660 Hz</code>, <code>tone 880 Hz</code>.</li>
+        <li>Bạn phân biệt được duty cycle là độ mạnh xung, frequency là cao độ âm.</li>
+      </ul>
+    </section>
   </main>
+
+  <script src="breadboard-widget.js"></script>
+  <script>
+    RobotLabBreadboard.render(
+      document.getElementById("hdr"),
+      document.getElementById("board"),
+      {
+        espPins: new Set([]),
+        wiring: {
+          "10a": "w-tim",
+          "10d": "part-r",
+          "15d": "part-r",
+          "15e": "w-do part-buzzer",
+          "20a": "w-nau",
+          "20e": "w-den part-buzzer"
+        }
+      }
+    );
+  </script>
 </body>
 </html>
