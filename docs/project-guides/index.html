@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Robot Lab - Project Guides</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="project-parts.js" defer></script>
 </head>
 <body>
   <main class="page">
@@ -32,6 +33,8 @@
         <li>LED luôn cần điện trở nối tiếp, thường bắt đầu với <strong>220Ω</strong>.</li>
         <li>Mạch breadboard cần <strong>dây jumper</strong> (kit có Đực–Cái, Cái–Cái, Đực–Đực × 10) — chân ESP32 là đầu đực, vào breadboard thường dùng <strong>Đực–Cái</strong>.</li>
         <li>Servo SG90 dùng <strong>5V</strong> và phải nối chung GND với ESP32; không cấp 2 servo từ rail 3.3V.</li>
+        <li>Phần robot dùng pack Li-ion <strong>2S đóng sẵn có BMS</strong> và sạc đúng 8.4V; không ghép cell rời bằng hộp pin lò xo.</li>
+        <li>Dòng motor đi qua dây 22AWG, cầu chì, công tắc, buck và driver; không đi qua GPIO, breadboard hoặc dây Dupont.</li>
       </ul>
     </section>
 
@@ -94,6 +97,22 @@
         <a class="card" href="p19-tranh-vat-can.html"><strong>P19 Tránh vật cản</strong>Xe tự dừng/rẽ khi gặp vật.</a>
         <a class="card" href="p20-nao-python-ai.html"><strong>P20 Não Python / AI</strong>ESP32 nhận lệnh từ backend Python.</a>
       </div>
+    </section>
+
+    <section class="section" id="bom-m5-m9">
+      <h2>BOM mua một lần cho Mốc 5–9</h2>
+      <p>Danh sách này đã tách combo, module, nguồn, dây, đầu nối, tụ chống nhiễu và đồ gá. Cột <strong>SL mua</strong> là số lượng cần nhập trên Shopee/TikTok; không cộng lại linh kiện nằm sẵn trong combo.</p>
+      <div id="robot-shopping-list"><p>Đang tải danh sách linh kiện…</p></div>
+    </section>
+
+    <section class="section">
+      <h2>Cập nhật sau khi hàng về</h2>
+      <ol>
+        <li>Chụp riêng từng món, tên file viết thường và có dấu gạch ngang.</li>
+        <li>Đặt ảnh vào <code>docs/inventory/photos/</code>.</li>
+        <li>Chuyển món từ “Chưa có” sang “Đang có” trong <code>docs/inventory/inventory.md</code>.</li>
+        <li>Trong <code>project-parts.js</code>, đổi <code>state: "buy"</code> thành <code>state: "owned"</code> và thêm <code>photo: "ten-anh.jpg"</code>.</li>
+      </ol>
     </section>
   </main>
 </body>

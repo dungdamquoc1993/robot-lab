@@ -5,14 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>P19 Tránh vật cản</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="project-parts.js" defer></script>
 </head>
 <body>
   <main class="page">
     <nav class="topnav"><a href="index.html">Index</a><a href="p18-xe-2-banh-wifi.html">P18</a><a href="p20-nao-python-ai.html">P20 tiếp theo</a></nav>
-    <section class="hero"><h1>P19 Tránh vật cản</h1><p>Xe tự dừng hoặc rẽ khi cảm biến phát hiện vật cản phía trước.</p><div class="meta"><span class="tag">Robot tự hành</span><span class="tag">Sensor decision</span><span class="tag">LM393 hoặc HC-SR04</span></div></section>
+    <section class="hero"><h1>P19 Tránh vật cản</h1><p>Gắn HC-SR04 lên giá xoay SG90 để xe tự dừng hoặc rẽ khi có vật cản phía trước.</p><div class="meta"><span class="tag">Robot tự hành</span><span class="tag">HC-SR04 + SG90</span><span class="tag">Cầu chia áp Echo</span></div></section>
     <section class="section warning"><h2>An toàn</h2><p>Test logic tránh vật ở tốc độ thấp. Nếu dùng HC-SR04 5V, chân Echo cần chia áp trước khi vào ESP32.</p></section>
-    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/module-lm393-tranh-vat-can.jpg" alt="LM393"><figcaption>LM393 IR: có thể dùng tạm để phát hiện vật gần.</figcaption></figure><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: đọc sensor và quyết định dừng/rẽ.</figcaption></figure><figure><div class="placeholder">HC-SR04 và xe P18 chưa có trong inventory</div><figcaption>HC-SR04 đo khoảng cách tốt hơn, nhưng cần xử lý mức 5V.</figcaption></figure></div></section>
-    <section class="section"><h2>Linh kiện dùng thế nào</h2><table><tr><th>Linh kiện</th><th>Vai trò</th></tr><tr><td>Xe P18</td><td>Nền di chuyển.</td></tr><tr><td>LM393 hoặc HC-SR04</td><td>Phát hiện vật phía trước.</td></tr><tr><td>ESP32</td><td>Chạy logic: nếu có vật thì stop/rẽ.</td></tr></table></section>
+    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/servo-sg90.jpg" alt="Servo SG90"><figcaption>SG90 hiện có quay cảm biến sang trái/phải.</figcaption></figure><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: phát Trig, đọc Echo qua cầu chia áp và điều khiển xe.</figcaption></figure><figure><div class="placeholder">HC-SR04 + giá SG90 — chụp sau khi mua</div><figcaption>Mua riêng module 4 chân và bộ gá tương thích SG90.</figcaption></figure></div></section>
+    <section class="section"><h2>Linh kiện dùng thế nào</h2><table><tr><th>Linh kiện</th><th>Vai trò</th></tr><tr><td>Xe P18</td><td>Nền di chuyển và bộ nguồn.</td></tr><tr><td>HC-SR04</td><td>Đo khoảng cách phía trước.</td></tr><tr><td>10KΩ + 20KΩ</td><td>Chia mức Echo 5V xuống khoảng 3.3V.</td></tr><tr><td>SG90 + bộ gá</td><td>Quét cảm biến sang hai phía.</td></tr><tr><td>LM393 IR hiện có</td><td>Cảm biến dự phòng, không thay cho HC-SR04 trong BOM đã chốt.</td></tr></table></section>
     <section class="section"><h2>Các bước làm</h2><ol><li>Gắn sensor phía trước xe.</li><li>Test đọc sensor khi xe đứng yên.</li><li>Thêm rule đơn giản: có vật -> stop -> rẽ -> đi tiếp.</li><li>Tăng tốc từ từ sau khi logic ổn.</li></ol></section>
     <section class="section"><h2>Hoàn thành khi</h2><ul><li>Xe tự dừng hoặc rẽ khi gặp vật.</li><li>Bạn thấy rõ phần “sense -> decide -> act” trong robot.</li></ul></section>
   </main>

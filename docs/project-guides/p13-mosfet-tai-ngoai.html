@@ -5,14 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>P13 MOSFET tải ngoài</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="project-parts.js" defer></script>
 </head>
 <body>
   <main class="page">
     <nav class="topnav"><a href="index.html">Index</a><a href="p12-pwm-dieu-toc-motor.html">P12</a><a href="p14-relay.html">P14</a></nav>
-    <section class="hero"><h1>P13 MOSFET tải ngoài</h1><p>Dùng MOSFET module để ESP32 điều khiển tải ngoài như LED strip hoặc motor nhỏ.</p><div class="meta"><span class="tag">Cần mua thêm</span><span class="tag">Switching</span><span class="tag">Transistor</span></div></section>
+    <section class="hero"><h1>P13 MOSFET tải ngoài</h1><p>Dùng module MOSFET D4184 nhận trigger 3.3V để điều khiển một đoạn LED strip 5V.</p><div class="meta"><span class="tag">Cần mua thêm</span><span class="tag">D4184 3.3V trigger</span><span class="tag">LED strip 5V</span></div></section>
     <section class="section warning"><h2>An toàn</h2><p>Tải ngoài cần nguồn riêng, dòng phù hợp và GND chung với ESP32. Với tải cảm như motor/relay coil, cần diode/flyback nếu module không có sẵn.</p></section>
-    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: chỉ gửi tín hiệu gate/control.</figcaption></figure><figure><div class="placeholder">MOSFET module chưa có trong inventory</div><figcaption>MOSFET: công tắc điện tử cho tải ngoài.</figcaption></figure></div></section>
-    <section class="section"><h2>Linh kiện cần mua</h2><table><tr><th>Linh kiện</th><th>Dùng thế nào</th></tr><tr><td>MOSFET logic-level/module MOSFET</td><td>Đóng/cắt dòng tải bằng GPIO 3.3V.</td></tr><tr><td>Tải ngoài</td><td>LED strip, motor nhỏ, hoặc thiết bị DC phù hợp.</td></tr><tr><td>Nguồn tải</td><td>Cấp điện áp/dòng theo tải, không lấy từ GPIO.</td></tr></table></section>
+    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: chỉ gửi tín hiệu control 3.3V.</figcaption></figure><figure><div class="placeholder">Module D4184 — chụp sau khi mua</div><figcaption>Không chọn module IRF520; listing phải ghi nhận trigger 3.3V.</figcaption></figure><figure><div class="placeholder">LED strip 5V — chụp sau khi mua</div><figcaption>Đoạn 0.5–1m, 30 LED/m là đủ.</figcaption></figure></div></section>
+    <section class="section"><h2>Vai trò các khối</h2><table><tr><th>Thiết bị</th><th>Vai trò</th></tr><tr><td>Module D4184</td><td>Đóng/cắt đường dòng của tải bằng GPIO 3.3V.</td></tr><tr><td>LED strip 5V</td><td>Tải thử không cảm ứng.</td></tr><tr><td>LM2596 5V</td><td>Cấp nguồn riêng cho tải và ESP32.</td></tr><tr><td>1N5819</td><td>Chỉ lắp khi đổi tải sang motor/coil và module chưa có diode flyback.</td></tr></table></section>
     <section class="section"><h2>Các bước làm</h2><ol><li>Chọn module hỗ trợ trigger 3.3V.</li><li>Test bật/tắt tải nhỏ trước.</li><li>Thử PWM nếu tải là LED strip DC.</li><li>Đo nhiệt MOSFET khi chạy lâu.</li></ol></section>
     <section class="section"><h2>Hoàn thành khi</h2><ul><li>ESP32 bật/tắt được tải ngoài qua MOSFET.</li><li>Bạn hiểu MOSFET là công tắc công suất, không phải nguồn điện.</li></ul></section>
   </main>

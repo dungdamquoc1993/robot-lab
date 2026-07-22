@@ -5,13 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>P20 Não Python / AI</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="project-parts.js" defer></script>
 </head>
 <body>
   <main class="page">
     <nav class="topnav"><a href="index.html">Index</a><a href="p19-tranh-vat-can.html">P19</a></nav>
     <section class="hero"><h1>P20 Não Python / AI</h1><p>ESP32 nhận lệnh từ backend Python hoặc server AI, rồi thực thi trên robot P18/P19.</p><div class="meta"><span class="tag">Backend</span><span class="tag">HTTP/MQTT/WebSocket</span><span class="tag">Robot command</span></div></section>
     <section class="section warning"><h2>An toàn</h2><p>Lệnh remote phải có timeout và lệnh stop mặc định. Khi mất kết nối, robot nên dừng thay vì giữ lệnh cũ.</p></section>
-    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: client nhận lệnh và điều khiển phần cứng robot.</figcaption></figure><figure><div class="placeholder">Robot P18/P19 và backend Python</div><figcaption>Máy tính/server chạy Python gửi command cấp cao cho ESP32.</figcaption></figure></div></section>
+    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: client nhận lệnh và điều khiển phần cứng robot.</figcaption></figure><figure><div class="placeholder">Ảnh xe hoàn chỉnh P18/P19 — chụp sau khi lắp</div><figcaption>Dùng lại toàn bộ xe, nguồn, driver và cảm biến; không mua một bộ robot khác.</figcaption></figure><figure><div class="placeholder">Máy tính hiện có</div><figcaption>Máy tính chạy Python backend; không cần mua Raspberry Pi.</figcaption></figure></div></section>
     <section class="section"><h2>Thành phần dùng thế nào</h2><table><tr><th>Thành phần</th><th>Vai trò</th></tr><tr><td>Robot P18/P19</td><td>Phần cứng thực thi lệnh.</td></tr><tr><td>ESP32 firmware</td><td>Nhận command, validate, điều khiển motor/sensor.</td></tr><tr><td>Python backend</td><td>Ra quyết định hoặc làm API trung tâm.</td></tr></table></section>
     <section class="section"><h2>Các bước làm</h2><ol><li>Chọn protocol đơn giản, bắt đầu bằng HTTP JSON.</li><li>ESP32 poll hoặc nhận command từ backend.</li><li>Thêm heartbeat/timeout để tự stop khi mất kết nối.</li><li>Nếu thêm AI, để AI quyết định lệnh cấp cao, firmware vẫn kiểm soát safety.</li></ol></section>
     <section class="section"><h2>Hoàn thành khi</h2><ul><li>Backend gửi được lệnh và robot thực thi ổn định.</li><li>Robot dừng an toàn khi backend im lặng hoặc gửi lệnh lỗi.</li></ul></section>

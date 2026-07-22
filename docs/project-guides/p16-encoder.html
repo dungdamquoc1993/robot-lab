@@ -5,15 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>P16 Encoder</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="project-parts.js" defer></script>
 </head>
 <body>
   <main class="page">
     <nav class="topnav"><a href="index.html">Index</a><a href="p15-stepper-motor.html">P15</a><a href="p17-pid-giu-toc-do.html">P17 tiếp theo</a></nav>
-    <section class="hero"><h1>P16 Encoder</h1><p>Đọc encoder để đo tốc độ hoặc vị trí motor, chuẩn bị cho feedback control.</p><div class="meta"><span class="tag">Cần mua thêm</span><span class="tag">Interrupt</span><span class="tag">Feedback</span></div></section>
+    <section class="hero"><h1>P16 Encoder</h1><p>Gắn đĩa encoder vào trục sau motor TT và đọc module cảm biến khe để đo tốc độ bánh.</p><div class="meta"><span class="tag">Cần mua thêm</span><span class="tag">Encoder khe motor TT</span><span class="tag">Feedback</span></div></section>
     <section class="section warning"><h2>An toàn</h2><p>Kiểm tra mức tín hiệu encoder trước khi nối GPIO. Encoder 5V cần level shift hoặc pull-up 3.3V phù hợp.</p></section>
-    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: đọc xung encoder bằng interrupt hoặc polling nhanh.</figcaption></figure><figure><div class="placeholder">Encoder chưa có trong inventory</div><figcaption>Encoder: tạo xung theo chuyển động quay.</figcaption></figure></div></section>
-    <section class="section"><h2>Linh kiện cần mua</h2><table><tr><th>Linh kiện</th><th>Dùng thế nào</th></tr><tr><td>Motor có encoder hoặc encoder rời</td><td>Tạo xung để đo chuyển động.</td></tr><tr><td>Driver motor</td><td>Vẫn cần để chạy motor.</td></tr><tr><td>Nguồn phù hợp</td><td>Cấp cho motor và encoder theo spec.</td></tr></table></section>
-    <section class="section"><h2>Các bước làm</h2><ol><li>Đọc một kênh encoder để đếm xung.</li><li>Tính RPM từ số xung trong một khoảng thời gian.</li><li>Nếu encoder quadrature, đọc 2 kênh để biết chiều.</li><li>Log tốc độ khi thay đổi PWM motor.</li></ol></section>
+    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: đọc xung encoder bằng interrupt.</figcaption></figure><figure><div class="placeholder">Module khe + đĩa encoder TT — chụp sau khi mua</div><figcaption>Mỗi bộ phải có cả cảm biến khe và đĩa vừa trục motor TT.</figcaption></figure></div></section>
+    <section class="section"><h2>Vai trò các khối</h2><table><tr><th>Thiết bị</th><th>Vai trò</th></tr><tr><td>Motor TT hai trục</td><td>Trục trước kéo bánh; trục sau giữ đĩa encoder.</td></tr><tr><td>Đĩa encoder</td><td>Luân phiên che/mở khe quang khi motor quay.</td></tr><tr><td>Module cảm biến khe</td><td>Xuất chuỗi xung về một GPIO ESP32.</td></tr><tr><td>TB6612FNG</td><td>Chạy motor ở tốc độ cần đo.</td></tr></table></section>
+    <section class="section"><h2>Các bước làm</h2><ol><li>Xác nhận output module không vượt 3.3V trước khi nối GPIO.</li><li>Đọc một kênh encoder để đếm xung.</li><li>Tính RPM từ số khe và số xung trong một khoảng thời gian.</li><li>Log tốc độ khi thay đổi PWM motor.</li></ol></section>
     <section class="section"><h2>Hoàn thành khi</h2><ul><li>Serial Monitor hiển thị tốc độ thay đổi theo motor.</li><li>Bạn hiểu encoder là “telemetry” của phần cơ, giống metrics cho hệ thống SaaS.</li></ul></section>
   </main>
 </body>

@@ -5,16 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>P15 Stepper motor</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="project-parts.js" defer></script>
 </head>
 <body>
   <main class="page">
     <nav class="topnav"><a href="index.html">Index</a><a href="p14-relay.html">P14</a><a href="p16-encoder.html">P16 tiếp theo</a></nav>
-    <section class="hero"><h1>P15 Stepper motor</h1><p>Điều khiển stepper quay chính xác 90 hoặc 180 độ qua driver như A4988/DRV8825.</p><div class="meta"><span class="tag">Cần mua thêm</span><span class="tag">Stepper</span><span class="tag">Step/Dir</span></div></section>
-    <section class="section warning"><h2>An toàn</h2><p>Stepper driver cần chỉnh giới hạn dòng theo motor. Không rút/cắm motor khi driver đang cấp nguồn.</p></section>
-    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: phát xung STEP và hướng DIR.</figcaption></figure><figure><div class="placeholder">Stepper + driver chưa có trong inventory</div><figcaption>Stepper: quay theo bước; driver cấp dòng cho cuộn dây.</figcaption></figure></div></section>
-    <section class="section"><h2>Linh kiện cần mua</h2><table><tr><th>Linh kiện</th><th>Dùng thế nào</th></tr><tr><td>Stepper motor</td><td>Cơ cấu quay chính xác theo step.</td></tr><tr><td>A4988/DRV8825</td><td>Driver nhận STEP/DIR từ ESP32.</td></tr><tr><td>Nguồn motor</td><td>Cấp riêng theo yêu cầu driver/motor.</td></tr></table></section>
-    <section class="section"><h2>Các bước làm</h2><ol><li>Đấu driver theo datasheet, chỉnh current limit.</li><li>Test quay chậm một vòng.</li><li>Tính số step cho 90/180 độ.</li><li>Thử microstepping nếu driver hỗ trợ.</li></ol></section>
-    <section class="section"><h2>Hoàn thành khi</h2><ul><li>Stepper quay được góc lặp lại chính xác.</li><li>Bạn hiểu STEP là số xung, DIR là chiều quay.</li></ul></section>
+    <section class="hero"><h1>P15 Stepper motor</h1><p>Điều khiển stepper 28BYJ-48 bản 5V qua board ULN2003 đi kèm.</p><div class="meta"><span class="tag">Cần mua thêm</span><span class="tag">28BYJ-48 5V</span><span class="tag">ULN2003</span></div></section>
+    <section class="section warning"><h2>An toàn</h2><p>Chỉ mua đúng motor 5V. Cấp 5V từ LM2596 cho ULN2003, không lấy dòng motor từ chân 3.3V của ESP32, và không rút/cắm motor khi đang có nguồn.</p></section>
+    <section class="section"><h2>Ảnh linh kiện</h2><div class="grid"><figure><img src="../inventory/photos/board-esp32-devkit-v1.jpg" alt="ESP32"><figcaption>ESP32: điều khiển bốn input IN1–IN4 của ULN2003.</figcaption></figure><figure><div class="placeholder">Combo 28BYJ-48 5V + ULN2003 — chụp sau khi mua</div><figcaption>Một listing phải có cả motor 5 dây, board driver và cáp socket.</figcaption></figure></div></section>
+    <section class="section"><h2>Vai trò các khối</h2><table><tr><th>Thiết bị</th><th>Vai trò</th></tr><tr><td>28BYJ-48 5V</td><td>Stepper giảm tốc 5 dây.</td></tr><tr><td>ULN2003</td><td>Đóng/cắt dòng bốn cuộn motor từ IN1–IN4.</td></tr><tr><td>LM2596 đặt 5.0V</td><td>Cấp nguồn riêng cho motor/driver.</td></tr><tr><td>Tụ 470µF/16V</td><td>Ổn định rail 5V gần board driver.</td></tr></table></section>
+    <section class="section"><h2>Các bước làm</h2><ol><li>Đo đầu ra LM2596 đúng 5.0V.</li><li>Cắm socket motor vào ULN2003 rồi nối IN1–IN4.</li><li>Test quay chậm một vòng theo sequence.</li><li>Tính số step cho 90/180 độ.</li></ol></section>
+    <section class="section"><h2>Hoàn thành khi</h2><ul><li>Stepper quay được góc lặp lại ổn định.</li><li>Motor và ULN2003 không nóng bất thường.</li></ul></section>
   </main>
 </body>
 </html>
